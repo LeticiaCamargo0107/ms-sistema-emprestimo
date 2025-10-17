@@ -4,5 +4,4 @@ public enum InstallmentStatus {
     PENDING,
     PAID,
     LATE,
-    PAIDOF
 }

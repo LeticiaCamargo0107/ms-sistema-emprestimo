@@ -1,14 +1,17 @@
 package com.example.InstalllmentSystem.core.domain;
 
+import lombok.Builder;
+import lombok.Getter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Getter
+@Builder
 public class Installment {
-    private String id;
-    private LocalDate dataVencimento;
-    private BigDecimal totalAmount;
-    private Contract contract;
-    private Double juro;
-    private InstallmentStatus  status;
 
+    private String id;
+    private LocalDate expirationDate;
+    private BigDecimal intallmentAmount;
+    private Contract contract;
+    private InstallmentStatus  status;
 }
