@@ -1,8 +1,7 @@
 package com.example.InstalllmentSystem.core.domain.enumeration;
 
 public enum PaymentMethod {
-    DEBIT,
-    CREDIT,
+    CARD,
     PIX,
     SLIP
 }

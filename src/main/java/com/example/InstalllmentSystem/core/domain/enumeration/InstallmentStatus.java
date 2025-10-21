@@ -1,7 +1,7 @@
 package com.example.InstalllmentSystem.core.domain.enumeration;
 
 public enum InstallmentStatus {
-    PENDING,
+    OPEN,
     PAID,
     OVERDUE
 }
