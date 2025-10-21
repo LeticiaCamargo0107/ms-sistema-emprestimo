@@ -1,5 +1,6 @@
 package com.example.InstalllmentSystem.core.domain;
 
+import com.example.InstalllmentSystem.core.domain.enumeration.CustomerStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +9,6 @@ import java.time.LocalDate;
 
 @Builder
 @Getter
-@NoArgsConstructor
 public class Customer {
 
     private String name;
@@ -17,11 +17,4 @@ public class Customer {
     private LocalDate birthDate;
     private CustomerStatus status;
 
-    public Customer (String name, String id, String document, LocalDate birthDate, CustomerStatus status) {
-        this.name = name;
-        this.id = id;
-        this.document = document;
-        this.birthDate = birthDate;
-        this.status = status;
-    }
 }
