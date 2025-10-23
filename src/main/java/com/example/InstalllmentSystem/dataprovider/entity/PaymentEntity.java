@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -19,6 +20,6 @@ public class PaymentEntity {
     private String id;
     private PaymentMethod payMethod;
     private BigDecimal amount;
-    private LocalDateTime paidAt;
+    private LocalDateTime paidAt; @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private PaymentStatus status;
 }

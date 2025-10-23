@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -17,7 +18,7 @@ public class CustomerEntity {
     private String id;
     private String name;
     private String document;
-    private LocalDate birthDate;
+    private LocalDate birthDate; @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private CustomerStatus status;
 
 }
