@@ -20,6 +20,7 @@ public class PaymentEntity {
     private String id;
     private PaymentMethod payMethod;
     private BigDecimal amount;
-    private LocalDateTime paidAt; @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime paidAt;
     private PaymentStatus status;
 }

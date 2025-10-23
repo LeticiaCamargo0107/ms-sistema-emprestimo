@@ -23,9 +23,12 @@ public class ContractEntity {
     private CustomerEntity customer;
     private BigDecimal monthlyCetRate;
     private BigDecimal totalAmount;
-    private LocalDate startDate; @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate endDate; @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private Integer daysOverDuo; @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate startDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate endDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private Integer daysOverDuo;
     private ContractStatus status;
     private BigDecimal remainingAmount;
     private List<InstallmentEntity>listInstallment;

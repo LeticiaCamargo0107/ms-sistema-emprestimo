@@ -18,7 +18,8 @@ public class CustomerEntity {
     private String id;
     private String name;
     private String document;
-    private LocalDate birthDate; @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate birthDate;
     private CustomerStatus status;
 
 }

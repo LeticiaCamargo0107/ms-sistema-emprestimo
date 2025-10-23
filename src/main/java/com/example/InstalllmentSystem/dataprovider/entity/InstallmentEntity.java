@@ -15,7 +15,8 @@ public class InstallmentEntity {
 
     @MongoId
     private String id;
-    private LocalDateTime dueDate; @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime dueDate;
     private BigDecimal amount;
     private InstallmentStatus status;
 
