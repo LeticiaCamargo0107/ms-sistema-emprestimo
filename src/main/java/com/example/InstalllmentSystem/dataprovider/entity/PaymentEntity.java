@@ -13,14 +13,18 @@ import java.time.LocalDateTime;
 
 @Getter
 @Builder
-@Document (collection = "payment")
+@Document(collection = "payment")
 public class PaymentEntity {
 
     @MongoId
     private String id;
+
     private PaymentMethod payMethod;
+
     private BigDecimal amount;
+
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime paidAt;
+
     private PaymentStatus status;
 }

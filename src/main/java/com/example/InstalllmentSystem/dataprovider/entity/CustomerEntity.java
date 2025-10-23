@@ -11,15 +11,19 @@ import java.time.LocalDate;
 
 @Builder
 @Getter
-@Document (collection = "customer")
+@Document(collection = "customer")
 public class CustomerEntity {
 
     @MongoId
     private String id;
+
     private String name;
+
     private String document;
+
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate birthDate;
+
     private CustomerStatus status;
 
 }
