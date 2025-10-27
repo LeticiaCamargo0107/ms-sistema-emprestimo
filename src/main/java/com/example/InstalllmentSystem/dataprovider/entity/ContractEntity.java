@@ -14,7 +14,7 @@ import java.util.List;
 
 @Getter
 @Builder
-@Document(collection="contract")
+@Document(collection = "contract")
 public class ContractEntity {
 
     @MongoId
@@ -36,8 +36,7 @@ public class ContractEntity {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate endDate;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private Integer daysOverDuo;
+    private Integer daysOverDue;
 
     private ContractStatus status;
 

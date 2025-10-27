@@ -3,6 +3,7 @@ package com.example.InstalllmentSystem.entrypoint.controller;
 
 import com.example.InstalllmentSystem.core.domain.Customer;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,7 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class CustomerController {
 
     @GetMapping("/name/{name}")
-    public String getByNamoe (String name){
+    public String getByName (@PathVariable String name){
+        System.out.printf("name: %s", name);
         return name;
     }
 }
