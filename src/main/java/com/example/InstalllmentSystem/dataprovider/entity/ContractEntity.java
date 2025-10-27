@@ -43,6 +43,6 @@ public class ContractEntity {
 
     private BigDecimal remainingAmount;
 
-    List<InstallmentEntity> installment = new ArrayList<>();
+    List<InstallmentEntity> installments = new ArrayList<>();
 
 }
