@@ -20,24 +20,25 @@ import java.util.List;
 public class ContractController {
 
     @GetMapping("/{id}")
-    public String getByName(@PathVariable String id) {
+    public String getById(@PathVariable String id) {
         System.out.printf("Get for id: %s", id);
         return id;
     }
 
     @GetMapping
-    public List<Contract> findAll() {
+    public List<Contract> findAllContracts() {
         System.out.println("Find all of Contract");
         return List.of();
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Contract createContract() {
+    public Contract createContracts() {
         System.out.println("Creating contract");
         return null;
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public Contract deleteById(@PathVariable String id) {
         System.out.printf("Delete by id: %s", id);

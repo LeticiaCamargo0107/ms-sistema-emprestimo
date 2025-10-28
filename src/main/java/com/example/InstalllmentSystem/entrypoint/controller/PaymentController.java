@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,18 +27,19 @@ public class PaymentController {
     }
 
     @GetMapping
-    public List<Payment> findAll() {
+    public List<Payment> findAllPayments() {
         System.out.println("Find all of payment");
         return List.of();
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Payment createUser() {
-        System.out.println("Creating user");
+    public Payment createPayment() {
+        System.out.println("Creating payment");
         return null;
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public Payment deleteById(@PathVariable String id) {
         System.out.printf("Delete by id: %s\n", id);
