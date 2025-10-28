@@ -3,4 +3,4 @@ spring:
     name: InstalllmentSystem
 data:
   mongo:
-    uri: mongodb://localhost:37017/financial_system
+    uri: mongodb://localhost:37017/financial-system
