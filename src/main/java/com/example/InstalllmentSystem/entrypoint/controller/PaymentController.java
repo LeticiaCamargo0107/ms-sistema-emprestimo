@@ -1,18 +1,46 @@
 package com.example.InstalllmentSystem.entrypoint.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.InstalllmentSystem.core.domain.Payment;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 
 @RestController
-@RequestMapping("/v1/payment")
+@RequestMapping("/v1/payments")
 public class PaymentController {
 
-    @GetMapping("/amount/{amount}")
-    public BigDecimal getByAmount (BigDecimal amount){
+    @GetMapping("/{amount}")
+    public BigDecimal getByAmount(@PathVariable BigDecimal amount) {
+        System.out.printf("Get for amount: R$ %.2f\n", amount);
         return amount;
     }
+
+    @GetMapping
+    public List<Payment> findAll() {
+        System.out.println("Find all of payment");
+        return List.of();
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public Payment createUser() {
+        System.out.println("Creating user");
+        return null;
+    }
+
+    @DeleteMapping("/{id}")
+    public Payment deleteById(@PathVariable String id){
+        System.out.printf("Delete by id: %s\n", id);
+        return null;
+    }
+
+    @PutMapping("/{id}/{amount}")
+    public Payment updateById(@PathVariable String id, @PathVariable BigDecimal amount) {
+        System.out.printf("Update for id %s, change amount: R$ %.2f\n", id, amount);
+        return null;
+    }
+
 }
