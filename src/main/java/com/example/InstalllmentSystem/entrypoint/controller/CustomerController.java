@@ -22,7 +22,7 @@ import java.util.List;
 public class CustomerController {
 
     @GetMapping("/{name}")
-    public Customer get(@PathVariable String name) {
+    public Customer getByName(@PathVariable String name) {
 
         var customer = Customer.builder()
                 .name("Antonieta")
@@ -39,7 +39,7 @@ public class CustomerController {
     }
 
     @GetMapping
-    public List<Customer> find() {
+    public List<Customer> findAll() {
 
         var customer1 = Customer.builder()
                 .name("Roberto Calos")
@@ -83,7 +83,7 @@ public class CustomerController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public Customer delete(@PathVariable String id) {
+    public Customer deleteById(@PathVariable String id) {
 
         var customer1 = Customer.builder()
                 .id("hahaha")
@@ -99,7 +99,7 @@ public class CustomerController {
     }
 
     @PutMapping
-    public Customer update(@RequestBody Customer customer) {
+    public Customer updateName(@RequestBody Customer customer) {
 
         var customer1 = Customer.builder()
                 .name(customer.getName())

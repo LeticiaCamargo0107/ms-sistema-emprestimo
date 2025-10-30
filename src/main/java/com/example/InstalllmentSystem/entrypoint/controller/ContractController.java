@@ -24,7 +24,7 @@ import java.util.List;
 public class ContractController {
 
     @GetMapping("/{id}")
-    public Contract get(@PathVariable String id) {
+    public Contract getById(@PathVariable String id) {
 
         var contract1 = Contract.builder()
                 .id("1234")
@@ -41,7 +41,7 @@ public class ContractController {
     }
 
     @GetMapping
-    public List<Contract> find() {
+    public List<Contract> findAll() {
         System.out.println("Find all of Contract");
 
         var contract1 = Contract.builder()
@@ -87,7 +87,7 @@ public class ContractController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public Contract delete(@PathVariable String id) {
+    public Contract deleteById(@PathVariable String id) {
 
         var contract1 = Contract.builder()
                 .id("wuwuwuwuw")
