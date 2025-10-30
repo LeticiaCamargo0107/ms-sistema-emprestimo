@@ -99,7 +99,7 @@ public class CustomerController {
     }
 
     @PutMapping
-    public Customer updateName(@RequestBody Customer customer) {
+    public Customer update(@RequestBody Customer customer) {
 
         var customer1 = Customer.builder()
                 .name(customer.getName())
