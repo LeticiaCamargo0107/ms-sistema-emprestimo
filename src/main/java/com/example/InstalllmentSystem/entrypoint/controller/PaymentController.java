@@ -24,7 +24,7 @@ import java.util.List;
 public class PaymentController {
 
     @GetMapping("/{amount}")
-    public Payment getByAmount(@PathVariable BigDecimal amount) {
+    public Payment get(@PathVariable BigDecimal amount) {
 
         var payment1 = Payment.builder()
                 .id("fcdgvhkr333")
@@ -41,7 +41,7 @@ public class PaymentController {
     }
 
     @GetMapping
-    public List<Payment> findAllPayments() {
+    public List<Payment> find() {
 
         var payment1 = Payment.builder()
                 .id("er5hcdtg4573kiukgt5")
@@ -70,7 +70,7 @@ public class PaymentController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Payment createPayment(@RequestBody Payment payment) {
+    public Payment create(@RequestBody Payment payment) {
 
         var payment1 = Payment.builder()
                 .id("7yu80fb377szx129")
@@ -85,7 +85,7 @@ public class PaymentController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public Payment deleteById(@PathVariable String id) {
+    public Payment delete(@PathVariable String id) {
 
         var payment1 = Payment.builder()
                 .id("1234")
@@ -102,7 +102,7 @@ public class PaymentController {
     }
 
     @PutMapping
-    public Payment updateById(@RequestBody Payment payment) {
+    public Payment update(@RequestBody Payment payment) {
 
         var payment1 = Payment.builder()
                 .id(payment.getId())

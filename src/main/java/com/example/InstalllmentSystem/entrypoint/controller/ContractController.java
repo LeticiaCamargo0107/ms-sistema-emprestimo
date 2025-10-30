@@ -24,7 +24,7 @@ import java.util.List;
 public class ContractController {
 
     @GetMapping("/{id}")
-    public Contract getById(@PathVariable String id) {
+    public Contract get(@PathVariable String id) {
 
         var contract1 = Contract.builder()
                 .id("1234")
@@ -41,7 +41,7 @@ public class ContractController {
     }
 
     @GetMapping
-    public List<Contract> findAllContracts() {
+    public List<Contract> find() {
         System.out.println("Find all of Contract");
 
         var contract1 = Contract.builder()
@@ -73,7 +73,7 @@ public class ContractController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Contract createContracts(@RequestBody Contract contract) {
+    public Contract create(@RequestBody Contract contract) {
         var contract1 = Contract.builder()
                 .status(ContractStatus.ACTIVE)
                 .startDate(LocalDate.now())
@@ -87,7 +87,7 @@ public class ContractController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public Contract deleteById(@PathVariable String id) {
+    public Contract delete(@PathVariable String id) {
 
         var contract1 = Contract.builder()
                 .id("wuwuwuwuw")
@@ -107,7 +107,7 @@ public class ContractController {
     }
 
     @PutMapping
-    public Contract updateAmount(@RequestBody Contract contract) {
+    public Contract update(@RequestBody Contract contract) {
 
         var contract1 = Contract.builder()
                 .id("bvinvdsldvnhg")
