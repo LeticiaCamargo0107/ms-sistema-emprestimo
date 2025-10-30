@@ -21,7 +21,7 @@ import java.util.List;
 @RequestMapping("/v1/customers")
 public class CustomerController {
 
-    @GetMapping()
+    @GetMapping("/{name}")
     public Customer getByName(@PathVariable String name) {
 
         var customer = Customer.builder()
@@ -30,14 +30,12 @@ public class CustomerController {
                 .status(CustomerStatus.BLOCKED)
                 .build();
 
-        System.out.printf("Get for name: %s", name);
+        System.out.printf("Get for name: %s\n", name);
 
         if (customer.getName().equals(name)) {
             return customer;
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     @GetMapping
@@ -86,13 +84,30 @@ public class CustomerController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public Customer deleteById(@PathVariable String id) {
-        System.out.printf("Delete by id: %s", id);
+
+        var customer1 = Customer.builder()
+                .id("hahaha")
+                .name("Lucinda")
+                .birthDate(LocalDate.of(1955,4,11))
+                .build();
+
+        if (customer1.getId().equals(id)) {
+            System.out.printf("Delete by id: %s\n", id);
+            return customer1;
+        }
         return null;
     }
 
-    @PutMapping("/{before-name}/{after-name}")
-    public Customer updateByName(@PathVariable ("before-name") String before, @PathVariable ("after-name") String after) {
-        System.out.printf("Update %s to %s", before, after);
-        return null;
+    @PutMapping
+    public Customer updateByName(@RequestBody Customer customer) {
+
+        var customer1 = Customer.builder()
+                .name(customer.getName())
+                .birthDate(customer.getBirthDate())
+                .status(CustomerStatus.ACTIVE)
+                .build();
+
+        System.out.printf("Update name to %s\n", customer.getName());
+        return customer1;
     }
 }

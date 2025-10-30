@@ -23,8 +23,8 @@ import java.util.List;
 @RequestMapping("/v1/payments")
 public class PaymentController {
 
-    @GetMapping()
-    public Payment getByAmount(@RequestBody BigDecimal amount) {
+    @GetMapping("/{amount}")
+    public Payment getByAmount(@PathVariable BigDecimal amount) {
 
         var payment1 = Payment.builder()
                 .id("fcdgvhkr333")
@@ -33,13 +33,11 @@ public class PaymentController {
                 .payMethod(PaymentMethod.PIX)
                 .build();
 
-        System.out.printf("Get for amount: R$ %.2f\n", amount);
-        if (payment1.getAmount() == amount) {
+        if (payment1.getAmount().equals(amount)) {
+            System.out.printf("Get for amount: R$ %.2f\n", amount);
             return payment1;
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     @GetMapping
@@ -72,30 +70,50 @@ public class PaymentController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Payment createPayment(@RequestBody BigDecimal amount) {
+    public Payment createPayment(@RequestBody Payment payment) {
 
         var payment1 = Payment.builder()
                 .id("7yu80fb377szx129")
                 .status(PaymentStatus.EXECUTED)
                 .paidAt(LocalDateTime.now())
-                .amount(amount)
+                .amount(payment.getAmount())
                 .build();
 
         System.out.println("Creating payment");
-        return null;
+        return payment1;
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public Payment deleteById(@PathVariable String id) {
-        System.out.printf("Delete by id: %s\n", id);
+
+        var payment1 = Payment.builder()
+                .id("1234")
+                .paidAt(LocalDateTime.now())
+                .amount(BigDecimal.valueOf(212.89))
+                .build();
+
+        if (payment1.getId().equals(id)) {
+            System.out.printf("Delete by id: %s\n", id);
+            return payment1;
+        }
+
         return null;
     }
 
-    @PutMapping("/{id}/{amount}")
-    public Payment updateById(@PathVariable String id, @PathVariable BigDecimal amount) {
-        System.out.printf("Update for id %s, change amount: R$ %.2f\n", id, amount);
-        return null;
+    @PutMapping
+    public Payment updateById(@RequestBody Payment payment) {
+
+        var payment1 = Payment.builder()
+                .id(payment.getId())
+                .status(PaymentStatus.EXECUTED)
+                .paidAt(LocalDateTime.now())
+                .amount(payment.getAmount())
+                .build();
+
+
+        System.out.printf("Update for id %s, change amount: R$ %.2f\n", payment.getId(), payment.getAmount());
+        return payment1;
     }
 
 }

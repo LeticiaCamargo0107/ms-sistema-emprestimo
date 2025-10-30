@@ -24,7 +24,8 @@ import java.util.List;
 public class ContractController {
 
     @GetMapping("/{id}")
-    public Contract getById(@RequestBody String id) {
+    public Contract getById(@PathVariable String id) {
+
         var contract1 = Contract.builder()
                 .id("1234")
                 .status(ContractStatus.ACTIVE)
@@ -32,14 +33,11 @@ public class ContractController {
                 .monthlyCetRate(BigDecimal.valueOf(4.8))
                 .build();
 
-        System.out.printf("Get for id: %s", id);
-
-        if(contract1.getId().equals(id)) {
+        if (contract1.getId().equals(id)) {
+            System.out.printf("Get for id: %s\n", id);
             return contract1;
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     @GetMapping
@@ -48,14 +46,14 @@ public class ContractController {
 
         var contract1 = Contract.builder()
                 .id("1234")
-                .startDate(LocalDate.of(2020, 10,20))
+                .startDate(LocalDate.of(2020, 10, 20))
                 .totalAmount(BigDecimal.valueOf(10000))
                 .daysOverDue(19)
                 .build();
 
         var contract2 = Contract.builder()
                 .id("abc12567")
-                .startDate(LocalDate.of(1980, 9,14))
+                .startDate(LocalDate.of(1980, 9, 14))
                 .requestedAmount(BigDecimal.valueOf(2340))
                 .daysOverDue(0)
                 .status(ContractStatus.ACTIVE)
@@ -63,7 +61,7 @@ public class ContractController {
 
         var contract3 = Contract.builder()
                 .id("404fnf")
-                .startDate(LocalDate.of(1999,12,30))
+                .startDate(LocalDate.of(1999, 12, 30))
                 .totalAmount(BigDecimal.valueOf(100000))
                 .daysOverDue(0)
                 .endDate(LocalDate.now())
@@ -82,22 +80,46 @@ public class ContractController {
                 .monthlyCetRate(contract.getMonthlyCetRate())
                 .requestedAmount(contract.getRequestedAmount())
                 .build();
+
         System.out.println("Creating contract");
-        return contract;
+        return contract1;
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public Contract deleteById(@PathVariable String id) {
-        System.out.printf("Delete by id: %s", id);
+
+        var contract1 = Contract.builder()
+                .id("wuwuwuwuw")
+                .endDate(LocalDate.now())
+                .requestedAmount(BigDecimal.valueOf(2340))
+                .totalAmount(BigDecimal.valueOf(3000))
+                .daysOverDue(0)
+                .status(ContractStatus.ACTIVE)
+                .build();
+
+        if (contract1.getId().equals(id)) {
+            System.out.printf("Delete by id: %s\n", id);
+            return contract1;
+        }
+
         return null;
     }
 
-    @PutMapping("/{before-amount}/{after-amount}")
-    public Contract updateAmount(@PathVariable ("before-amount") BigDecimal before, @PathVariable ("after-amount") BigDecimal after) {
-        System.out.printf("Update R$ %.2f to R$ %.2f", before, after);
+    @PutMapping
+    public Contract updateAmount(@RequestBody Contract contract) {
+
+        var contract1 = Contract.builder()
+                .id("bvinvdsldvnhg")
+                .startDate(LocalDate.of(1500, 12, 3))
+                .requestedAmount(BigDecimal.valueOf(0000.0099999))
+                .daysOverDue(87)
+                .status(ContractStatus.ACTIVE)
+                .totalAmount(contract.getTotalAmount())
+                .customer(contract.getCustomer())
+                .build();
+
+        System.out.printf("Update amount to R$ %.2f\n", contract1.getTotalAmount());
         return null;
     }
-
-
 }
