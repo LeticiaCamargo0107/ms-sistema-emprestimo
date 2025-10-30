@@ -37,7 +37,7 @@ public class ContractController {
 
     @GetMapping("/{id}")
     public Contract getById(@PathVariable String id) {
-        findContractUseCase.execute(id);
+        return findContractUseCase.execute(id);
     }
 
     @GetMapping
