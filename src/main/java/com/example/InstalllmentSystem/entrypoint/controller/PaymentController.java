@@ -3,6 +3,13 @@ package com.example.InstalllmentSystem.entrypoint.controller;
 import com.example.InstalllmentSystem.core.domain.Payment;
 import com.example.InstalllmentSystem.core.domain.enumeration.PaymentMethod;
 import com.example.InstalllmentSystem.core.domain.enumeration.PaymentStatus;
+import com.example.InstalllmentSystem.core.usercase.contract.DeleteContractUseCase;
+import com.example.InstalllmentSystem.core.usercase.contract.FindContractUseCase;
+import com.example.InstalllmentSystem.core.usercase.contract.UpdateContractUseCase;
+import com.example.InstalllmentSystem.core.usercase.customer.CreateCustomerUseCase;
+import com.example.InstalllmentSystem.core.usercase.payment.CreatePaymentUseCase;
+import com.example.InstalllmentSystem.core.usercase.payment.DeletePaymentUseCase;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +25,16 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/v1/payments")
 public class PaymentController {
+
+    final private CreatePaymentUseCase createPaymentUseCase;
+    final private DeletePaymentUseCase deletePaymentUseCase;
+    final private UpdateContractUseCase updateContractUseCasePaymentUseCase;
+    final private FindContractUseCase findPaymentUseCase;
+
 
     @GetMapping("/{amount}")
     public Payment getByAmount(@PathVariable BigDecimal amount) {

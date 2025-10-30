@@ -3,6 +3,11 @@ package com.example.InstalllmentSystem.entrypoint.controller;
 
 import com.example.InstalllmentSystem.core.domain.Customer;
 import com.example.InstalllmentSystem.core.domain.enumeration.CustomerStatus;
+import com.example.InstalllmentSystem.core.usercase.contract.DeleteContractUseCase;
+import com.example.InstalllmentSystem.core.usercase.contract.FindContractUseCase;
+import com.example.InstalllmentSystem.core.usercase.contract.UpdateContractUseCase;
+import com.example.InstalllmentSystem.core.usercase.customer.CreateCustomerUseCase;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +22,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/v1/customers")
 public class CustomerController {
+
+    final private CreateCustomerUseCase createCustomerUseCase;
+    final private DeleteContractUseCase deleteContractUseCase;
+    final private UpdateContractUseCase updateContractUseCase;
+    final private FindContractUseCase findContractUseCase;
 
     @GetMapping("/{name}")
     public Customer getByName(@PathVariable String name) {
@@ -69,16 +80,7 @@ public class CustomerController {
     @PostMapping
     public Customer createCustomers(@RequestBody Customer customer) {
 
-        var customer1 = Customer.builder()
-                .id(customer.getId())
-                .name(customer.getName())
-                .document(customer.getDocument())
-                .status(CustomerStatus.ACTIVE)
-                .birthDate(customer.getBirthDate())
-                .build();
-
-        System.out.println("Creating user");
-        return customer1;
+        return createCustomerUseCase.execute(customer.getId(), customer.getName(), customer.getBirthDate(), customer.getDocument());
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

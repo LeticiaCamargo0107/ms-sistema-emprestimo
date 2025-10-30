@@ -2,6 +2,11 @@ package com.example.InstalllmentSystem.entrypoint.controller;
 
 import com.example.InstalllmentSystem.core.domain.Contract;
 import com.example.InstalllmentSystem.core.domain.enumeration.ContractStatus;
+import com.example.InstalllmentSystem.core.usercase.contract.CreateContractUseCase;
+import com.example.InstalllmentSystem.core.usercase.contract.DeleteContractUseCase;
+import com.example.InstalllmentSystem.core.usercase.contract.FindContractUseCase;
+import com.example.InstalllmentSystem.core.usercase.contract.UpdateContractUseCase;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,23 +26,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/contracts")
+@RequiredArgsConstructor
 public class ContractController {
+
+    final private CreateContractUseCase createContractUseCase;
+    final private DeleteContractUseCase deleteContractUseCase;
+    final private UpdateContractUseCase updateContractUseCase;
+    final private FindContractUseCase findContractUseCase;
+
 
     @GetMapping("/{id}")
     public Contract getById(@PathVariable String id) {
-
-        var contract1 = Contract.builder()
-                .id("1234")
-                .status(ContractStatus.ACTIVE)
-                .daysOverDue(49)
-                .monthlyCetRate(BigDecimal.valueOf(4.8))
-                .build();
-
-        if (contract1.getId().equals(id)) {
-            System.out.printf("Get for id: %s\n", id);
-            return contract1;
-        }
-        return null;
+        findContractUseCase.execute(id);
     }
 
     @GetMapping
@@ -74,15 +74,7 @@ public class ContractController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Contract createContracts(@RequestBody Contract contract) {
-        var contract1 = Contract.builder()
-                .status(ContractStatus.ACTIVE)
-                .startDate(LocalDate.now())
-                .monthlyCetRate(contract.getMonthlyCetRate())
-                .requestedAmount(contract.getRequestedAmount())
-                .build();
-
-        System.out.println("Creating contract");
-        return contract1;
+        return createContractUseCase.execute(contract.getId(), contract.getCustomer(), contract.getRequestedAmount(), contract.getOperationPeriod());
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
