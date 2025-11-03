@@ -53,7 +53,7 @@ public class CustomerController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public Customer deleteById(@PathVariable String id) {
+    public void deleteById(@PathVariable String id) {
 
         deleteCustomerUseCase.execute(id);
     }

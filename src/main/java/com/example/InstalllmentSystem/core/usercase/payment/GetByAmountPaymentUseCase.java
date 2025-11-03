@@ -34,8 +34,8 @@ public class GetByAmountPaymentUseCase {
                 .payMethod(PaymentMethod.CREDIT_CARD)
                 .build();
 
-        List<Payment> list = List.of(payment1, payment2, payment3);
-        for (Payment payment : list) {
+        List<Payment> listPayments = List.of(payment1, payment2, payment3);
+        for (Payment payment : listPayments) {
             if (payment.getAmount().equals(amount)) {
                 System.out.printf("Get for amount: R$ %.2f\n", amount);
                 return payment;

@@ -28,10 +28,10 @@ public class GetByNameCustomerUseCase {
                 .status(CustomerStatus.BLOCKED)
                 .build();
 
-        List<Customer> list= List.of(customer1, customer2, customer3);
+        List<Customer> listCustomers = List.of(customer1, customer2, customer3);
         System.out.printf("Get for name: %s\n", name);
 
-        for (Customer customer : list) {
+        for (Customer customer : listCustomers) {
             if (customer.getName().equals(name)) {
                 return customer;
             }
