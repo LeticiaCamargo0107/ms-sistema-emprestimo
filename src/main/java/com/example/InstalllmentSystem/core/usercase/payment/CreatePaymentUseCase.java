@@ -12,13 +12,15 @@ import java.time.LocalDateTime;
 @Component
 public class CreatePaymentUseCase {
 
-    public Payment execute(String id, BigDecimal amount, PaymentMethod method){
-        return Payment.builder()
-                .id(id)
-                .amount(amount)
-                .paidAt(LocalDateTime.now())
+    public Payment execute(Payment payment){
+        var payment1 = Payment.builder()
+                .id("7yu80fb377szx129")
                 .status(PaymentStatus.EXECUTED)
-                .payMethod(method)
+                .paidAt(LocalDateTime.now())
+                .amount(payment.getAmount())
                 .build();
+
+        System.out.println("Creating payment");
+        return payment1;
     }
 }
