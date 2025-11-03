@@ -35,11 +35,11 @@ public class UpdatePaymentUseCase {
                 .build();
 
         List<Payment> listPayments = List.of(payment1, payment2, payment3);
-        for (Payment id : listPayments){
-            if (id.getId().equals(payment.getId())) {
-                System.out.printf("Update for id %s, change amount: R$ %.2f\n", payment.getId(), payment.getAmount());
-                id.setAmount(payment.getAmount());
-                return id;
+        for (Payment pay : listPayments){
+            if (pay.getId().equals(payment.getId())) {
+                System.out.printf("Update for pay %s, change amount: R$ %.2f\n", payment.getId(), payment.getAmount());
+                pay.setAmount(payment.getAmount());
+                return pay;
             }
         }
         return null;
