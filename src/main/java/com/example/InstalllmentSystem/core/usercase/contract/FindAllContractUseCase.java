@@ -2,11 +2,13 @@ package com.example.InstalllmentSystem.core.usercase.contract;
 
 import com.example.InstalllmentSystem.core.domain.Contract;
 import com.example.InstalllmentSystem.core.domain.enumeration.ContractStatus;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+@Component
 public class FindAllContractUseCase {
 
     public List<Contract> execute() {
