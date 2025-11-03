@@ -1,7 +1,6 @@
 package com.example.InstalllmentSystem.entrypoint.controller;
 
 import com.example.InstalllmentSystem.core.domain.Payment;
-import com.example.InstalllmentSystem.core.domain.enumeration.PaymentStatus;
 import com.example.InstalllmentSystem.core.usercase.payment.CreatePaymentUseCase;
 import com.example.InstalllmentSystem.core.usercase.payment.DeleteByIdPaymentUseCase;
 import com.example.InstalllmentSystem.core.usercase.payment.FindAllPaymentUseCase;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor

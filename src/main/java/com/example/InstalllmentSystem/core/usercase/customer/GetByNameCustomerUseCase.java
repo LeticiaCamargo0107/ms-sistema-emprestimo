@@ -2,9 +2,11 @@ package com.example.InstalllmentSystem.core.usercase.customer;
 
 import com.example.InstalllmentSystem.core.domain.Customer;
 import com.example.InstalllmentSystem.core.domain.enumeration.CustomerStatus;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class GetByNameCustomerUseCase {
     public Customer execute(String name){
         var customer1 = Customer.builder()
@@ -29,7 +31,7 @@ public class GetByNameCustomerUseCase {
         System.out.printf("Get for name: %s\n", name);
 
         for (Customer customer : list) {
-            if (customer.getId().equals(name)) {
+            if (customer.getName().equals(name)) {
                 return customer;
             }
         }

@@ -2,11 +2,13 @@ package com.example.InstalllmentSystem.core.usercase.payment;
 
 import com.example.InstalllmentSystem.core.domain.Payment;
 import com.example.InstalllmentSystem.core.domain.enumeration.PaymentMethod;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Component
 public class GetByAmountPaymentUseCase {
     public Payment execute(BigDecimal amount){
 

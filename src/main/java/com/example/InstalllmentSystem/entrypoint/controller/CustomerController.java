@@ -2,7 +2,6 @@
 package com.example.InstalllmentSystem.entrypoint.controller;
 
 import com.example.InstalllmentSystem.core.domain.Customer;
-import com.example.InstalllmentSystem.core.domain.enumeration.CustomerStatus;
 import com.example.InstalllmentSystem.core.usercase.customer.CreateCustomerUseCase;
 import com.example.InstalllmentSystem.core.usercase.customer.DeleteCustomertUseCase;
 import com.example.InstalllmentSystem.core.usercase.customer.FindCustomerUseCase;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor
