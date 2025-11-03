@@ -4,7 +4,7 @@ package com.example.InstalllmentSystem.entrypoint.controller;
 import com.example.InstalllmentSystem.core.domain.Customer;
 import com.example.InstalllmentSystem.core.domain.enumeration.CustomerStatus;
 import com.example.InstalllmentSystem.core.usercase.contract.DeleteContractUseCase;
-import com.example.InstalllmentSystem.core.usercase.contract.FindContractUseCase;
+import com.example.InstalllmentSystem.core.usercase.contract.GetByIdContractUseCase;
 import com.example.InstalllmentSystem.core.usercase.contract.UpdateContractUseCase;
 import com.example.InstalllmentSystem.core.usercase.customer.CreateCustomerUseCase;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,7 @@ public class CustomerController {
     final private CreateCustomerUseCase createCustomerUseCase;
     final private DeleteContractUseCase deleteContractUseCase;
     final private UpdateContractUseCase updateContractUseCase;
-    final private FindContractUseCase findContractUseCase;
+    final private GetByIdContractUseCase findContractUseCase;
 
     @GetMapping("/{name}")
     public Customer getByName(@PathVariable String name) {

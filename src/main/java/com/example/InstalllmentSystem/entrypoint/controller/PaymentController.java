@@ -3,10 +3,8 @@ package com.example.InstalllmentSystem.entrypoint.controller;
 import com.example.InstalllmentSystem.core.domain.Payment;
 import com.example.InstalllmentSystem.core.domain.enumeration.PaymentMethod;
 import com.example.InstalllmentSystem.core.domain.enumeration.PaymentStatus;
-import com.example.InstalllmentSystem.core.usercase.contract.DeleteContractUseCase;
-import com.example.InstalllmentSystem.core.usercase.contract.FindContractUseCase;
+import com.example.InstalllmentSystem.core.usercase.contract.GetByIdContractUseCase;
 import com.example.InstalllmentSystem.core.usercase.contract.UpdateContractUseCase;
-import com.example.InstalllmentSystem.core.usercase.customer.CreateCustomerUseCase;
 import com.example.InstalllmentSystem.core.usercase.payment.CreatePaymentUseCase;
 import com.example.InstalllmentSystem.core.usercase.payment.DeletePaymentUseCase;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +31,7 @@ public class PaymentController {
     final private CreatePaymentUseCase createPaymentUseCase;
     final private DeletePaymentUseCase deletePaymentUseCase;
     final private UpdateContractUseCase updateContractUseCasePaymentUseCase;
-    final private FindContractUseCase findPaymentUseCase;
+    final private GetByIdContractUseCase findPaymentUseCase;
 
 
     @GetMapping("/{amount}")
