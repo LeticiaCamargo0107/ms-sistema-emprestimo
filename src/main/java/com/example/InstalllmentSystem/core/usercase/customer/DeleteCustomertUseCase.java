@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Component
 public class DeleteCustomertUseCase {
 
-    public Customer execute(String id) {
+    public void execute(String id) {
         var customer1 = Customer.builder()
                 .id("1234")
                 .name("Lucinda")
@@ -17,8 +17,6 @@ public class DeleteCustomertUseCase {
 
         if (customer1.getId().equals(id)) {
             System.out.printf("Delete by id: %s\n", id);
-            return customer1;
         }
-        return null;
     }
 }

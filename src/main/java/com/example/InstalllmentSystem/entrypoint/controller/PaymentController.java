@@ -56,7 +56,8 @@ public class PaymentController {
     @DeleteMapping("/{id}")
     public Payment deleteById(@PathVariable String id) {
 
-        return deleteByIdPaymentUseCase.execute(id);
+
+        deleteByIdPaymentUseCase.execute(id);
     }
 
     @PutMapping

@@ -56,9 +56,9 @@ public class ContractController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public Contract deleteById(@PathVariable String id) {
+    public void deleteById(@PathVariable String id) {
 
-        return deleteContractUseCase.execute(id);
+        deleteContractUseCase.execute(id);
     }
 
     @PutMapping

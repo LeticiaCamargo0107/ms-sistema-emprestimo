@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Component
 public class DeleteByIdPaymentUseCase {
 
-    public Payment execute(String id) {
+    public void execute(String id) {
         var payment1 = Payment.builder()
                 .id("1234")
                 .paidAt(LocalDateTime.now())
@@ -18,9 +18,7 @@ public class DeleteByIdPaymentUseCase {
 
         if (payment1.getId().equals(id)) {
             System.out.printf("Delete by id: %s\n", id);
-            return payment1;
         }
 
-        return null;
     }
 }

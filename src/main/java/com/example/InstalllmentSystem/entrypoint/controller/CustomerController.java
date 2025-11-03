@@ -55,7 +55,7 @@ public class CustomerController {
     @DeleteMapping("/{id}")
     public Customer deleteById(@PathVariable String id) {
 
-        return deleteCustomerUseCase.execute(id);
+        deleteCustomerUseCase.execute(id);
     }
 
     @PutMapping
