@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Component
 public class CreatePaymentUseCase {
 
-    public Payment execute(Payment payment){
+    public Payment execute(Payment payment) {
         var payment1 = Payment.builder()
                 .id("7yu80fb377szx129")
                 .status(PaymentStatus.EXECUTED)

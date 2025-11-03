@@ -7,9 +7,10 @@ import java.time.LocalDate;
 
 @Component
 public class DeleteCustomertUseCase {
-    public Customer execute(String id){
+
+    public Customer execute(String id) {
         var customer1 = Customer.builder()
-                .id("hahaha")
+                .id("1234")
                 .name("Lucinda")
                 .birthDate(LocalDate.of(1955,4,11))
                 .build();

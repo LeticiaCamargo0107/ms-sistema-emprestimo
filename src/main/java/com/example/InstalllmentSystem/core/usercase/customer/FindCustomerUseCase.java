@@ -8,7 +8,8 @@ import java.util.List;
 
 @Component
 public class FindCustomerUseCase {
-    public List<Customer> execute(){
+
+    public List<Customer> execute() {
         var customer1 = Customer.builder()
                 .name("Roberto Calos")
                 .id("jrw958302hrwo390u57")

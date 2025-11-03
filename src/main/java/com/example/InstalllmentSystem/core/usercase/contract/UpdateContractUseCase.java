@@ -9,7 +9,8 @@ import java.time.LocalDate;
 
 @Component
 public class UpdateContractUseCase {
-    public Contract execute(Contract contract){
+
+    public Contract execute(Contract contract) {
 
         var contract1 = Contract.builder()
                 .id("bvinvdsldvnhg")
@@ -21,7 +22,7 @@ public class UpdateContractUseCase {
                 .customer(contract.getCustomer())
                 .build();
 
-        contract1.setTotalAmount(contract.getTotalAmount());
+        contract1.setRequestedAmount(contract.getRequestedAmount());
         return contract1;
     }
 }

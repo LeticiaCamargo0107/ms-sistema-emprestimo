@@ -8,7 +8,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class FindAllContractUseCase {
-    public List<Contract> execute(){
+
+    public List<Contract> execute() {
         System.out.println("Find all of Contract");
 
         var contract1 = Contract.builder()

@@ -11,22 +11,23 @@ import java.time.LocalDate;
 
 @Component
 public class CreateContractUseCase {
-    public Contract execute(String id, Customer customer, BigDecimal requestedAmount, Integer operationPeriod){
+
+    public Contract execute(Contract contract) {
 
         BigDecimal monthlyCetRate = BigDecimal.valueOf(1.05);
-        BigDecimal totalAmount = requestedAmount.multiply(monthlyCetRate);
+        BigDecimal totalAmount = contract.getTotalAmount().multiply(monthlyCetRate);
 
         return Contract.builder()
-                .id(id)
+                .id(contract.getId())
                 .startDate(LocalDate.now())
-                .customer(customer)
+                .customer(contract.getCustomer())
                 .monthlyCetRate(monthlyCetRate)
-                .requestedAmount(requestedAmount)
+                .requestedAmount(contract.getRequestedAmount())
                 .remainingAmount(totalAmount)
                 .totalAmount(totalAmount)
                 .status(ContractStatus.ACTIVE)
                 .daysOverDue(0)
-                .operationPeriod(operationPeriod)
+                .operationPeriod(contract.getOperationPeriod())
                 .build();
     }
 }

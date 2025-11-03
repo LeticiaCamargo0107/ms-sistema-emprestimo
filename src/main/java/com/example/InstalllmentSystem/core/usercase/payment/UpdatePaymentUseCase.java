@@ -12,7 +12,7 @@ import java.util.List;
 @Component
 public class UpdatePaymentUseCase {
 
-    public Payment execute(Payment payment){
+    public Payment execute(Payment payment) {
         var payment1 = Payment.builder()
                 .id(payment.getId())
                 .status(PaymentStatus.EXECUTED)
@@ -42,6 +42,6 @@ public class UpdatePaymentUseCase {
                 return id;
             }
         }
-        return payment1;
+        return null;
     }
 }

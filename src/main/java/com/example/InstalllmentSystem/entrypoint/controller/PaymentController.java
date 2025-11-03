@@ -26,11 +26,11 @@ import java.util.List;
 @RequestMapping("/v1/payments")
 public class PaymentController {
 
-    final private CreatePaymentUseCase createPaymentUseCase;
-    final private DeleteByIdPaymentUseCase deleteByIdPaymentUseCase;
-    final private UpdatePaymentUseCase updatePaymentUseCase;
-    final private GetByAmountPaymentUseCase getByAmountPaymentUseCase;
-    final private FindAllPaymentUseCase findAllPaymentUseCase;
+    private final CreatePaymentUseCase createPaymentUseCase;
+    private final DeleteByIdPaymentUseCase deleteByIdPaymentUseCase;
+    private final UpdatePaymentUseCase updatePaymentUseCase;
+    private final GetByAmountPaymentUseCase getByAmountPaymentUseCase;
+    private final FindAllPaymentUseCase findAllPaymentUseCase;
 
 
     @GetMapping("/{amount}")

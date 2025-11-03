@@ -8,14 +8,16 @@ import java.time.LocalDate;
 
 @Component
 public class UpdateCustomerUseCase {
-    public Customer execute(Customer customer){
+
+    public Customer execute(Customer customer) {
 
         var customer1 = Customer.builder()
-                .name(customer.getName())
+                .name("Lele")
                 .birthDate(customer.getBirthDate())
                 .status(CustomerStatus.ACTIVE)
                 .build();
 
+        customer1.setName(customer.getName());
         System.out.printf("Update name to %s\n", customer.getName());
         return customer1;
     }

@@ -8,7 +8,8 @@ import java.time.LocalDateTime;
 
 @Component
 public class DeleteByIdPaymentUseCase {
-    public Payment execute(String id){
+
+    public Payment execute(String id) {
         var payment1 = Payment.builder()
                 .id("1234")
                 .paidAt(LocalDateTime.now())

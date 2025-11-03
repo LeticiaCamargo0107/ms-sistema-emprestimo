@@ -10,7 +10,8 @@ import java.util.List;
 
 @Component
 public class FindAllPaymentUseCase {
-    public List<Payment> execute(){
+
+    public List<Payment> execute() {
         var payment1 = Payment.builder()
                 .id("er5hcdtg4573kiukgt5")
                 .amount(BigDecimal.valueOf(418418))

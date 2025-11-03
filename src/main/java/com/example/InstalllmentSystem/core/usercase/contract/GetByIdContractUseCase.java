@@ -7,7 +7,8 @@ import java.util.List;
 
 @Component
 public class GetByIdContractUseCase {
-    public Contract execute(String id){
+
+    public Contract execute(String id) {
 
         var contract1 = Contract.builder()
                 .id("id")

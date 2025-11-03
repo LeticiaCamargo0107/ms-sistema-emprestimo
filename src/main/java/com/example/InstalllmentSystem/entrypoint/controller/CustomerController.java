@@ -26,11 +26,11 @@ import java.util.List;
 @RequestMapping("/v1/customers")
 public class CustomerController {
 
-    final private CreateCustomerUseCase createCustomerUseCase;
-    final private DeleteCustomertUseCase deleteCustomerUseCase;
-    final private UpdateCustomerUseCase updateCustomerUseCase;
-    final private FindCustomerUseCase findCustomerUseCase;
-    final private GetByNameCustomerUseCase getByNameCustomerUseCase;
+    private final CreateCustomerUseCase createCustomerUseCase;
+    private final DeleteCustomertUseCase deleteCustomerUseCase;
+    private final UpdateCustomerUseCase updateCustomerUseCase;
+    private final FindCustomerUseCase findCustomerUseCase;
+    private final GetByNameCustomerUseCase getByNameCustomerUseCase;
 
     @GetMapping("/{name}")
     public Customer getByName(@PathVariable String name) {

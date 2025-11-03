@@ -8,7 +8,8 @@ import java.time.LocalDate;
 
 @Component
 public class CreateCustomerUseCase {
-    public Customer execute(String id, String name, LocalDate birthdate, String document){
+
+    public Customer execute(String id, String name, LocalDate birthdate, String document) {
         return Customer.builder()
                 .id(id)
                 .name(name)

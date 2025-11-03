@@ -10,9 +10,10 @@ import java.time.LocalDate;
 
 @Component
 public class DeleteContractUseCase {
-    public Contract execute(String id){
+
+    public Contract execute(String id) {
         var contract1 = Contract.builder()
-                .id("wuwuwuwuw")
+                .id("1234")
                 .endDate(LocalDate.now())
                 .requestedAmount(BigDecimal.valueOf(2340))
                 .totalAmount(BigDecimal.valueOf(3000))

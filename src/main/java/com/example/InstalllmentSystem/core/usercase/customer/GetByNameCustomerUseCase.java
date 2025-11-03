@@ -8,7 +8,8 @@ import java.util.List;
 
 @Component
 public class GetByNameCustomerUseCase {
-    public Customer execute(String name){
+
+    public Customer execute(String name) {
         var customer1 = Customer.builder()
                 .name("Roberto Carlos")
                 .id("bgrsdfbgthys4534")
