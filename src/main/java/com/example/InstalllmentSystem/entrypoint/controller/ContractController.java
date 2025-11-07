@@ -2,6 +2,11 @@ package com.example.InstalllmentSystem.entrypoint.controller;
 
 import com.example.InstalllmentSystem.core.domain.Contract;
 import com.example.InstalllmentSystem.core.domain.enumeration.ContractStatus;
+import com.example.InstalllmentSystem.core.exception.contract.ContractCustomerNullException;
+import com.example.InstalllmentSystem.core.exception.contract.ContractIdNotFoundException;
+import com.example.InstalllmentSystem.core.exception.contract.ContractNotFoundException;
+import com.example.InstalllmentSystem.core.exception.contract.ContractPeriodZeroException;
+import com.example.InstalllmentSystem.core.exception.contract.ContractRequestAmountZeroException;
 import com.example.InstalllmentSystem.core.usercase.contract.CreateContractUseCase;
 import com.example.InstalllmentSystem.core.usercase.contract.DeleteContractUseCase;
 import com.example.InstalllmentSystem.core.usercase.contract.FindAllContractUseCase;
@@ -42,27 +47,27 @@ public class ContractController {
     }
 
     @GetMapping
-    public List<Contract> findAll() {
+    public List<Contract> findAll() throws ContractNotFoundException {
 
         return findAllContractUseCase.execute();
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Contract create(@RequestBody Contract contract) {
+    public Contract create(@RequestBody Contract contract) throws ContractCustomerNullException, ContractRequestAmountZeroException, ContractPeriodZeroException {
 
         return createContractUseCase.execute(contract);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable String id) {
+    public void deleteById(@PathVariable String id) throws ContractIdNotFoundException {
 
         deleteContractUseCase.execute(id);
     }
 
     @PutMapping
-    public Contract update(@RequestBody Contract contract) {
+    public Contract update(@RequestBody Contract contract) throws ContractRequestAmountZeroException {
 
         return updateContractUseCase.execute(contract);
     }
