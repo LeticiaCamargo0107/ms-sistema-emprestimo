@@ -5,6 +5,6 @@ import org.apache.coyote.BadRequestException;
 public class ContractIdNotFoundException extends BadRequestException {
 
     public ContractIdNotFoundException(String id) {
-        super("Not found id " + id);
+        super("Can't found contract by id " + id);
     }
 }

@@ -5,6 +5,6 @@ import org.apache.coyote.BadRequestException;
 public class PaymentIdNotFoundException extends BadRequestException {
 
     public PaymentIdNotFoundException(String id) {
-        super("Not found id " + id);
+        super("Payment not found by id " + id);
     }
 }

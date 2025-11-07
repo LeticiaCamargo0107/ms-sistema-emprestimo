@@ -5,6 +5,6 @@ import org.apache.coyote.BadRequestException;
 public class PaymentNotFoundException extends BadRequestException {
 
     public PaymentNotFoundException() {
-        super("Contract not found");
+        super("Payment not found in listPayments");
     }
 }

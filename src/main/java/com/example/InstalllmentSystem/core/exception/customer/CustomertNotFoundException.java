@@ -5,6 +5,6 @@ import org.apache.coyote.BadRequestException;
 public class CustomertNotFoundException extends BadRequestException {
 
     public CustomertNotFoundException() {
-        super("Contract not found");
+        super("Customer not found in listCustomers");
     }
 }

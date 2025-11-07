@@ -5,6 +5,6 @@ import org.apache.coyote.BadRequestException;
 public class CustomerDocumentNotFoundException extends BadRequestException {
 
     public CustomerDocumentNotFoundException() {
-        super("Document not found");
+        super("Can't find a customer with this document");
     }
 }
