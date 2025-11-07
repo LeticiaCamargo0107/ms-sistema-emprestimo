@@ -41,7 +41,7 @@ public class ContractController {
     private final UpdateContractUseCase updateContractUseCase;
 
     @GetMapping("/{id}")
-    public Contract getById(@PathVariable String id) {
+    public Contract getById(@PathVariable String id) throws ContractIdNotFoundException {
 
         return getByIdContractUseCase.execute(id);
     }
