@@ -2,6 +2,7 @@ package com.example.InstalllmentSystem.core.usercase.payment;
 
 import com.example.InstalllmentSystem.core.domain.Payment;
 import com.example.InstalllmentSystem.core.domain.enumeration.PaymentMethod;
+import com.example.InstalllmentSystem.core.exception.payment.PaymentAmountNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -11,7 +12,7 @@ import java.util.List;
 @Component
 public class GetByAmountPaymentUseCase {
 
-    public Payment execute(BigDecimal amount) {
+    public Payment execute(BigDecimal amount) throws PaymentAmountNotFoundException {
 
         var payment1 = Payment.builder()
                 .id("fcdgvhkr333")
@@ -41,6 +42,6 @@ public class GetByAmountPaymentUseCase {
                 return payment;
             }
         }
-        return null;
+        throw new PaymentAmountNotFoundException();
     }
 }

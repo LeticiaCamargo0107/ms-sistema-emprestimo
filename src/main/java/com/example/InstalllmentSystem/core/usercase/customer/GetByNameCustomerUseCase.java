@@ -2,6 +2,7 @@ package com.example.InstalllmentSystem.core.usercase.customer;
 
 import com.example.InstalllmentSystem.core.domain.Customer;
 import com.example.InstalllmentSystem.core.domain.enumeration.CustomerStatus;
+import com.example.InstalllmentSystem.core.exception.customer.CustomertNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 @Component
 public class GetByNameCustomerUseCase {
 
-    public Customer execute(String name) {
+    public Customer execute(String name) throws CustomertNotFoundException {
         var customer1 = Customer.builder()
                 .name("Roberto Carlos")
                 .id("bgrsdfbgthys4534")
@@ -36,6 +37,6 @@ public class GetByNameCustomerUseCase {
                 return customer;
             }
         }
-        return null;
+        throw new CustomertNotFoundException();
     }
 }

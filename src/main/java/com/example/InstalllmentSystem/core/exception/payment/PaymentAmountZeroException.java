@@ -2,9 +2,9 @@ package com.example.InstalllmentSystem.core.exception.payment;
 
 import org.apache.coyote.BadRequestException;
 
-public class CustomerAmountZeroException extends BadRequestException {
+public class PaymentAmountZeroException extends BadRequestException {
 
-    public CustomerAmountZeroException() {
+    public PaymentAmountZeroException() {
         super("Payment must be granter than zero");
     }
 }
