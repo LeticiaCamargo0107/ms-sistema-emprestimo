@@ -3,7 +3,6 @@ package com.example.InstalllmentSystem.core.usercase.contract;
 import com.example.InstalllmentSystem.core.domain.Contract;
 import com.example.InstalllmentSystem.core.domain.enumeration.ContractStatus;
 import com.example.InstalllmentSystem.core.exception.contract.ContractRequestAmountZeroException;
-import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

@@ -1,12 +1,10 @@
 package com.example.InstalllmentSystem.core.usercase.contract;
 
 import com.example.InstalllmentSystem.core.domain.Contract;
-import com.example.InstalllmentSystem.core.domain.Customer;
 import com.example.InstalllmentSystem.core.domain.enumeration.ContractStatus;
 import com.example.InstalllmentSystem.core.exception.contract.ContractCustomerNullException;
 import com.example.InstalllmentSystem.core.exception.contract.ContractPeriodZeroException;
 import com.example.InstalllmentSystem.core.exception.contract.ContractRequestAmountZeroException;
-import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -16,6 +14,13 @@ import java.time.LocalDate;
 public class CreateContractUseCase {
 
     public Contract execute(Contract contract) throws ContractPeriodZeroException, ContractRequestAmountZeroException, ContractCustomerNullException {
+
+        String conversionString = String.valueOf(contract.getRequestedAmount());
+        Integer conversion = Integer.valueOf(conversionString);
+
+        if (conversion <= 0) {
+            throw new ContractRequestAmountZeroException();
+        }
 
         BigDecimal monthlyCetRate = BigDecimal.valueOf(1.05);
         BigDecimal totalAmount = contract.getTotalAmount().multiply(monthlyCetRate);

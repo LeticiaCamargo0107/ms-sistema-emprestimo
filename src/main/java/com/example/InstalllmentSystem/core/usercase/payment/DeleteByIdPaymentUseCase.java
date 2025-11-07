@@ -21,6 +21,7 @@ public class DeleteByIdPaymentUseCase {
 
         if (payment1.getId().equals(id)) {
             System.out.printf("Delete by id: %s\n", id);
+            return;
         }
         throw new PaymentIdNotFoundException(id);
     }

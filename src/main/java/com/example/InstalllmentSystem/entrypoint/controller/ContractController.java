@@ -1,7 +1,6 @@
 package com.example.InstalllmentSystem.entrypoint.controller;
 
 import com.example.InstalllmentSystem.core.domain.Contract;
-import com.example.InstalllmentSystem.core.domain.enumeration.ContractStatus;
 import com.example.InstalllmentSystem.core.exception.contract.ContractCustomerNullException;
 import com.example.InstalllmentSystem.core.exception.contract.ContractIdNotFoundException;
 import com.example.InstalllmentSystem.core.exception.contract.ContractNotFoundException;
@@ -12,7 +11,6 @@ import com.example.InstalllmentSystem.core.usercase.contract.DeleteContractUseCa
 import com.example.InstalllmentSystem.core.usercase.contract.FindAllContractUseCase;
 import com.example.InstalllmentSystem.core.usercase.contract.GetByIdContractUseCase;
 import com.example.InstalllmentSystem.core.usercase.contract.UpdateContractUseCase;
-import com.example.InstalllmentSystem.core.usercase.customer.CreateCustomerUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,8 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor

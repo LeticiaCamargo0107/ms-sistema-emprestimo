@@ -1,7 +1,6 @@
 package com.example.InstalllmentSystem.core.usercase.payment;
 
 import com.example.InstalllmentSystem.core.domain.Payment;
-import com.example.InstalllmentSystem.core.domain.enumeration.PaymentMethod;
 import com.example.InstalllmentSystem.core.domain.enumeration.PaymentStatus;
 import com.example.InstalllmentSystem.core.exception.payment.PaymentAmountZeroException;
 import com.example.InstalllmentSystem.core.exception.payment.PaymentIdNotFoundException;

@@ -4,7 +4,6 @@ import com.example.InstalllmentSystem.core.domain.Customer;
 import com.example.InstalllmentSystem.core.domain.enumeration.CustomerStatus;
 import com.example.InstalllmentSystem.core.exception.customer.CustomerBirthDateException;
 import org.springframework.stereotype.Component;
-import java.time.LocalDate;
 
 
 @Component
