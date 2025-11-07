@@ -1,6 +1,7 @@
 package com.example.InstalllmentSystem.core.usercase.contract;
 
 import com.example.InstalllmentSystem.core.domain.Contract;
+import com.example.InstalllmentSystem.core.exception.contract.ContractIdNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 @Component
 public class GetByIdContractUseCase {
 
-    public Contract execute(String id) {
+    public Contract execute(String id) throws ContractIdNotFoundException {
 
         var contract1 = Contract.builder()
                 .id("id")
@@ -29,7 +30,7 @@ public class GetByIdContractUseCase {
                 return list;
             }
         }
-        return null;
+        throw new ContractIdNotFoundException(id);
     }
 }
 
