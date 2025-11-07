@@ -1,17 +1,17 @@
 package com.example.InstalllmentSystem.entrypoint.handler;
 
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.client.HttpClientErrorException;
 
 @RestControllerAdvice
 public class CustomGlobalException {
 
-//    @ExceptionHandler(HttpClientErrorException.BadRequest.class)
-//    private ResponseEntity<ApiError> hhaah(HttpClientErrorException.BadRequest ex) {
-//
-//
-//    }
+    @ExceptionHandler(BadRequestException.class)
+    private ResponseEntity<ApiError> handleBadRequestException(BadRequestException ex) {
+        var error = new ApiError(ex.getMessage(), HttpStatus.BAD_REQUEST.toString());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
 }

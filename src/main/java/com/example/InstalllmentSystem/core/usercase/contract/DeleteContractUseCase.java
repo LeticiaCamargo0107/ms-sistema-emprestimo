@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Component
 public class DeleteContractUseCase {
 
-    public Contract execute(String id) throws ContractIdNotFoundException {
+    public void execute(String id) throws ContractIdNotFoundException {
         var contract1 = Contract.builder()
                 .id("1234")
                 .endDate(LocalDate.now())
@@ -23,7 +23,7 @@ public class DeleteContractUseCase {
 
         if (contract1.getId().equals(id)) {
             System.out.printf("Delete by id: %s\n", id);
-            return contract1;
+            return;
         }
         throw new ContractIdNotFoundException(id);
     }
