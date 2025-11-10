@@ -15,6 +15,10 @@ public class UpdatePaymentUseCase {
 
     public Payment execute(Payment payment) throws PaymentNotFoundException, PaymentAmountZeroException {
 
+        if (payment.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new PaymentAmountZeroException();
+        }
+
         var payment1 = Payment.builder()
                 .id(payment.getId())
                 .status(PaymentStatus.EXECUTED)
@@ -39,9 +43,6 @@ public class UpdatePaymentUseCase {
         List<Payment> listPayments = List.of(payment1, payment2, payment3);
         for (Payment pay : listPayments) {
             if (pay.getId().equals(payment.getId())) {
-                if (payment.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
-                    throw new PaymentAmountZeroException();
-                }
                 System.out.printf("Update for pay %s, change amount: R$ %.2f\n", payment.getId(), payment.getAmount());
                 pay.setAmount(payment.getAmount());
                 return pay;
