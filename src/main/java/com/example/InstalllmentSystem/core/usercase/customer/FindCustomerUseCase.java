@@ -11,7 +11,7 @@ import java.util.List;
 @Component
 public class FindCustomerUseCase {
 
-    public List<Customer> execute() throws CustomertIdNotFoundException, CustomertNotFoundException {
+    public List<Customer> execute() throws CustomertNotFoundException {
         var customer1 = Customer.builder()
                 .name("Roberto Calos")
                 .id("jrw958302hrwo390u57")

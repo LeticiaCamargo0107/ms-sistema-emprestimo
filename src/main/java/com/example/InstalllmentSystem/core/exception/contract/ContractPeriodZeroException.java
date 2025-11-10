@@ -4,7 +4,7 @@ import org.apache.coyote.BadRequestException;
 
 public class ContractPeriodZeroException extends BadRequestException {
 
-    public ContractPeriodZeroException (){
+    public ContractPeriodZeroException () {
         super("The loan period must be greater than zero.");
     }
 }

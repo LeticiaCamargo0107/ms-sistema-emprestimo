@@ -5,6 +5,6 @@ import org.apache.coyote.BadRequestException;
 public class PaymentAmountZeroException extends BadRequestException {
 
     public PaymentAmountZeroException() {
-        super("Payment must be granter than zero");
+        super("Payment must be greater than zero");
     }
 }

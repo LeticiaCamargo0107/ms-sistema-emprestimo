@@ -43,7 +43,7 @@ public class CustomerController {
     }
 
     @GetMapping
-    public List<Customer> findAll() throws CustomertNotFoundException, CustomertIdNotFoundException {
+    public List<Customer> findAll() throws CustomertNotFoundException {
 
         return findCustomerUseCase.execute();
     }
