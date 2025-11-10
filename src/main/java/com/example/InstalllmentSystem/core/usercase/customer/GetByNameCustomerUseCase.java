@@ -37,6 +37,6 @@ public class GetByNameCustomerUseCase {
                 return customer;
             }
         }
-        throw new CustomertNotFoundException();
+        throw new CustomertNotFoundException(name);
     }
 }

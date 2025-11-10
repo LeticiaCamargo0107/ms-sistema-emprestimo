@@ -2,7 +2,6 @@ package com.example.InstalllmentSystem.entrypoint.controller;
 
 import com.example.InstalllmentSystem.core.domain.Contract;
 import com.example.InstalllmentSystem.core.exception.contract.ContractCustomerNullException;
-import com.example.InstalllmentSystem.core.exception.contract.ContractIdNotFoundException;
 import com.example.InstalllmentSystem.core.exception.contract.ContractNotFoundException;
 import com.example.InstalllmentSystem.core.exception.contract.ContractPeriodZeroException;
 import com.example.InstalllmentSystem.core.exception.contract.ContractRequestAmountZeroException;
@@ -37,13 +36,13 @@ public class ContractController {
     private final UpdateContractUseCase updateContractUseCase;
 
     @GetMapping("/{id}")
-    public Contract getById(@PathVariable String id) throws ContractIdNotFoundException {
+    public Contract getById(@PathVariable String id) throws ContractNotFoundException {
 
         return getByIdContractUseCase.execute(id);
     }
 
     @GetMapping
-    public List<Contract> findAll() throws ContractNotFoundException {
+    public List<Contract> findAll() {
 
         return findAllContractUseCase.execute();
     }
@@ -57,7 +56,7 @@ public class ContractController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable String id) throws ContractIdNotFoundException {
+    public void deleteById(@PathVariable String id) throws ContractNotFoundException {
 
         deleteContractUseCase.execute(id);
     }

@@ -23,10 +23,8 @@ public class UpdateContractUseCase {
                 .customer(contract.getCustomer())
                 .build();
 
-        String conversionString = String.valueOf(contract.getRequestedAmount());
-        Integer conversionInteger = Integer.valueOf(conversionString);
 
-        if (conversionInteger <= 0) {
+        if (contract.getRequestedAmount().compareTo(BigDecimal.ZERO) <= 0) {
             throw new ContractRequestAmountZeroException();
         }
         contract1.setRequestedAmount(contract.getRequestedAmount());

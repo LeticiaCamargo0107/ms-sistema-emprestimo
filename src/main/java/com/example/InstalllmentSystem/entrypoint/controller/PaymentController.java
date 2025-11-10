@@ -3,7 +3,7 @@ package com.example.InstalllmentSystem.entrypoint.controller;
 import com.example.InstalllmentSystem.core.domain.Payment;
 import com.example.InstalllmentSystem.core.exception.payment.PaymentAmountNotFoundException;
 import com.example.InstalllmentSystem.core.exception.payment.PaymentAmountZeroException;
-import com.example.InstalllmentSystem.core.exception.payment.PaymentIdNotFoundException;
+import com.example.InstalllmentSystem.core.exception.payment.PaymentNotFoundException;
 import com.example.InstalllmentSystem.core.usercase.payment.CreatePaymentUseCase;
 import com.example.InstalllmentSystem.core.usercase.payment.DeleteByIdPaymentUseCase;
 import com.example.InstalllmentSystem.core.usercase.payment.FindAllPaymentUseCase;
@@ -57,13 +57,13 @@ public class PaymentController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable String id) throws PaymentIdNotFoundException {
+    public void deleteById(@PathVariable String id) throws PaymentNotFoundException {
 
         deleteByIdPaymentUseCase.execute(id);
     }
 
     @PutMapping
-    public Payment update(@RequestBody Payment payment) throws PaymentIdNotFoundException, PaymentAmountZeroException {
+    public Payment update(@RequestBody Payment payment) throws PaymentNotFoundException, PaymentAmountZeroException {
 
         return updatePaymentUseCase.execute(payment);
     }

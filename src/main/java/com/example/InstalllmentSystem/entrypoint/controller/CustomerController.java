@@ -4,7 +4,6 @@ package com.example.InstalllmentSystem.entrypoint.controller;
 import com.example.InstalllmentSystem.core.domain.Customer;
 import com.example.InstalllmentSystem.core.exception.customer.CustomerBirthDateException;
 import com.example.InstalllmentSystem.core.exception.customer.CustomerDocumentNotFoundException;
-import com.example.InstalllmentSystem.core.exception.customer.CustomertIdNotFoundException;
 import com.example.InstalllmentSystem.core.exception.customer.CustomertNotFoundException;
 import com.example.InstalllmentSystem.core.usercase.customer.CreateCustomerUseCase;
 import com.example.InstalllmentSystem.core.usercase.customer.DeleteCustomertUseCase;
@@ -57,7 +56,7 @@ public class CustomerController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable String id) throws CustomertIdNotFoundException {
+    public void deleteById(@PathVariable String id) throws CustomertNotFoundException {
 
         deleteCustomerUseCase.execute(id);
     }

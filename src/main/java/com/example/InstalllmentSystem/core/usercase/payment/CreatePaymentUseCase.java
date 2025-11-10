@@ -4,6 +4,8 @@ import com.example.InstalllmentSystem.core.domain.Payment;
 import com.example.InstalllmentSystem.core.domain.enumeration.PaymentStatus;
 import com.example.InstalllmentSystem.core.exception.payment.PaymentAmountZeroException;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 
@@ -15,7 +17,7 @@ public class CreatePaymentUseCase {
         String conversionString = String.valueOf(payment.getAmount());
         Integer conversion = Integer.valueOf(conversionString);
 
-        if (conversion <= 0) {
+        if (payment.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
             throw new PaymentAmountZeroException();
         }
         var payment1 = Payment.builder()

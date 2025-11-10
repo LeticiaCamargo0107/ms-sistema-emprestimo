@@ -15,10 +15,7 @@ public class CreateContractUseCase {
 
     public Contract execute(Contract contract) throws ContractPeriodZeroException, ContractRequestAmountZeroException, ContractCustomerNullException {
 
-        String conversionString = String.valueOf(contract.getRequestedAmount());
-        Integer conversion = Integer.valueOf(conversionString);
-
-        if (conversion <= 0) {
+        if (contract.getRequestedAmount().compareTo(BigDecimal.ZERO) <= 0) {
             throw new ContractRequestAmountZeroException();
         }
 

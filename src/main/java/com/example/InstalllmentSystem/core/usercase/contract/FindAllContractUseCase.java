@@ -2,7 +2,6 @@ package com.example.InstalllmentSystem.core.usercase.contract;
 
 import com.example.InstalllmentSystem.core.domain.Contract;
 import com.example.InstalllmentSystem.core.domain.enumeration.ContractStatus;
-import com.example.InstalllmentSystem.core.exception.contract.ContractNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -12,7 +11,7 @@ import java.util.List;
 @Component
 public class FindAllContractUseCase {
 
-    public List<Contract> execute() throws ContractNotFoundException {
+    public List<Contract> execute() {
         System.out.println("Find all of Contract");
 
         var contract1 = Contract.builder()
@@ -40,10 +39,6 @@ public class FindAllContractUseCase {
                 .build();
 
         List<Contract> listContract = List.of(contract1, contract2, contract3);
-
-        if (listContract == null) {
-            throw new ContractNotFoundException();
-        }
         return listContract;
     }
 }
