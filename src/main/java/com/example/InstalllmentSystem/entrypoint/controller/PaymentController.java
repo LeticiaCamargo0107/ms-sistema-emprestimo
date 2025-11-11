@@ -1,6 +1,9 @@
 package com.example.InstalllmentSystem.entrypoint.controller;
 
 import com.example.InstalllmentSystem.core.domain.Payment;
+import com.example.InstalllmentSystem.core.exception.payment.PaymentAmountNotFoundException;
+import com.example.InstalllmentSystem.core.exception.payment.PaymentAmountZeroException;
+import com.example.InstalllmentSystem.core.exception.payment.PaymentNotFoundException;
 import com.example.InstalllmentSystem.core.usercase.payment.CreatePaymentUseCase;
 import com.example.InstalllmentSystem.core.usercase.payment.DeleteByIdPaymentUseCase;
 import com.example.InstalllmentSystem.core.usercase.payment.FindAllPaymentUseCase;
@@ -34,7 +37,7 @@ public class PaymentController {
 
 
     @GetMapping("/{amount}")
-    public Payment getByAmount(@PathVariable BigDecimal amount) {
+    public Payment getByAmount(@PathVariable BigDecimal amount) throws PaymentAmountNotFoundException {
 
         return getByAmountPaymentUseCase.execute(amount);
     }
@@ -47,20 +50,20 @@ public class PaymentController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Payment create(@RequestBody Payment payment) {
+    public Payment create(@RequestBody Payment payment) throws PaymentAmountZeroException {
 
         return createPaymentUseCase.execute(payment);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable String id) {
+    public void deleteById(@PathVariable String id) throws PaymentNotFoundException {
 
         deleteByIdPaymentUseCase.execute(id);
     }
 
     @PutMapping
-    public Payment update(@RequestBody Payment payment) {
+    public Payment update(@RequestBody Payment payment) throws PaymentNotFoundException, PaymentAmountZeroException {
 
         return updatePaymentUseCase.execute(payment);
     }

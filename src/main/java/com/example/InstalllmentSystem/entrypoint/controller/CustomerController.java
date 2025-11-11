@@ -2,6 +2,9 @@
 package com.example.InstalllmentSystem.entrypoint.controller;
 
 import com.example.InstalllmentSystem.core.domain.Customer;
+import com.example.InstalllmentSystem.core.exception.customer.CustomerBirthDateException;
+import com.example.InstalllmentSystem.core.exception.customer.CustomerDocumentNotFoundException;
+import com.example.InstalllmentSystem.core.exception.customer.CustomertNotFoundException;
 import com.example.InstalllmentSystem.core.usercase.customer.CreateCustomerUseCase;
 import com.example.InstalllmentSystem.core.usercase.customer.DeleteCustomertUseCase;
 import com.example.InstalllmentSystem.core.usercase.customer.FindCustomerUseCase;
@@ -33,33 +36,33 @@ public class CustomerController {
     private final GetByNameCustomerUseCase getByNameCustomerUseCase;
 
     @GetMapping("/{name}")
-    public Customer getByName(@PathVariable String name) {
+    public Customer getByName(@PathVariable String name) throws CustomertNotFoundException {
 
         return getByNameCustomerUseCase.execute(name);
     }
 
     @GetMapping
-    public List<Customer> findAll() {
+    public List<Customer> findAll() throws CustomertNotFoundException {
 
         return findCustomerUseCase.execute();
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Customer create(@RequestBody Customer customer) {
+    public Customer create(@RequestBody Customer customer) throws CustomerBirthDateException {
 
-        return createCustomerUseCase.execute(customer.getId(), customer.getName(), customer.getBirthDate(), customer.getDocument());
+        return createCustomerUseCase.execute(customer);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable String id) {
+    public void deleteById(@PathVariable String id) throws CustomertNotFoundException {
 
         deleteCustomerUseCase.execute(id);
     }
 
     @PutMapping
-    public Customer update(@RequestBody Customer customer) {
+    public Customer update(@RequestBody Customer customer) throws CustomerDocumentNotFoundException {
 
         return updateCustomerUseCase.execute(customer);
     }

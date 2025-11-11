@@ -1,13 +1,15 @@
 package com.example.InstalllmentSystem.entrypoint.controller;
 
 import com.example.InstalllmentSystem.core.domain.Contract;
-import com.example.InstalllmentSystem.core.domain.enumeration.ContractStatus;
+import com.example.InstalllmentSystem.core.exception.contract.ContractCustomerNullException;
+import com.example.InstalllmentSystem.core.exception.contract.ContractNotFoundException;
+import com.example.InstalllmentSystem.core.exception.contract.ContractPeriodZeroException;
+import com.example.InstalllmentSystem.core.exception.contract.ContractRequestAmountZeroException;
 import com.example.InstalllmentSystem.core.usercase.contract.CreateContractUseCase;
 import com.example.InstalllmentSystem.core.usercase.contract.DeleteContractUseCase;
 import com.example.InstalllmentSystem.core.usercase.contract.FindAllContractUseCase;
 import com.example.InstalllmentSystem.core.usercase.contract.GetByIdContractUseCase;
 import com.example.InstalllmentSystem.core.usercase.contract.UpdateContractUseCase;
-import com.example.InstalllmentSystem.core.usercase.customer.CreateCustomerUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,8 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -36,7 +36,7 @@ public class ContractController {
     private final UpdateContractUseCase updateContractUseCase;
 
     @GetMapping("/{id}")
-    public Contract getById(@PathVariable String id) {
+    public Contract getById(@PathVariable String id) throws ContractNotFoundException {
 
         return getByIdContractUseCase.execute(id);
     }
@@ -49,20 +49,20 @@ public class ContractController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Contract create(@RequestBody Contract contract) {
+    public Contract create(@RequestBody Contract contract) throws ContractCustomerNullException, ContractRequestAmountZeroException, ContractPeriodZeroException {
 
         return createContractUseCase.execute(contract);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable String id) {
+    public void deleteById(@PathVariable String id) throws ContractNotFoundException {
 
         deleteContractUseCase.execute(id);
     }
 
     @PutMapping
-    public Contract update(@RequestBody Contract contract) {
+    public Contract update(@RequestBody Contract contract) throws ContractRequestAmountZeroException {
 
         return updateContractUseCase.execute(contract);
     }

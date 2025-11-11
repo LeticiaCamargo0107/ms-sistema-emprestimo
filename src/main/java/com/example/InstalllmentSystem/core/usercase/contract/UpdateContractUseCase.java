@@ -2,6 +2,7 @@ package com.example.InstalllmentSystem.core.usercase.contract;
 
 import com.example.InstalllmentSystem.core.domain.Contract;
 import com.example.InstalllmentSystem.core.domain.enumeration.ContractStatus;
+import com.example.InstalllmentSystem.core.exception.contract.ContractRequestAmountZeroException;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -10,7 +11,7 @@ import java.time.LocalDate;
 @Component
 public class UpdateContractUseCase {
 
-    public Contract execute(Contract contract) {
+    public Contract execute(Contract contract) throws ContractRequestAmountZeroException {
 
         var contract1 = Contract.builder()
                 .id("bvinvdsldvnhg")
@@ -22,6 +23,10 @@ public class UpdateContractUseCase {
                 .customer(contract.getCustomer())
                 .build();
 
+
+        if (contract.getRequestedAmount().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new ContractRequestAmountZeroException();
+        }
         contract1.setRequestedAmount(contract.getRequestedAmount());
         return contract1;
     }

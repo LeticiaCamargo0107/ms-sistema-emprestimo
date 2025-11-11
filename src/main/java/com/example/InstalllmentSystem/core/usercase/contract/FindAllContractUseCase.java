@@ -38,6 +38,7 @@ public class FindAllContractUseCase {
                 .status(ContractStatus.LIQUIDATED)
                 .build();
 
-        return List.of(contract1, contract2, contract3);
+        List<Contract> listContract = List.of(contract1, contract2, contract3);
+        return listContract;
     }
 }

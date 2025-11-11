@@ -31,6 +31,8 @@ public class FindCustomerUseCase {
                 .build();
 
         System.out.println("Find all of Customers");
-        return List.of(customer1, customer2, customer3);
+        List<Customer> listCustomers = List.of(customer1, customer2, customer3);
+
+        return listCustomers;
     }
 }
