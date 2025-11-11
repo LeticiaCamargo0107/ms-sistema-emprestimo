@@ -8,7 +8,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiError {
 
     private String message;
