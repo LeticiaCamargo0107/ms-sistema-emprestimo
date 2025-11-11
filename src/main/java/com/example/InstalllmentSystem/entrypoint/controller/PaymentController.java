@@ -9,6 +9,7 @@ import com.example.InstalllmentSystem.core.usercase.payment.DeleteByIdPaymentUse
 import com.example.InstalllmentSystem.core.usercase.payment.FindAllPaymentUseCase;
 import com.example.InstalllmentSystem.core.usercase.payment.GetByAmountPaymentUseCase;
 import com.example.InstalllmentSystem.core.usercase.payment.UpdatePaymentUseCase;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -50,7 +51,7 @@ public class PaymentController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Payment create(@RequestBody Payment payment) throws PaymentAmountZeroException {
+    public Payment create(@RequestBody @Valid Payment payment) throws PaymentAmountZeroException {
 
         return createPaymentUseCase.execute(payment);
     }
@@ -63,7 +64,7 @@ public class PaymentController {
     }
 
     @PutMapping
-    public Payment update(@RequestBody Payment payment) throws PaymentNotFoundException, PaymentAmountZeroException {
+    public Payment update(@RequestBody @Valid Payment payment) throws PaymentNotFoundException, PaymentAmountZeroException {
 
         return updatePaymentUseCase.execute(payment);
     }

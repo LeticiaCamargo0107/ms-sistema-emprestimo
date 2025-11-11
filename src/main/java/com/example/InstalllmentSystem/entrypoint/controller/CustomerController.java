@@ -10,6 +10,7 @@ import com.example.InstalllmentSystem.core.usercase.customer.DeleteCustomertUseC
 import com.example.InstalllmentSystem.core.usercase.customer.FindCustomerUseCase;
 import com.example.InstalllmentSystem.core.usercase.customer.GetByNameCustomerUseCase;
 import com.example.InstalllmentSystem.core.usercase.customer.UpdateCustomerUseCase;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -49,7 +50,7 @@ public class CustomerController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Customer create(@RequestBody Customer customer) throws CustomerBirthDateException {
+    public Customer create(@RequestBody @Valid Customer customer) throws CustomerBirthDateException {
 
         return createCustomerUseCase.execute(customer);
     }
@@ -62,7 +63,7 @@ public class CustomerController {
     }
 
     @PutMapping
-    public Customer update(@RequestBody Customer customer) throws CustomerDocumentNotFoundException {
+    public Customer update(@RequestBody @Valid Customer customer) throws CustomerDocumentNotFoundException {
 
         return updateCustomerUseCase.execute(customer);
     }

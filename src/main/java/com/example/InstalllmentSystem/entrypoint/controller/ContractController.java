@@ -1,7 +1,6 @@
 package com.example.InstalllmentSystem.entrypoint.controller;
 
 import com.example.InstalllmentSystem.core.domain.Contract;
-import com.example.InstalllmentSystem.core.exception.contract.ContractCustomerNullException;
 import com.example.InstalllmentSystem.core.exception.contract.ContractNotFoundException;
 import com.example.InstalllmentSystem.core.exception.contract.ContractPeriodZeroException;
 import com.example.InstalllmentSystem.core.exception.contract.ContractRequestAmountZeroException;
@@ -10,6 +9,7 @@ import com.example.InstalllmentSystem.core.usercase.contract.DeleteContractUseCa
 import com.example.InstalllmentSystem.core.usercase.contract.FindAllContractUseCase;
 import com.example.InstalllmentSystem.core.usercase.contract.GetByIdContractUseCase;
 import com.example.InstalllmentSystem.core.usercase.contract.UpdateContractUseCase;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -49,7 +49,7 @@ public class ContractController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Contract create(@RequestBody Contract contract) throws ContractCustomerNullException, ContractRequestAmountZeroException, ContractPeriodZeroException {
+    public Contract create(@RequestBody @Valid Contract contract) throws ContractPeriodZeroException, ContractRequestAmountZeroException {
 
         return createContractUseCase.execute(contract);
     }
