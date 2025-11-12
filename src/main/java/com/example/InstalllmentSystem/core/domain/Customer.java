@@ -1,15 +1,14 @@
 package com.example.InstalllmentSystem.core.domain;
 
 import com.example.InstalllmentSystem.core.domain.enumeration.CustomerStatus;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.annotation.Nonnull;
-import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
 
+@Getter
+@Setter
 @Builder
 public class Customer {
 
