@@ -10,21 +10,15 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Getter
-@Setter
 @Builder
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Contract {
 
     private String id;
 
-    @Nonnull
     private Integer operationPeriod;
 
-    @Nonnull
     private BigDecimal requestedAmount;
 
-    @Nonnull
     private Customer customer;
 
     private BigDecimal monthlyCetRate;
