@@ -1,7 +1,7 @@
 package com.example.InstalllmentSystem.entrypoint.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.annotation.Nonnull;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,13 +14,13 @@ import java.time.LocalDate;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CustomerDTO {
 
-    @Nonnull
+    @NotNull(message = "Name can't be null")
     private String name;
 
-    @Nonnull
+    @NotNull(message = "Document can't be null")
     @Size(min = 11, max = 11)
     private String document;
 
-    @Nonnull
+    @NotNull(message = "Birthday date can't be null")
     private LocalDate birthDate;
 }

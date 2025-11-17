@@ -1,7 +1,7 @@
 package com.example.InstalllmentSystem.entrypoint.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.annotation.Nonnull;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,12 +13,12 @@ import java.math.BigDecimal;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ContractDTO {
 
-        @Nonnull
+        @NotNull(message = "Operation Period can't be null")
         private Integer operationPeriod;
 
-        @Nonnull
+        @NotNull(message = "Requested Amount can't be null")
         private BigDecimal requestedAmount;
 
-        @Nonnull
-        private String idCustomer;
+        @NotNull(message = "Id Customer can't be null")
+        private String customerId;
 }

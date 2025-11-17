@@ -14,8 +14,11 @@ import java.time.LocalDateTime;
 public class Installment {
 
     private String id;
+
     private LocalDateTime dueDate;
+
     private BigDecimal amount;
+
     private InstallmentStatus status;
 
 }

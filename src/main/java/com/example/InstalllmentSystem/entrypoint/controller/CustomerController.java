@@ -10,6 +10,8 @@ import com.example.InstalllmentSystem.core.usercase.customer.DeleteCustomertUseC
 import com.example.InstalllmentSystem.core.usercase.customer.FindCustomerUseCase;
 import com.example.InstalllmentSystem.core.usercase.customer.GetByNameCustomerUseCase;
 import com.example.InstalllmentSystem.core.usercase.customer.UpdateCustomerUseCase;
+import com.example.InstalllmentSystem.entrypoint.DTOs.CustomerDTO;
+import com.example.InstalllmentSystem.entrypoint.mapper.CustomerMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,6 +37,7 @@ public class CustomerController {
     private final UpdateCustomerUseCase updateCustomerUseCase;
     private final FindCustomerUseCase findCustomerUseCase;
     private final GetByNameCustomerUseCase getByNameCustomerUseCase;
+    private final CustomerMapper customerMapper;
 
     @GetMapping("/{name}")
     public Customer getByName(@PathVariable String name) throws CustomertNotFoundException {
@@ -50,8 +53,9 @@ public class CustomerController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Customer create(@RequestBody @Valid Customer customer) throws CustomerBirthDateException {
+    public Customer create(@RequestBody @Valid CustomerDTO customerDTO) throws CustomerBirthDateException {
 
+        var customer = customerMapper.toDomain(customerDTO);
         return createCustomerUseCase.execute(customer);
     }
 
@@ -63,8 +67,9 @@ public class CustomerController {
     }
 
     @PutMapping
-    public Customer update(@RequestBody @Valid Customer customer) throws CustomerDocumentNotFoundException {
+    public Customer update(@RequestBody @Valid CustomerDTO customerDTO) throws CustomerDocumentNotFoundException {
 
+        var customer = customerMapper.toDomain(customerDTO);
         return updateCustomerUseCase.execute(customer);
     }
 }

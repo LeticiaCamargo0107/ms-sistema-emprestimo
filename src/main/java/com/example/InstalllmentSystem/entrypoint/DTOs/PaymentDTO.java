@@ -2,7 +2,7 @@ package com.example.InstalllmentSystem.entrypoint.DTOs;
 
 import com.example.InstalllmentSystem.core.domain.enumeration.PaymentMethod;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.annotation.Nonnull;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,9 +15,9 @@ import java.math.BigDecimal;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PaymentDTO {
 
-    @Nonnull
+    @NotNull(message = "Payment Method can't be null")
     private PaymentMethod payMethod;
 
-    @Nonnull
+    @NotNull(message = "Amount can't be null")
     private BigDecimal amount;
 }

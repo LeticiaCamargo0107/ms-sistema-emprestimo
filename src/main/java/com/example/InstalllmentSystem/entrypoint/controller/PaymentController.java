@@ -9,6 +9,8 @@ import com.example.InstalllmentSystem.core.usercase.payment.DeleteByIdPaymentUse
 import com.example.InstalllmentSystem.core.usercase.payment.FindAllPaymentUseCase;
 import com.example.InstalllmentSystem.core.usercase.payment.GetByAmountPaymentUseCase;
 import com.example.InstalllmentSystem.core.usercase.payment.UpdatePaymentUseCase;
+import com.example.InstalllmentSystem.entrypoint.DTOs.PaymentDTO;
+import com.example.InstalllmentSystem.entrypoint.mapper.PaymentMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,6 +37,7 @@ public class PaymentController {
     private final UpdatePaymentUseCase updatePaymentUseCase;
     private final GetByAmountPaymentUseCase getByAmountPaymentUseCase;
     private final FindAllPaymentUseCase findAllPaymentUseCase;
+    private final PaymentMapper paymentMapper;
 
 
     @GetMapping("/{amount}")
@@ -51,8 +54,9 @@ public class PaymentController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Payment create(@RequestBody @Valid Payment payment) throws PaymentAmountZeroException {
+    public Payment create(@RequestBody @Valid PaymentDTO paymentDTO) throws PaymentAmountZeroException {
 
+        var payment = paymentMapper.toDomain(paymentDTO);
         return createPaymentUseCase.execute(payment);
     }
 
@@ -64,8 +68,9 @@ public class PaymentController {
     }
 
     @PutMapping
-    public Payment update(@RequestBody @Valid Payment payment) throws PaymentNotFoundException, PaymentAmountZeroException {
+    public Payment update(@RequestBody @Valid PaymentDTO paymentDTO) throws PaymentNotFoundException, PaymentAmountZeroException {
 
+        var payment = paymentMapper.toDomain(paymentDTO);
         return updatePaymentUseCase.execute(payment);
     }
 
