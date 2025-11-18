@@ -1,7 +1,6 @@
 package com.example.InstalllmentSystem.entrypoint.controller;
 
 import com.example.InstalllmentSystem.core.domain.Contract;
-import com.example.InstalllmentSystem.core.exception.contract.ContractCustomerNullException;
 import com.example.InstalllmentSystem.core.exception.contract.ContractNotFoundException;
 import com.example.InstalllmentSystem.core.exception.contract.ContractPeriodZeroException;
 import com.example.InstalllmentSystem.core.exception.contract.ContractRequestAmountZeroException;
@@ -10,6 +9,9 @@ import com.example.InstalllmentSystem.core.usercase.contract.DeleteContractUseCa
 import com.example.InstalllmentSystem.core.usercase.contract.FindAllContractUseCase;
 import com.example.InstalllmentSystem.core.usercase.contract.GetByIdContractUseCase;
 import com.example.InstalllmentSystem.core.usercase.contract.UpdateContractUseCase;
+import com.example.InstalllmentSystem.entrypoint.DTOs.ContractDTO;
+import com.example.InstalllmentSystem.entrypoint.mapper.ContractMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,6 +36,7 @@ public class ContractController {
     private final CreateContractUseCase createContractUseCase;
     private final DeleteContractUseCase deleteContractUseCase;
     private final UpdateContractUseCase updateContractUseCase;
+    private ContractMapper contractMapper;
 
     @GetMapping("/{id}")
     public Contract getById(@PathVariable String id) throws ContractNotFoundException {
@@ -49,8 +52,9 @@ public class ContractController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Contract create(@RequestBody Contract contract) throws ContractCustomerNullException, ContractRequestAmountZeroException, ContractPeriodZeroException {
+    public Contract create(@RequestBody @Valid ContractDTO contractDTO) throws ContractPeriodZeroException, ContractRequestAmountZeroException {
 
+        var contract = contractMapper.toDomain(contractDTO);
         return createContractUseCase.execute(contract);
     }
 
@@ -62,8 +66,9 @@ public class ContractController {
     }
 
     @PutMapping
-    public Contract update(@RequestBody Contract contract) throws ContractRequestAmountZeroException {
+    public Contract update(@RequestBody ContractDTO contractDTO) throws ContractRequestAmountZeroException {
 
+        var contract = contractMapper.toDomain(contractDTO);
         return updateContractUseCase.execute(contract);
     }
 }

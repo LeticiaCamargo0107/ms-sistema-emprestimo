@@ -14,17 +14,16 @@ public class CreatePaymentUseCase {
 
     public Payment execute(Payment payment) throws PaymentAmountZeroException {
 
-        String conversionString = String.valueOf(payment.getAmount());
-        Integer conversion = Integer.valueOf(conversionString);
-
         if (payment.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
             throw new PaymentAmountZeroException();
         }
+
         var payment1 = Payment.builder()
                 .id("7yu80fb377szx129")
                 .status(PaymentStatus.EXECUTED)
                 .paidAt(LocalDateTime.now())
                 .amount(payment.getAmount())
+                .payMethod(payment.getPayMethod())
                 .build();
 
         System.out.println("Creating payment");

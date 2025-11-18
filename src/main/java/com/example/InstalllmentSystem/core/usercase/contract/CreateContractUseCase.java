@@ -2,7 +2,6 @@ package com.example.InstalllmentSystem.core.usercase.contract;
 
 import com.example.InstalllmentSystem.core.domain.Contract;
 import com.example.InstalllmentSystem.core.domain.enumeration.ContractStatus;
-import com.example.InstalllmentSystem.core.exception.contract.ContractCustomerNullException;
 import com.example.InstalllmentSystem.core.exception.contract.ContractPeriodZeroException;
 import com.example.InstalllmentSystem.core.exception.contract.ContractRequestAmountZeroException;
 import org.springframework.stereotype.Component;
@@ -13,22 +12,18 @@ import java.time.LocalDate;
 @Component
 public class CreateContractUseCase {
 
-    public Contract execute(Contract contract) throws ContractPeriodZeroException, ContractRequestAmountZeroException, ContractCustomerNullException {
+    public Contract execute(Contract contract) throws ContractPeriodZeroException, ContractRequestAmountZeroException {
 
         if (contract.getRequestedAmount().compareTo(BigDecimal.ZERO) <= 0) {
             throw new ContractRequestAmountZeroException();
         }
 
-        BigDecimal monthlyCetRate = BigDecimal.valueOf(1.05);
-        BigDecimal totalAmount = contract.getTotalAmount().multiply(monthlyCetRate);
-
-        if (contract.getOperationPeriod() <= 0) {
+        if (contract.getOperationPeriod() <= 2) {
             throw new ContractPeriodZeroException();
         }
 
-        if (contract.getCustomer() == null) {
-            throw new ContractCustomerNullException();
-        }
+        BigDecimal monthlyCetRate = BigDecimal.valueOf(1.05);
+        BigDecimal totalAmount = contract.getTotalAmount().multiply(monthlyCetRate);
 
         return Contract.builder()
                 .id(contract.getId())
