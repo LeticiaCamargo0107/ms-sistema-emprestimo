@@ -10,9 +10,4 @@ public interface PaymentMapper {
     Payment toDomain (PaymentDTO paymentDTO);
 
     PaymentDTO toDTO (Payment payment);
-
-
-
-
-
 }

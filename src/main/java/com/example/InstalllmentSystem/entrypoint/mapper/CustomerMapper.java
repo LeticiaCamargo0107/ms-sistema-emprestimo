@@ -10,6 +10,4 @@ public interface CustomerMapper {
     Customer toDomain (CustomerDTO customerDTO);
 
     CustomerDTO toDTO (Customer customer);
-
-
 }

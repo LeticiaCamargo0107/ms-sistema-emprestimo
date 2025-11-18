@@ -10,7 +10,6 @@ public interface ContractMapper {
     @Mapping(source = "customerId", target = "customer.id")
     Contract toDomain (ContractDTO contracDTO);
 
-    @Mapping(source = "customer.id", target = "customerId")
+    @Mapping(source = "customerId", target = "customer.id")
     ContractDTO toDTO (Contract contract);
-
 }
