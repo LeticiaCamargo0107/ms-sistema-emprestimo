@@ -9,5 +9,5 @@ public interface PaymentMapper {
 
     Payment toDomain (PaymentEntity paymentEntity);
 
-    PaymentEntity toDTO (Payment payment);
+    PaymentEntity toEntity (Payment payment);
 }
