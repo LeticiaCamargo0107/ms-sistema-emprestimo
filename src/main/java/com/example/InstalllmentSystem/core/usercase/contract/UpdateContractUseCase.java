@@ -1,33 +1,33 @@
 package com.example.InstalllmentSystem.core.usercase.contract;
 
 import com.example.InstalllmentSystem.core.domain.Contract;
-import com.example.InstalllmentSystem.core.domain.enumeration.ContractStatus;
+import com.example.InstalllmentSystem.core.exception.contract.ContractNotFoundException;
 import com.example.InstalllmentSystem.core.exception.contract.ContractRequestAmountZeroException;
+import com.example.InstalllmentSystem.core.gateway.ContractGateway;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 @Component
+@RequiredArgsConstructor
 public class UpdateContractUseCase {
 
-    public Contract execute(Contract contract) throws ContractRequestAmountZeroException {
+    private final ContractGateway contractGateway;
 
-        var contract1 = Contract.builder()
-                .id("bvinvdsldvnhg")
-                .startDate(LocalDate.of(1500, 12, 3))
-                .requestedAmount(BigDecimal.valueOf(0000.0099999))
-                .daysOverDue(87)
-                .status(ContractStatus.ACTIVE)
-                .totalAmount(BigDecimal.valueOf(2000))
-                .customer(contract.getCustomer())
-                .build();
+    public Contract execute(String id, Contract contract) throws ContractRequestAmountZeroException, ContractNotFoundException {
 
+        if (contractGateway.existById(id)) {
+            throw new ContractNotFoundException(contract.getId());
+        }
 
         if (contract.getRequestedAmount().compareTo(BigDecimal.ZERO) <= 0) {
             throw new ContractRequestAmountZeroException();
         }
-        contract1.setRequestedAmount(contract.getRequestedAmount());
-        return contract1;
+
+        Contract updateContract = contractGateway.findById(id);
+        updateContract.setRequestedAmount(contract.getRequestedAmount());
+
+        return contractGateway.update(updateContract);
     }
 }

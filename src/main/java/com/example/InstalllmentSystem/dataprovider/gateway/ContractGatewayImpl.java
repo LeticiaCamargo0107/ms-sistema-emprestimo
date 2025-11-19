@@ -7,7 +7,6 @@ import com.example.InstalllmentSystem.dataprovider.repository.ContractRepository
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -26,22 +25,18 @@ public class ContractGatewayImpl implements ContractGateway {
         return toDomain;
     }
 
-//    @Override
-//    public void deleteById(String id) {
-//
-//        var delete = contractRepository.deleteById(id);
-//        var convert = contractMapper.toDomain(delete);
-//
-//    }
-//
-//    @Override
-//    public List<Contract> findAll() {
-//        var find = contractRepository.findAll();
-//        var convert = contractMapper.toDomain(find);
-//
-//        return find;
-//    }
-//
+    @Override
+    public void deleteById(String id) {
+
+        contractRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean existById(String id) {
+
+        return contractRepository.existsById(id);
+    }
+
     @Override
     public Contract findById(String id) {
         var find = contractRepository.findById(id);
@@ -54,7 +49,7 @@ public class ContractGatewayImpl implements ContractGateway {
     public Contract update(Contract contract) {
 
         var convert = contractMapper.toEntity(contract);
-        var save = contractRepository.insert(convert);
+        var save = contractRepository.save(convert);
         var convertToDomain = contractMapper.toDomain(save);
 
         return convertToDomain;

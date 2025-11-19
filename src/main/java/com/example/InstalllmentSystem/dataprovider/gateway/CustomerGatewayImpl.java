@@ -2,8 +2,8 @@ package com.example.InstalllmentSystem.dataprovider.gateway;
 
 import com.example.InstalllmentSystem.core.domain.Customer;
 import com.example.InstalllmentSystem.core.gateway.CustomerGateway;
-import com.example.InstalllmentSystem.dataprovider.repository.CustomerRepository;
 import com.example.InstalllmentSystem.dataprovider.mapper.CustomerMapper;
+import com.example.InstalllmentSystem.dataprovider.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
