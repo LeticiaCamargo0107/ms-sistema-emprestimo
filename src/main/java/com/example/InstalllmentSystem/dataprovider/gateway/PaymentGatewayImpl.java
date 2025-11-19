@@ -2,7 +2,7 @@ package com.example.InstalllmentSystem.dataprovider.gateway;
 
 import com.example.InstalllmentSystem.core.domain.Payment;
 import com.example.InstalllmentSystem.core.gateway.PaymentGateway;
-import com.example.InstalllmentSystem.dataprovider.mapper.PaymentMapper;
+import com.example.InstalllmentSystem.dataprovider.mapper.PaymentEntityMapper;
 import com.example.InstalllmentSystem.dataprovider.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class PaymentGatewayImpl implements PaymentGateway {
 
     private final PaymentRepository paymentRepository;
-    private final PaymentMapper paymentMapper;
+    private final PaymentEntityMapper paymentMapper;
 
     @Override
     public Payment save(Payment payment) {

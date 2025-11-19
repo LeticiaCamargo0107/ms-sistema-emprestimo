@@ -4,7 +4,7 @@ import com.example.InstalllmentSystem.dataprovider.entity.ContractEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface ContractMapper {
+public interface ContractEntityMapper {
 
     Contract toDomain (ContractEntity contractEntity);
 

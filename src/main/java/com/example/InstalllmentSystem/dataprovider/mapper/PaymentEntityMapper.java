@@ -5,7 +5,7 @@ import com.example.InstalllmentSystem.dataprovider.entity.PaymentEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface PaymentMapper {
+public interface PaymentEntityMapper {
 
     Payment toDomain (PaymentEntity paymentEntity);
 

@@ -2,7 +2,7 @@ package com.example.InstalllmentSystem.dataprovider.gateway;
 
 import com.example.InstalllmentSystem.core.domain.Contract;
 import com.example.InstalllmentSystem.core.gateway.ContractGateway;
-import com.example.InstalllmentSystem.dataprovider.mapper.ContractMapper;
+import com.example.InstalllmentSystem.dataprovider.mapper.ContractEntityMapper;
 import com.example.InstalllmentSystem.dataprovider.repository.ContractRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class ContractGatewayImpl implements ContractGateway {
 
     private final ContractRepository contractRepository;
-    private final ContractMapper contractMapper;
+    private final ContractEntityMapper contractMapper;
 
     @Override
     public Contract save(Contract contract) {

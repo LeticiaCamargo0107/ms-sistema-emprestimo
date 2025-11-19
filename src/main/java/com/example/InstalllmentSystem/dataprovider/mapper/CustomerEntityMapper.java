@@ -5,7 +5,7 @@ import com.example.InstalllmentSystem.dataprovider.entity.CustomerEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface CustomerMapper {
+public interface CustomerEntityMapper {
 
     Customer toDomain (CustomerEntity customerEntity);
 

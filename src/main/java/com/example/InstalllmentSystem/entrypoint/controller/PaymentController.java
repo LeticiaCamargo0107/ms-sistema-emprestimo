@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -35,15 +34,15 @@ public class PaymentController {
     private final CreatePaymentUseCase createPaymentUseCase;
     private final DeleteByIdPaymentUseCase deleteByIdPaymentUseCase;
     private final UpdatePaymentUseCase updatePaymentUseCase;
-    private final GetByIdPaymentUseCase getByAmountPaymentUseCase;
+    private final GetByIdPaymentUseCase getByIdPaymentUseCase;
     private final FindAllPaymentUseCase findAllPaymentUseCase;
     private final PaymentMapper paymentMapper;
 
 
     @GetMapping("/{amount}")
-    public Payment getByAmount(@PathVariable BigDecimal amount) throws PaymentAmountNotFoundException {
+    public Payment getByAmount(@PathVariable String id) throws PaymentAmountNotFoundException {
 
-        return getByAmountPaymentUseCase.execute(amount);
+        return getByIdPaymentUseCase.execute(id);
     }
 
     @GetMapping

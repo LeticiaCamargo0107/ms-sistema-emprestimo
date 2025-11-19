@@ -2,7 +2,7 @@ package com.example.InstalllmentSystem.dataprovider.gateway;
 
 import com.example.InstalllmentSystem.core.domain.Customer;
 import com.example.InstalllmentSystem.core.gateway.CustomerGateway;
-import com.example.InstalllmentSystem.dataprovider.mapper.CustomerMapper;
+import com.example.InstalllmentSystem.dataprovider.mapper.CustomerEntityMapper;
 import com.example.InstalllmentSystem.dataprovider.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class CustomerGatewayImpl implements CustomerGateway {
 
     private final CustomerRepository customerRepository;
-    private final CustomerMapper customerMapper;
+    private final CustomerEntityMapper customerMapper;
 
     @Override
     public Customer save(Customer customer) {
