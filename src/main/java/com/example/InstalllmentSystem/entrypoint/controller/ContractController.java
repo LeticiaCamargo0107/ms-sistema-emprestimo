@@ -66,9 +66,9 @@ public class ContractController {
     }
 
     @PutMapping
-    public Contract update(@RequestBody ContractDTO contractDTO) throws ContractRequestAmountZeroException {
+    public Contract update(@RequestBody ContractDTO contractDTO) throws ContractRequestAmountZeroException, ContractNotFoundException {
 
         var contract = contractMapper.toDomain(contractDTO);
-        return updateContractUseCase.execute(contract);
+        return updateContractUseCase.execute(contract.getId(), contract);
     }
 }
