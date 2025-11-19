@@ -19,10 +19,8 @@ public class CreateCustomerUseCase {
         if (year < 18) {
             throw new CustomerBirthDateException();
         }
-
         customer.setStatus(CustomerStatus.ACTIVE);
 
         return customerGateway.save(customer);
     }
-
 }

@@ -19,9 +19,9 @@ public class CustomerGatewayImpl implements CustomerGateway {
 
         var convert = customerMapper.toEntity(customer);
         var save = customerRepository.save(convert);
-        var toDomain = customerMapper.toDomain(save);
+        var convertToDomain = customerMapper.toDomain(save);
 
-        return toDomain;
+        return convertToDomain;
     }
 
     @Override

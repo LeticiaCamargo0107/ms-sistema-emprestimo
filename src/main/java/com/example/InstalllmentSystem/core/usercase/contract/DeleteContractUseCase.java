@@ -16,6 +16,7 @@ public class DeleteContractUseCase {
 
         if (contractGateway.existById(id)) {
             System.out.printf("Delete by id: %s\n", id);
+            contractGateway.deleteById(id);
             return;
         }
         throw new ContractNotFoundException(id);

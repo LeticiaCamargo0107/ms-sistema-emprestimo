@@ -20,9 +20,9 @@ public class ContractGatewayImpl implements ContractGateway {
 
         var convert = contractMapper.toEntity(contract);
         var save = contractRepository.save(convert);
-        var toDomain = contractMapper.toDomain(save);
+        var convertToDomain = contractMapper.toDomain(save);
 
-        return toDomain;
+        return convertToDomain;
     }
 
     @Override

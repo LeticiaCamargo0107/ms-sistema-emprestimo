@@ -19,9 +19,9 @@ public class PaymentGatewayImpl implements PaymentGateway {
 
         var convert = paymentMapper.toEntity(payment);
         var save = paymentRepository.save(convert);
-        var toDomain = paymentMapper.toDomain(save);
+        var convertToDomain = paymentMapper.toDomain(save);
 
-        return toDomain;
+        return convertToDomain;
     }
 
     @Override
