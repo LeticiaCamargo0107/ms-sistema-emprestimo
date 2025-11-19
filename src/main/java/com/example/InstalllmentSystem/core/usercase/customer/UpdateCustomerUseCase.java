@@ -13,13 +13,18 @@ public class UpdateCustomerUseCase {
 
     private final CustomerGateway customerGateway;
 
-    public Customer execute(String document, Customer customer) throws CustomerDocumentNotFoundException {
+    public Customer execute(Customer customer) throws CustomerDocumentNotFoundException {
 
-        if (customer.getDocument() != document) {
+        if (!customerGateway.existById(customer.getId())) {
             throw new CustomerDocumentNotFoundException();
         }
 
         Customer updateCustomer = customerGateway.findById(customer.getId());
+
+        if (customer.getDocument() != updateCustomer.getDocument()) {
+            throw new CustomerDocumentNotFoundException();
+        }
+
         updateCustomer.setName(customer.getName());
         System.out.printf("Update name to %s\n", customer.getName());
         return updateCustomer;

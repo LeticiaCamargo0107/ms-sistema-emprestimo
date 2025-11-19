@@ -7,7 +7,7 @@ import com.example.InstalllmentSystem.core.exception.payment.PaymentNotFoundExce
 import com.example.InstalllmentSystem.core.usercase.payment.CreatePaymentUseCase;
 import com.example.InstalllmentSystem.core.usercase.payment.DeleteByIdPaymentUseCase;
 import com.example.InstalllmentSystem.core.usercase.payment.FindAllPaymentUseCase;
-import com.example.InstalllmentSystem.core.usercase.payment.GetByAmountPaymentUseCase;
+import com.example.InstalllmentSystem.core.usercase.payment.GetByIdPaymentUseCase;
 import com.example.InstalllmentSystem.core.usercase.payment.UpdatePaymentUseCase;
 import com.example.InstalllmentSystem.entrypoint.DTOs.PaymentDTO;
 import com.example.InstalllmentSystem.entrypoint.mapper.PaymentMapper;
@@ -35,7 +35,7 @@ public class PaymentController {
     private final CreatePaymentUseCase createPaymentUseCase;
     private final DeleteByIdPaymentUseCase deleteByIdPaymentUseCase;
     private final UpdatePaymentUseCase updatePaymentUseCase;
-    private final GetByAmountPaymentUseCase getByAmountPaymentUseCase;
+    private final GetByIdPaymentUseCase getByAmountPaymentUseCase;
     private final FindAllPaymentUseCase findAllPaymentUseCase;
     private final PaymentMapper paymentMapper;
 

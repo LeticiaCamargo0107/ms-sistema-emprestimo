@@ -1,25 +1,20 @@
 package com.example.InstalllmentSystem.core.usercase.payment;
 
-import com.example.InstalllmentSystem.core.domain.Payment;
-import com.example.InstalllmentSystem.core.domain.enumeration.PaymentStatus;
 import com.example.InstalllmentSystem.core.exception.payment.PaymentNotFoundException;
+import com.example.InstalllmentSystem.core.gateway.PaymentGateway;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
 @Component
+@RequiredArgsConstructor
 public class DeleteByIdPaymentUseCase {
 
-    public void execute(String id) throws PaymentNotFoundException {
-        var payment1 = Payment.builder()
-                .id("1234")
-                .paidAt(LocalDateTime.now())
-                .amount(BigDecimal.valueOf(212.89))
-                .status(PaymentStatus.CANCELED)
-                .build();
+    private final PaymentGateway paymentGateway;
 
-        if (payment1.getId().equals(id)) {
+    public void execute(String id) throws PaymentNotFoundException {
+
+        if (paymentGateway.existById(id)) {
+            paymentGateway.deleteById(id);
             System.out.printf("Delete by id: %s\n", id);
             return;
         }

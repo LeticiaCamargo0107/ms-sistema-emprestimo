@@ -70,6 +70,6 @@ public class CustomerController {
     public Customer update(@RequestBody @Valid CustomerDTO customerDTO) throws CustomerDocumentNotFoundException {
 
         var customer = customerMapper.toDomain(customerDTO);
-        return updateCustomerUseCase.execute(customer);
+        return updateCustomerUseCase.execute(customer.getId(), customer);
     }
 }

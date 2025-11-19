@@ -15,9 +15,9 @@ public class UpdateContractUseCase {
 
     private final ContractGateway contractGateway;
 
-    public Contract execute(String id, Contract contract) throws ContractRequestAmountZeroException, ContractNotFoundException {
+    public Contract execute(Contract contract) throws ContractRequestAmountZeroException, ContractNotFoundException {
 
-        if (contractGateway.existById(id)) {
+        if (contractGateway.existById(contract.getId())) {
             throw new ContractNotFoundException(contract.getId());
         }
 
@@ -25,7 +25,7 @@ public class UpdateContractUseCase {
             throw new ContractRequestAmountZeroException();
         }
 
-        Contract updateContract = contractGateway.findById(id);
+        Contract updateContract = contractGateway.findById(contract.getId());
         updateContract.setRequestedAmount(contract.getRequestedAmount());
 
         return contractGateway.update(updateContract);
