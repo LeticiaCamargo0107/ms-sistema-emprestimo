@@ -40,7 +40,7 @@ public class PaymentController {
 
 
     @GetMapping("/{amount}")
-    public Payment getByAmount(@PathVariable String id) throws PaymentAmountNotFoundException {
+    public Payment getById(@PathVariable String id) throws PaymentNotFoundException {
 
         return getByIdPaymentUseCase.execute(id);
     }
