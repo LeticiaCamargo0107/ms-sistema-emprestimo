@@ -21,7 +21,7 @@ public class UpdateCustomerUseCase {
 
         Customer updateCustomer = customerGateway.findById(customer.getId());
 
-        if (customer.getDocument() != updateCustomer.getDocument()) {
+        if (customer.getDocument().equals(updateCustomer.getDocument())) {
             throw new CustomerDocumentNotFoundException();
         }
 

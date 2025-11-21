@@ -19,9 +19,8 @@ public class PaymentGatewayImpl implements PaymentGateway {
 
         var convert = paymentMapper.toEntity(payment);
         var save = paymentRepository.save(convert);
-        var convertToDomain = paymentMapper.toDomain(save);
 
-        return convertToDomain;
+        return paymentMapper.toDomain(save);
     }
 
     @Override
@@ -39,9 +38,8 @@ public class PaymentGatewayImpl implements PaymentGateway {
     @Override
     public Payment findById(String id) {
         var find = paymentRepository.findById(id);
-        var convert = paymentMapper.toDomain(find.orElse(null));
 
-        return convert;
+        return paymentMapper.toDomain(find.orElse(null));
     }
 
     @Override
@@ -49,8 +47,7 @@ public class PaymentGatewayImpl implements PaymentGateway {
 
         var convert = paymentMapper.toEntity(payment);
         var save = paymentRepository.save(convert);
-        var convertToDomain = paymentMapper.toDomain(save);
 
-        return convertToDomain;
+        return paymentMapper.toDomain(save);
     }
 }

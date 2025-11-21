@@ -20,9 +20,8 @@ public class ContractGatewayImpl implements ContractGateway {
 
         var convert = contractMapper.toEntity(contract);
         var save = contractRepository.save(convert);
-        var convertToDomain = contractMapper.toDomain(save);
 
-        return convertToDomain;
+        return contractMapper.toDomain(save);
     }
 
     @Override
@@ -40,9 +39,8 @@ public class ContractGatewayImpl implements ContractGateway {
     @Override
     public Contract findById(String id) {
         var find = contractRepository.findById(id);
-        var convert = contractMapper.toDomain(find.orElse(null));
 
-        return convert;
+        return contractMapper.toDomain(find.orElse(null));
     }
 
     @Override
@@ -50,8 +48,7 @@ public class ContractGatewayImpl implements ContractGateway {
 
         var convert = contractMapper.toEntity(contract);
         var save = contractRepository.save(convert);
-        var convertToDomain = contractMapper.toDomain(save);
 
-        return convertToDomain;
+        return contractMapper.toDomain(save);
     }
 }

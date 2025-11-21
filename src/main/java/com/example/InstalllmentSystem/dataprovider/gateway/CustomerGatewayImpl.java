@@ -19,9 +19,8 @@ public class CustomerGatewayImpl implements CustomerGateway {
 
         var convert = customerMapper.toEntity(customer);
         var save = customerRepository.save(convert);
-        var convertToDomain = customerMapper.toDomain(save);
 
-        return convertToDomain;
+        return customerMapper.toDomain(save);
     }
 
     @Override
@@ -39,9 +38,8 @@ public class CustomerGatewayImpl implements CustomerGateway {
     @Override
     public Customer findById(String id) {
         var find = customerRepository.findById(id);
-        var convert = customerMapper.toDomain(find.orElse(null));
 
-        return convert;
+        return customerMapper.toDomain(find.orElse(null));
     }
 
     @Override
@@ -49,8 +47,7 @@ public class CustomerGatewayImpl implements CustomerGateway {
 
         var convert = customerMapper.toEntity(customer);
         var save = customerRepository.save(convert);
-        var convertToDomain = customerMapper.toDomain(save);
 
-        return convertToDomain;
+        return customerMapper.toDomain(save);
     }
 }

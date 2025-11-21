@@ -17,7 +17,7 @@ public class UpdateContractUseCase {
 
     public Contract execute(Contract contract) throws ContractRequestAmountZeroException, ContractNotFoundException {
 
-        if (contractGateway.existById(contract.getId())) {
+        if (!contractGateway.existById(contract.getId())) {
             throw new ContractNotFoundException(contract.getId());
         }
 
