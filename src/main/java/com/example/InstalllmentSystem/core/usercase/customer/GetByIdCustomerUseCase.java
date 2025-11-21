@@ -1,22 +1,25 @@
 package com.example.InstalllmentSystem.core.usercase.customer;
 
+import com.example.InstalllmentSystem.core.domain.Customer;
 import com.example.InstalllmentSystem.core.exception.customer.CustomertNotFoundException;
 import com.example.InstalllmentSystem.core.gateway.CustomerGateway;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+
 @Component
 @RequiredArgsConstructor
-public class DeleteCustomertUseCase {
+public class GetByIdCustomerUseCase {
 
     private final CustomerGateway customerGateway;
-    public void execute(String id) throws CustomertNotFoundException {
+
+    public Customer execute(String id) throws CustomertNotFoundException {
 
         if (customerGateway.existById(id)) {
 
-            customerGateway.deleteById(id);
-            System.out.printf("Delete by id: %s\n", id);
+            return customerGateway.findById(id);
         }
+
         throw new CustomertNotFoundException(id);
     }
 }

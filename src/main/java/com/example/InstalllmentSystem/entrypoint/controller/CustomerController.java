@@ -8,7 +8,7 @@ import com.example.InstalllmentSystem.core.exception.customer.CustomertNotFoundE
 import com.example.InstalllmentSystem.core.usercase.customer.CreateCustomerUseCase;
 import com.example.InstalllmentSystem.core.usercase.customer.DeleteCustomertUseCase;
 import com.example.InstalllmentSystem.core.usercase.customer.FindCustomerUseCase;
-import com.example.InstalllmentSystem.core.usercase.customer.GetByNameCustomerUseCase;
+import com.example.InstalllmentSystem.core.usercase.customer.GetByIdCustomerUseCase;
 import com.example.InstalllmentSystem.core.usercase.customer.UpdateCustomerUseCase;
 import com.example.InstalllmentSystem.entrypoint.DTOs.CustomerDTO;
 import com.example.InstalllmentSystem.entrypoint.mapper.CustomerMapper;
@@ -36,7 +36,7 @@ public class CustomerController {
     private final DeleteCustomertUseCase deleteCustomerUseCase;
     private final UpdateCustomerUseCase updateCustomerUseCase;
     private final FindCustomerUseCase findCustomerUseCase;
-    private final GetByNameCustomerUseCase getByNameCustomerUseCase;
+    private final GetByIdCustomerUseCase getByNameCustomerUseCase;
     private final CustomerMapper customerMapper;
 
     @GetMapping("/{name}")

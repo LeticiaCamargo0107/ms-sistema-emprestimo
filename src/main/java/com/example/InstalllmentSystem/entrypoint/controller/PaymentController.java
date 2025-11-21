@@ -7,7 +7,7 @@ import com.example.InstalllmentSystem.core.exception.payment.PaymentNotFoundExce
 import com.example.InstalllmentSystem.core.usercase.payment.CreatePaymentUseCase;
 import com.example.InstalllmentSystem.core.usercase.payment.DeleteByIdPaymentUseCase;
 import com.example.InstalllmentSystem.core.usercase.payment.FindAllPaymentUseCase;
-import com.example.InstalllmentSystem.core.usercase.payment.GetByAmountPaymentUseCase;
+import com.example.InstalllmentSystem.core.usercase.payment.GetByIdPaymentUseCase;
 import com.example.InstalllmentSystem.core.usercase.payment.UpdatePaymentUseCase;
 import com.example.InstalllmentSystem.entrypoint.DTOs.PaymentDTO;
 import com.example.InstalllmentSystem.entrypoint.mapper.PaymentMapper;
@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -35,15 +34,15 @@ public class PaymentController {
     private final CreatePaymentUseCase createPaymentUseCase;
     private final DeleteByIdPaymentUseCase deleteByIdPaymentUseCase;
     private final UpdatePaymentUseCase updatePaymentUseCase;
-    private final GetByAmountPaymentUseCase getByAmountPaymentUseCase;
+    private final GetByIdPaymentUseCase getByIdPaymentUseCase;
     private final FindAllPaymentUseCase findAllPaymentUseCase;
     private final PaymentMapper paymentMapper;
 
 
     @GetMapping("/{amount}")
-    public Payment getByAmount(@PathVariable BigDecimal amount) throws PaymentAmountNotFoundException {
+    public Payment getByAmount(@PathVariable String id) throws PaymentAmountNotFoundException {
 
-        return getByAmountPaymentUseCase.execute(amount);
+        return getByIdPaymentUseCase.execute(id);
     }
 
     @GetMapping
