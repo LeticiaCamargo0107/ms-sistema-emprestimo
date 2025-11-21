@@ -1,7 +1,6 @@
 package com.example.InstalllmentSystem.entrypoint.controller;
 
 import com.example.InstalllmentSystem.core.domain.Payment;
-import com.example.InstalllmentSystem.core.exception.payment.PaymentAmountNotFoundException;
 import com.example.InstalllmentSystem.core.exception.payment.PaymentAmountZeroException;
 import com.example.InstalllmentSystem.core.exception.payment.PaymentNotFoundException;
 import com.example.InstalllmentSystem.core.usercase.payment.CreatePaymentUseCase;
