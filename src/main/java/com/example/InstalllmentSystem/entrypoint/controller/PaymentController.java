@@ -65,11 +65,11 @@ public class PaymentController {
         deleteByIdPaymentUseCase.execute(id);
     }
 
-    @PutMapping
-    public Payment update(@RequestBody @Valid PaymentDTO paymentDTO) throws PaymentNotFoundException, PaymentAmountZeroException {
+    @PutMapping("/{id}")
+    public Payment update(@PathVariable String id, @RequestBody @Valid PaymentDTO paymentDTO) throws PaymentNotFoundException, PaymentAmountZeroException {
 
         var payment = paymentMapper.toDomain(paymentDTO);
-        return updatePaymentUseCase.execute(payment);
+        return updatePaymentUseCase.execute(id, payment);
     }
 
 }

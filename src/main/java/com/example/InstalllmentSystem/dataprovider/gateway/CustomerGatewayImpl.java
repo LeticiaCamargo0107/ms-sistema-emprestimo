@@ -7,6 +7,8 @@ import com.example.InstalllmentSystem.dataprovider.repository.CustomerRepository
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class CustomerGatewayImpl implements CustomerGateway {
@@ -50,4 +52,9 @@ public class CustomerGatewayImpl implements CustomerGateway {
 
         return customerMapper.toDomain(save);
     }
+
+    @Override
+    public List<Customer> findAll() {
+        var entities = customerRepository.findAll();
+        return entities.stream().map(customerMapper::toDomain).toList();    }
 }

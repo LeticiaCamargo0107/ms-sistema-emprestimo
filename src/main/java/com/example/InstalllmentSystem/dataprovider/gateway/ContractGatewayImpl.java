@@ -7,6 +7,8 @@ import com.example.InstalllmentSystem.dataprovider.repository.ContractRepository
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 
 @Component
 @RequiredArgsConstructor
@@ -50,5 +52,12 @@ public class ContractGatewayImpl implements ContractGateway {
         var save = contractRepository.save(convert);
 
         return contractMapper.toDomain(save);
+    }
+
+    @Override
+    public List<Contract> findAll() {
+
+        var entities = contractRepository.findAll();
+        return entities.stream().map(contractMapper::toDomain).toList();
     }
 }

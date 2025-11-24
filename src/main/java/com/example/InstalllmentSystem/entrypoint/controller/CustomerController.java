@@ -46,7 +46,7 @@ public class CustomerController {
     }
 
     @GetMapping
-    public List<Customer> findAll() throws CustomertNotFoundException {
+    public List<Customer> findAll() {
 
         return findCustomerUseCase.execute();
     }
@@ -66,10 +66,10 @@ public class CustomerController {
         deleteCustomerUseCase.execute(id);
     }
 
-    @PutMapping
-    public Customer update(@RequestBody @Valid CustomerDTO customerDTO) throws CustomerDocumentNotFoundException {
+    @PutMapping("/{id}")
+    public Customer update(@PathVariable String id, @RequestBody @Valid CustomerDTO customerDTO) throws CustomerDocumentNotFoundException, CustomertNotFoundException {
 
         var customer = customerMapper.toDomain(customerDTO);
-        return updateCustomerUseCase.execute(customer);
+        return updateCustomerUseCase.execute(id, customer);
     }
 }

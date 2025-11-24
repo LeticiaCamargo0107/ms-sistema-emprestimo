@@ -7,6 +7,8 @@ import com.example.InstalllmentSystem.dataprovider.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Component
 public class PaymentGatewayImpl implements PaymentGateway {
@@ -49,5 +51,11 @@ public class PaymentGatewayImpl implements PaymentGateway {
         var save = paymentRepository.save(convert);
 
         return paymentMapper.toDomain(save);
+    }
+
+    @Override
+    public List<Payment> findAll() {
+        var entities = paymentRepository.findAll();
+        return entities.stream().map(paymentMapper::toDomain).toList();
     }
 }

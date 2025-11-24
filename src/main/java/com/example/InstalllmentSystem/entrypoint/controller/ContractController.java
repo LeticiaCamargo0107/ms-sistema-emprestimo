@@ -64,10 +64,10 @@ public class ContractController {
         deleteContractUseCase.execute(id);
     }
 
-    @PutMapping
-    public Contract update(@RequestBody ContractDTO contractDTO) throws ContractRequestAmountZeroException, ContractNotFoundException {
+    @PutMapping("/{id}")
+    public Contract update(@PathVariable String id, @RequestBody ContractDTO contractDTO) throws ContractRequestAmountZeroException, ContractNotFoundException {
 
         var contract = contractMapper.toDomain(contractDTO);
-        return updateContractUseCase.execute(contract);
+        return updateContractUseCase.execute(id, contract);
     }
 }
