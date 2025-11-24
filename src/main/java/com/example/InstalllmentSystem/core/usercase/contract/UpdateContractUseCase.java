@@ -9,25 +9,29 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
+import static com.example.InstalllmentSystem.core.util.ContractUtils.getMultiply;
+
 @Component
 @RequiredArgsConstructor
 public class UpdateContractUseCase {
 
     private final ContractGateway contractGateway;
+    private final GetByIdContractUseCase getByIdContractUseCase;
 
-    public Contract execute(Contract contract) throws ContractRequestAmountZeroException, ContractNotFoundException {
+    public Contract execute(String id, Contract contract) throws ContractRequestAmountZeroException, ContractNotFoundException {
 
-        if (!contractGateway.existById(contract.getId())) {
-            throw new ContractNotFoundException(contract.getId());
-        }
+        var saved = getByIdContractUseCase.execute(id);
 
         if (contract.getRequestedAmount().compareTo(BigDecimal.ZERO) <= 0) {
             throw new ContractRequestAmountZeroException();
         }
 
-        Contract updateContract = contractGateway.findById(contract.getId());
-        updateContract.setRequestedAmount(contract.getRequestedAmount());
+        var totalAmount = getMultiply(contract, contract.getMonthlyCetRate());
 
-        return contractGateway.update(updateContract);
+        saved.setRequestedAmount(contract.getRequestedAmount());
+        saved.setOperationPeriod(contract.getOperationPeriod());
+        saved.setTotalAmount(totalAmount);
+
+        return contractGateway.update(saved);
     }
 }

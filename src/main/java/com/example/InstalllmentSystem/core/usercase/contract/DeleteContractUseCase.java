@@ -14,12 +14,11 @@ public class DeleteContractUseCase {
 
     public void execute(String id) throws ContractNotFoundException {
 
-        if (contractGateway.existById(id)) {
-            System.out.printf("Delete by id: %s\n", id);
-            contractGateway.deleteById(id);
-            return;
+        if (!contractGateway.existById(id)) {
+            throw new ContractNotFoundException(id);
         }
-        throw new ContractNotFoundException(id);
+        System.out.printf("Delete by id: %s\n", id);
+        contractGateway.deleteById(id);
     }
 }
 

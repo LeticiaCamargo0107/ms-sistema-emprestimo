@@ -6,7 +6,7 @@ import com.example.InstalllmentSystem.core.exception.customer.CustomerBirthDateE
 import com.example.InstalllmentSystem.core.exception.customer.CustomerDocumentNotFoundException;
 import com.example.InstalllmentSystem.core.exception.customer.CustomertNotFoundException;
 import com.example.InstalllmentSystem.core.usercase.customer.CreateCustomerUseCase;
-import com.example.InstalllmentSystem.core.usercase.customer.DeleteCustomertUseCase;
+import com.example.InstalllmentSystem.core.usercase.customer.DeleteCustomerUseCase;
 import com.example.InstalllmentSystem.core.usercase.customer.FindCustomerUseCase;
 import com.example.InstalllmentSystem.core.usercase.customer.GetByIdCustomerUseCase;
 import com.example.InstalllmentSystem.core.usercase.customer.UpdateCustomerUseCase;
@@ -33,7 +33,7 @@ import java.util.List;
 public class CustomerController {
 
     private final CreateCustomerUseCase createCustomerUseCase;
-    private final DeleteCustomertUseCase deleteCustomerUseCase;
+    private final DeleteCustomerUseCase deleteCustomerUseCase;
     private final UpdateCustomerUseCase updateCustomerUseCase;
     private final FindCustomerUseCase findCustomerUseCase;
     private final GetByIdCustomerUseCase getByNameCustomerUseCase;

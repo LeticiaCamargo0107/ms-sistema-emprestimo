@@ -53,7 +53,6 @@ public class ContractController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Contract create(@RequestBody @Valid ContractDTO contractDTO) throws ContractPeriodZeroException, ContractRequestAmountZeroException {
-
         var contract = contractMapper.toDomain(contractDTO);
         return createContractUseCase.execute(contract);
     }

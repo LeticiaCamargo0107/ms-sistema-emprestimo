@@ -2,6 +2,8 @@ package com.example.InstalllmentSystem.core.gateway;
 
 import com.example.InstalllmentSystem.core.domain.Payment;
 
+import java.util.List;
+
 public interface PaymentGateway {
 
     Payment save(Payment payment);
@@ -13,4 +15,6 @@ public interface PaymentGateway {
     Payment findById(String id);
 
     Payment update(Payment payment);
+
+    List<Payment> findAll();
 }

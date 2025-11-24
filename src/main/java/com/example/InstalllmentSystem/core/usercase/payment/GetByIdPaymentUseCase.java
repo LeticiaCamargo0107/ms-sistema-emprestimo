@@ -15,10 +15,9 @@ public class GetByIdPaymentUseCase {
     public Payment execute(String id) throws PaymentNotFoundException {
 
         if (paymentGateway.existById(id)) {
-            System.out.printf("Get for id: R$ %.2f\n", id);
-            return paymentGateway.findById(id);
+            throw new PaymentNotFoundException(id);
         }
-
-        throw new PaymentNotFoundException(id);
+        System.out.printf("Get for id: R$ %.2f\n", id);
+        return paymentGateway.findById(id);
     }
 }

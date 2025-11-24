@@ -2,6 +2,7 @@ package com.example.InstalllmentSystem.core.usercase.customer;
 
 import com.example.InstalllmentSystem.core.domain.Customer;
 import com.example.InstalllmentSystem.core.exception.customer.CustomerDocumentNotFoundException;
+import com.example.InstalllmentSystem.core.exception.customer.CustomertNotFoundException;
 import com.example.InstalllmentSystem.core.gateway.CustomerGateway;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,21 +13,19 @@ import org.springframework.stereotype.Component;
 public class UpdateCustomerUseCase {
 
     private final CustomerGateway customerGateway;
+    private final GetByIdCustomerUseCase getByIdCustomerUseCase;
 
-    public Customer execute(Customer customer) throws CustomerDocumentNotFoundException {
+    public Customer execute(String id, Customer customer) throws CustomerDocumentNotFoundException, CustomertNotFoundException {
 
-        if (!customerGateway.existById(customer.getId())) {
+        var saved = getByIdCustomerUseCase.execute(id);
+
+        if (customer.getDocument().equals(saved.getDocument())) {
             throw new CustomerDocumentNotFoundException();
         }
 
-        Customer updateCustomer = customerGateway.findById(customer.getId());
-
-        if (customer.getDocument().equals(updateCustomer.getDocument())) {
-            throw new CustomerDocumentNotFoundException();
-        }
-
-        updateCustomer.setName(customer.getName());
+        saved.setName(customer.getName());
         System.out.printf("Update name to %s\n", customer.getName());
-        return updateCustomer;
+
+        return customerGateway.update(saved);
     }
 }

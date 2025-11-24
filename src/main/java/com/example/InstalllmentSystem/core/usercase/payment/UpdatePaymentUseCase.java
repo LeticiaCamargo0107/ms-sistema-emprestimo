@@ -14,21 +14,18 @@ import java.math.BigDecimal;
 public class UpdatePaymentUseCase {
 
     private final PaymentGateway paymentGateway;
+    private final GetByIdPaymentUseCase getByIdPaymentUseCase;
 
-    public Payment execute(Payment payment) throws PaymentNotFoundException, PaymentAmountZeroException {
+    public Payment execute(String id, Payment payment) throws PaymentNotFoundException, PaymentAmountZeroException {
 
         if (payment.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
             throw new PaymentAmountZeroException();
         }
 
-        if (paymentGateway.existById(payment.getId())) {
-            Payment updatePayment = paymentGateway.findById(payment.getId());
-            System.out.printf("Update for pay %s, change amount: R$ %.2f\n", payment.getId(), payment.getAmount());
-            updatePayment.setAmount(payment.getAmount());
+        var saved = getByIdPaymentUseCase.execute(id);
+        System.out.printf("Update for pay %s, change amount: R$ %.2f\n", payment.getId(), payment.getAmount());
+        saved.setAmount(payment.getAmount());
 
-            return updatePayment;
-        }
-
-        throw new PaymentNotFoundException(payment.getId());
+        return paymentGateway.update(saved);
     }
 }

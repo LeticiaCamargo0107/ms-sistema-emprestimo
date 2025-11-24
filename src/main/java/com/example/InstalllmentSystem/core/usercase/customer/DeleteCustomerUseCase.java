@@ -7,16 +7,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class DeleteCustomertUseCase {
+public class DeleteCustomerUseCase {
 
     private final CustomerGateway customerGateway;
     public void execute(String id) throws CustomertNotFoundException {
 
-        if (customerGateway.existById(id)) {
-
-            customerGateway.deleteById(id);
-            System.out.printf("Delete by id: %s\n", id);
+        if (!customerGateway.existById(id)) {
+            throw new CustomertNotFoundException(id);
         }
-        throw new CustomertNotFoundException(id);
+        customerGateway.deleteById(id);
+        System.out.printf("Delete by id: %s\n", id);
     }
 }

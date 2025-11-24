@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import static com.example.InstalllmentSystem.core.util.ContractUtils.getMonthlyCetRate;
+import static com.example.InstalllmentSystem.core.util.ContractUtils.getMultiply;
+
 @RequiredArgsConstructor
 @Component
 public class CreateContractUseCase {
@@ -23,7 +26,7 @@ public class CreateContractUseCase {
             throw new ContractRequestAmountZeroException();
         }
 
-        if (contract.getOperationPeriod() <= 2) {
+        if (contract.getOperationPeriod() <= 0) {
             throw new ContractPeriodZeroException();
         }
 
@@ -41,14 +44,5 @@ public class CreateContractUseCase {
         return contractGateway.save(contract);
     }
 
-    private static BigDecimal getMonthlyCetRate() {
-        return BigDecimal.valueOf(1.05);
-    }
 
-    private static BigDecimal getMultiply(Contract contract, BigDecimal monthlyCetRate) {
-        return contract.getRequestedAmount()
-                .divide(BigDecimal.valueOf(100))
-                .multiply(monthlyCetRate)
-                .multiply(BigDecimal.valueOf(contract.getOperationPeriod()));
-    }
 }
