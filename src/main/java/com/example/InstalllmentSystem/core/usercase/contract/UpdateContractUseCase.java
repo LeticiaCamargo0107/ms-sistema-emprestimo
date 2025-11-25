@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
+import static com.example.InstalllmentSystem.core.util.ContractUtils.getInstallmentAmount;
 import static com.example.InstalllmentSystem.core.util.ContractUtils.getMultiply;
 
 @Component
@@ -27,10 +28,12 @@ public class UpdateContractUseCase {
         }
 
         var totalAmount = getMultiply(contract, contract.getMonthlyCetRate());
+        var installmentAmount = getInstallmentAmount(contract);
 
         saved.setRequestedAmount(contract.getRequestedAmount());
         saved.setOperationPeriod(contract.getOperationPeriod());
         saved.setTotalAmount(totalAmount);
+        saved.setInstallmentAmount(installmentAmount);
 
         return contractGateway.update(saved);
     }
