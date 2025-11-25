@@ -19,10 +19,6 @@ public class UpdateCustomerUseCase {
 
         var saved = getByIdCustomerUseCase.execute(id);
 
-        if (customer.getDocument().equals(saved.getDocument())) {
-            throw new CustomerDocumentNotFoundException();
-        }
-
         saved.setName(customer.getName());
         System.out.printf("Update name to %s\n", customer.getName());
 

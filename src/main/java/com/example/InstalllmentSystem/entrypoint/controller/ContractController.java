@@ -36,7 +36,7 @@ public class ContractController {
     private final CreateContractUseCase createContractUseCase;
     private final DeleteContractUseCase deleteContractUseCase;
     private final UpdateContractUseCase updateContractUseCase;
-    private ContractMapper contractMapper;
+    private final ContractMapper contractMapper;
 
     @GetMapping("/{id}")
     public Contract getById(@PathVariable String id) throws ContractNotFoundException {
