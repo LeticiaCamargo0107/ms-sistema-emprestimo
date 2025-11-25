@@ -42,6 +42,7 @@ public class CreateContractUseCase {
         contract.setDaysOverDue(0);
         contract.setStatus(ContractStatus.ACTIVE);
         contract.setRemainingAmount(BigDecimal.ZERO);
+        contract.setInstallmentAmount(installmentAmount);
 
         return contractGateway.save(contract);
     }
