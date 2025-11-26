@@ -41,7 +41,7 @@ public class PaymentController {
     private final PaymentMapper paymentMapper;
 
 
-    @GetMapping("/{amount}")
+    @GetMapping("/{id}")
     public Payment getById(@PathVariable String id) throws PaymentNotFoundException {
 
         return getByIdPaymentUseCase.execute(id);
