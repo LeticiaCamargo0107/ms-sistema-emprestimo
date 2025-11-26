@@ -44,8 +44,8 @@ public class ContractGatewayImpl implements ContractGateway {
 
     @Override
     public Contract findById(String id) {
-        var find = contractRepository.findById(id);
-        return contractMapper.toDomain(find.orElse(null));
+        var entity = contractRepository.findById(id);
+        return contractMapper.toDomain(entity.orElse(null));
     }
 
 

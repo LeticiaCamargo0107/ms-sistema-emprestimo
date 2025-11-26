@@ -44,9 +44,8 @@ public class PaymentGatewayImpl implements PaymentGateway {
 
     @Override
     public Payment findById(String id) {
-        var find = paymentRepository.findById(id);
-
-        return paymentMapper.toDomain(find.orElse(null));
+        var entity = paymentRepository.findById(id);
+        return paymentMapper.toDomain(entity.orElse(null));
     }
 
 

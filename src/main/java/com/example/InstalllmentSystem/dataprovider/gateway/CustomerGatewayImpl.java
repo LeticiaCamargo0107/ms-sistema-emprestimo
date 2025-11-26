@@ -44,9 +44,8 @@ public class CustomerGatewayImpl implements CustomerGateway {
 
     @Override
     public Customer findById(String id) {
-        var find = customerRepository.findById(id);
-
-        return customerMapper.toDomain(find.orElse(null));
+        var entity = customerRepository.findById(id);
+        return customerMapper.toDomain(entity.orElse(null));
     }
 
 
