@@ -1,31 +1,26 @@
 package com.example.InstalllmentSystem.core.usercase.contract;
 
-import com.example.InstalllmentSystem.core.domain.Contract;
-import com.example.InstalllmentSystem.core.domain.enumeration.ContractStatus;
 import com.example.InstalllmentSystem.core.exception.contract.ContractNotFoundException;
+import com.example.InstalllmentSystem.core.gateway.ContractGateway;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 
+@Slf4j
 @Component
+@RequiredArgsConstructor
 public class DeleteContractUseCase {
 
-    public void execute(String id) throws ContractNotFoundException {
-        var contract1 = Contract.builder()
-                .id("1234")
-                .endDate(LocalDate.now())
-                .requestedAmount(BigDecimal.valueOf(2340))
-                .totalAmount(BigDecimal.valueOf(3000))
-                .daysOverDue(0)
-                .status(ContractStatus.ACTIVE)
-                .build();
+    private final ContractGateway contractGateway;
 
-        if (contract1.getId().equals(id)) {
-            System.out.printf("Delete by id: %s\n", id);
-            return;
+    public void execute(String id) throws ContractNotFoundException {
+
+        if (!contractGateway.existById(id)) {
+            log.error("Contract not found by id");
+            throw new ContractNotFoundException(id);
         }
-        throw new ContractNotFoundException(id);
+        contractGateway.deleteById(id);
     }
 }
 

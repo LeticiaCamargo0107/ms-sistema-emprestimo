@@ -35,4 +35,5 @@ public class Contract {
 
     private BigDecimal remainingAmount;
 
+    private BigDecimal installmentAmount;
 }

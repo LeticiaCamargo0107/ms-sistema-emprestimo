@@ -1,29 +1,24 @@
 package com.example.InstalllmentSystem.core.usercase.customer;
 
 import com.example.InstalllmentSystem.core.domain.Customer;
-import com.example.InstalllmentSystem.core.domain.enumeration.CustomerStatus;
 import com.example.InstalllmentSystem.core.exception.customer.CustomerDocumentNotFoundException;
+import com.example.InstalllmentSystem.core.exception.customer.CustomertNotFoundException;
+import com.example.InstalllmentSystem.core.gateway.CustomerGateway;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 
 @Component
+@RequiredArgsConstructor
 public class UpdateCustomerUseCase {
 
-    public Customer execute(Customer customer) throws CustomerDocumentNotFoundException {
+    private final CustomerGateway customerGateway;
+    private final GetByIdCustomerUseCase getByIdCustomerUseCase;
 
-        var customer1 = Customer.builder()
-                .name("Lele")
-                .birthDate(LocalDate.of(2004, 3, 16))
-                .status(CustomerStatus.ACTIVE)
-                .build();
+    public Customer execute(String id, Customer customer) throws CustomerDocumentNotFoundException, CustomertNotFoundException {
 
-        if (customer.getDocument() != customer1.getDocument()) {
-            throw new CustomerDocumentNotFoundException();
-        }
-
-        customer1.setName(customer.getName());
-        System.out.printf("Update name to %s\n", customer.getName());
-        return customer1;
+        var saved = getByIdCustomerUseCase.execute(id);
+        saved.setName(customer.getName());
+        return customerGateway.save(saved);
     }
 }

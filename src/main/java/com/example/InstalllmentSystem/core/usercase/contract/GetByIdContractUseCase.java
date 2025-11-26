@@ -2,35 +2,27 @@ package com.example.InstalllmentSystem.core.usercase.contract;
 
 import com.example.InstalllmentSystem.core.domain.Contract;
 import com.example.InstalllmentSystem.core.exception.contract.ContractNotFoundException;
+import com.example.InstalllmentSystem.core.gateway.ContractGateway;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 
+@Slf4j
 @Component
+@RequiredArgsConstructor
 public class GetByIdContractUseCase {
+
+    private final ContractGateway contractGateway;
 
     public Contract execute(String id) throws ContractNotFoundException {
 
-        var contract1 = Contract.builder()
-                .id("id")
-                .build();
-
-        var contract2 = Contract.builder()
-                .id("hahahahaha")
-                .build();
-
-        var contract3 = Contract.builder()
-                .id("blebleble")
-                .build();
-
-        List<Contract> listContracts = List.of(contract1, contract2, contract3);
-
-        for (Contract list : listContracts){
-            if (list.getId().equals(id)){
-                return list;
-            }
+        if (!contractGateway.existById(id)) {
+            log.error("Contract not found by id");
+            throw new ContractNotFoundException(id);
         }
-        throw new ContractNotFoundException(id);
+        return contractGateway.findById(id);
+
     }
 }
 

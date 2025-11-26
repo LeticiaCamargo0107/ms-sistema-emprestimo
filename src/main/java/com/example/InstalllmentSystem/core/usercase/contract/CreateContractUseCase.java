@@ -4,38 +4,52 @@ import com.example.InstalllmentSystem.core.domain.Contract;
 import com.example.InstalllmentSystem.core.domain.enumeration.ContractStatus;
 import com.example.InstalllmentSystem.core.exception.contract.ContractPeriodZeroException;
 import com.example.InstalllmentSystem.core.exception.contract.ContractRequestAmountZeroException;
+import com.example.InstalllmentSystem.core.gateway.ContractGateway;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import static com.example.InstalllmentSystem.core.util.ContractUtils.getInstallmentAmount;
+import static com.example.InstalllmentSystem.core.util.ContractUtils.getMonthlyCetRate;
+import static com.example.InstalllmentSystem.core.util.ContractUtils.getMultiply;
+
+@RequiredArgsConstructor
 @Component
+@Slf4j
 public class CreateContractUseCase {
+
+    private final ContractGateway contractGateway;
 
     public Contract execute(Contract contract) throws ContractPeriodZeroException, ContractRequestAmountZeroException {
 
         if (contract.getRequestedAmount().compareTo(BigDecimal.ZERO) <= 0) {
+            log.error("RequestedAmount must be greater than zero");
             throw new ContractRequestAmountZeroException();
         }
 
-        if (contract.getOperationPeriod() <= 2) {
+        if (contract.getOperationPeriod() <= 0) {
+            log.error("Operation Period must be greater than zero");
             throw new ContractPeriodZeroException();
         }
 
-        BigDecimal monthlyCetRate = BigDecimal.valueOf(1.05);
-        BigDecimal totalAmount = contract.getTotalAmount().multiply(monthlyCetRate);
+        var monthlyCetRate = getMonthlyCetRate();
+        var totalAmount = getMultiply(contract, monthlyCetRate);
+        var installmentAmount = getInstallmentAmount(contract);
 
-        return Contract.builder()
-                .id(contract.getId())
-                .startDate(LocalDate.now())
-                .customer(contract.getCustomer())
-                .monthlyCetRate(monthlyCetRate)
-                .requestedAmount(contract.getRequestedAmount())
-                .remainingAmount(totalAmount)
-                .totalAmount(totalAmount)
-                .status(ContractStatus.ACTIVE)
-                .daysOverDue(0)
-                .operationPeriod(contract.getOperationPeriod())
-                .build();
+        contract.setMonthlyCetRate(monthlyCetRate);
+        contract.setTotalAmount(totalAmount);
+        contract.setStartDate(LocalDate.now());
+        contract.setEndDate(LocalDate.now().plusMonths(contract.getOperationPeriod()));
+        contract.setDaysOverDue(0);
+        contract.setStatus(ContractStatus.ACTIVE);
+        contract.setRemainingAmount(BigDecimal.ZERO);
+        contract.setInstallmentAmount(installmentAmount);
+
+        return contractGateway.save(contract);
     }
+
+
 }

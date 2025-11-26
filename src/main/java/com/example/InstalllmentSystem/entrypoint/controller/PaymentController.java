@@ -1,18 +1,20 @@
 package com.example.InstalllmentSystem.entrypoint.controller;
 
 import com.example.InstalllmentSystem.core.domain.Payment;
-import com.example.InstalllmentSystem.core.exception.payment.PaymentAmountNotFoundException;
 import com.example.InstalllmentSystem.core.exception.payment.PaymentAmountZeroException;
 import com.example.InstalllmentSystem.core.exception.payment.PaymentNotFoundException;
 import com.example.InstalllmentSystem.core.usercase.payment.CreatePaymentUseCase;
 import com.example.InstalllmentSystem.core.usercase.payment.DeleteByIdPaymentUseCase;
 import com.example.InstalllmentSystem.core.usercase.payment.FindAllPaymentUseCase;
-import com.example.InstalllmentSystem.core.usercase.payment.GetByAmountPaymentUseCase;
+import com.example.InstalllmentSystem.core.usercase.payment.GetByIdPaymentUseCase;
 import com.example.InstalllmentSystem.core.usercase.payment.UpdatePaymentUseCase;
 import com.example.InstalllmentSystem.entrypoint.DTOs.PaymentDTO;
 import com.example.InstalllmentSystem.entrypoint.mapper.PaymentMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -35,21 +36,21 @@ public class PaymentController {
     private final CreatePaymentUseCase createPaymentUseCase;
     private final DeleteByIdPaymentUseCase deleteByIdPaymentUseCase;
     private final UpdatePaymentUseCase updatePaymentUseCase;
-    private final GetByAmountPaymentUseCase getByAmountPaymentUseCase;
+    private final GetByIdPaymentUseCase getByIdPaymentUseCase;
     private final FindAllPaymentUseCase findAllPaymentUseCase;
     private final PaymentMapper paymentMapper;
 
 
     @GetMapping("/{amount}")
-    public Payment getByAmount(@PathVariable BigDecimal amount) throws PaymentAmountNotFoundException {
+    public Payment getById(@PathVariable String id) throws PaymentNotFoundException {
 
-        return getByAmountPaymentUseCase.execute(amount);
+        return getByIdPaymentUseCase.execute(id);
     }
 
     @GetMapping
-    public List<Payment> findAll() {
+    public Page<Payment> findAll(@PageableDefault Pageable pageable) {
 
-        return findAllPaymentUseCase.execute();
+        return findAllPaymentUseCase.execute(pageable);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -67,11 +68,11 @@ public class PaymentController {
         deleteByIdPaymentUseCase.execute(id);
     }
 
-    @PutMapping
-    public Payment update(@RequestBody @Valid PaymentDTO paymentDTO) throws PaymentNotFoundException, PaymentAmountZeroException {
+    @PutMapping("/{id}")
+    public Payment update(@PathVariable String id, @RequestBody @Valid PaymentDTO paymentDTO) throws PaymentNotFoundException, PaymentAmountZeroException {
 
         var payment = paymentMapper.toDomain(paymentDTO);
-        return updatePaymentUseCase.execute(payment);
+        return updatePaymentUseCase.execute(id, payment);
     }
 
 }

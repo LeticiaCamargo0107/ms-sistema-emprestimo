@@ -1,44 +1,21 @@
 package com.example.InstalllmentSystem.core.usercase.contract;
 
 import com.example.InstalllmentSystem.core.domain.Contract;
-import com.example.InstalllmentSystem.core.domain.enumeration.ContractStatus;
+import com.example.InstalllmentSystem.core.gateway.ContractGateway;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class FindAllContractUseCase {
 
-    public List<Contract> execute() {
-        System.out.println("Find all of Contract");
+    private final ContractGateway contractGateway;
 
-        var contract1 = Contract.builder()
-                .id("1234")
-                .startDate(LocalDate.of(2020, 10, 20))
-                .totalAmount(BigDecimal.valueOf(10000))
-                .daysOverDue(19)
-                .build();
+    public Page<Contract> execute(Pageable pageable) {
 
-        var contract2 = Contract.builder()
-                .id("abc12567")
-                .startDate(LocalDate.of(1980, 9, 14))
-                .requestedAmount(BigDecimal.valueOf(2340))
-                .daysOverDue(0)
-                .status(ContractStatus.ACTIVE)
-                .build();
-
-        var contract3 = Contract.builder()
-                .id("404fnf")
-                .startDate(LocalDate.of(1999, 12, 30))
-                .totalAmount(BigDecimal.valueOf(100000))
-                .daysOverDue(0)
-                .endDate(LocalDate.now())
-                .status(ContractStatus.LIQUIDATED)
-                .build();
-
-        List<Contract> listContract = List.of(contract1, contract2, contract3);
-        return listContract;
+        return contractGateway.findAll(pageable);
     }
 }

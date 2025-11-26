@@ -13,6 +13,8 @@ import com.example.InstalllmentSystem.entrypoint.DTOs.ContractDTO;
 import com.example.InstalllmentSystem.entrypoint.mapper.ContractMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +38,7 @@ public class ContractController {
     private final CreateContractUseCase createContractUseCase;
     private final DeleteContractUseCase deleteContractUseCase;
     private final UpdateContractUseCase updateContractUseCase;
-    private ContractMapper contractMapper;
+    private final ContractMapper contractMapper;
 
     @GetMapping("/{id}")
     public Contract getById(@PathVariable String id) throws ContractNotFoundException {
@@ -45,15 +47,14 @@ public class ContractController {
     }
 
     @GetMapping
-    public List<Contract> findAll() {
+    public Page<Contract> findAll(Pageable pageable) {
 
-        return findAllContractUseCase.execute();
+        return findAllContractUseCase.execute(pageable);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Contract create(@RequestBody @Valid ContractDTO contractDTO) throws ContractPeriodZeroException, ContractRequestAmountZeroException {
-
         var contract = contractMapper.toDomain(contractDTO);
         return createContractUseCase.execute(contract);
     }
@@ -65,10 +66,10 @@ public class ContractController {
         deleteContractUseCase.execute(id);
     }
 
-    @PutMapping
-    public Contract update(@RequestBody ContractDTO contractDTO) throws ContractRequestAmountZeroException {
+    @PutMapping("/{id}")
+    public Contract update(@PathVariable String id, @RequestBody ContractDTO contractDTO) throws ContractRequestAmountZeroException, ContractNotFoundException {
 
         var contract = contractMapper.toDomain(contractDTO);
-        return updateContractUseCase.execute(contract);
+        return updateContractUseCase.execute(id, contract);
     }
 }

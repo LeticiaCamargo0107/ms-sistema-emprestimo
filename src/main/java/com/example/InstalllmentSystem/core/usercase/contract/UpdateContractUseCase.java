@@ -1,33 +1,43 @@
 package com.example.InstalllmentSystem.core.usercase.contract;
 
 import com.example.InstalllmentSystem.core.domain.Contract;
-import com.example.InstalllmentSystem.core.domain.enumeration.ContractStatus;
+import com.example.InstalllmentSystem.core.exception.contract.ContractNotFoundException;
 import com.example.InstalllmentSystem.core.exception.contract.ContractRequestAmountZeroException;
+import com.example.InstalllmentSystem.core.gateway.ContractGateway;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
+import static com.example.InstalllmentSystem.core.util.ContractUtils.getInstallmentAmount;
+import static com.example.InstalllmentSystem.core.util.ContractUtils.getMultiply;
+
+@Slf4j
 @Component
+@RequiredArgsConstructor
 public class UpdateContractUseCase {
 
-    public Contract execute(Contract contract) throws ContractRequestAmountZeroException {
+    private final ContractGateway contractGateway;
+    private final GetByIdContractUseCase getByIdContractUseCase;
 
-        var contract1 = Contract.builder()
-                .id("bvinvdsldvnhg")
-                .startDate(LocalDate.of(1500, 12, 3))
-                .requestedAmount(BigDecimal.valueOf(0000.0099999))
-                .daysOverDue(87)
-                .status(ContractStatus.ACTIVE)
-                .totalAmount(BigDecimal.valueOf(2000))
-                .customer(contract.getCustomer())
-                .build();
-
+    public Contract execute(String id, Contract contract) throws ContractRequestAmountZeroException, ContractNotFoundException {
 
         if (contract.getRequestedAmount().compareTo(BigDecimal.ZERO) <= 0) {
+            log.error("Requested Amount must be greater than zero");
             throw new ContractRequestAmountZeroException();
         }
-        contract1.setRequestedAmount(contract.getRequestedAmount());
-        return contract1;
+
+        var saved = getByIdContractUseCase.execute(id);
+
+        var totalAmount = getMultiply(contract, saved.getMonthlyCetRate());
+        var installmentAmount = getInstallmentAmount(contract);
+
+        saved.setRequestedAmount(contract.getRequestedAmount());
+        saved.setOperationPeriod(contract.getOperationPeriod());
+        saved.setTotalAmount(totalAmount);
+        saved.setInstallmentAmount(installmentAmount);
+
+        return contractGateway.save(saved);
     }
 }

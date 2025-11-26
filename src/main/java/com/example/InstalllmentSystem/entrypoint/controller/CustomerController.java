@@ -6,14 +6,17 @@ import com.example.InstalllmentSystem.core.exception.customer.CustomerBirthDateE
 import com.example.InstalllmentSystem.core.exception.customer.CustomerDocumentNotFoundException;
 import com.example.InstalllmentSystem.core.exception.customer.CustomertNotFoundException;
 import com.example.InstalllmentSystem.core.usercase.customer.CreateCustomerUseCase;
-import com.example.InstalllmentSystem.core.usercase.customer.DeleteCustomertUseCase;
-import com.example.InstalllmentSystem.core.usercase.customer.FindCustomerUseCase;
-import com.example.InstalllmentSystem.core.usercase.customer.GetByNameCustomerUseCase;
+import com.example.InstalllmentSystem.core.usercase.customer.DeleteCustomerUseCase;
+import com.example.InstalllmentSystem.core.usercase.customer.FindAllCustomerUseCase;
+import com.example.InstalllmentSystem.core.usercase.customer.GetByIdCustomerUseCase;
 import com.example.InstalllmentSystem.core.usercase.customer.UpdateCustomerUseCase;
 import com.example.InstalllmentSystem.entrypoint.DTOs.CustomerDTO;
 import com.example.InstalllmentSystem.entrypoint.mapper.CustomerMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -33,10 +35,10 @@ import java.util.List;
 public class CustomerController {
 
     private final CreateCustomerUseCase createCustomerUseCase;
-    private final DeleteCustomertUseCase deleteCustomerUseCase;
+    private final DeleteCustomerUseCase deleteCustomerUseCase;
     private final UpdateCustomerUseCase updateCustomerUseCase;
-    private final FindCustomerUseCase findCustomerUseCase;
-    private final GetByNameCustomerUseCase getByNameCustomerUseCase;
+    private final FindAllCustomerUseCase findCustomerUseCase;
+    private final GetByIdCustomerUseCase getByNameCustomerUseCase;
     private final CustomerMapper customerMapper;
 
     @GetMapping("/{name}")
@@ -46,9 +48,9 @@ public class CustomerController {
     }
 
     @GetMapping
-    public List<Customer> findAll() throws CustomertNotFoundException {
+    public Page<Customer> findAll(@PageableDefault Pageable pageable) {
 
-        return findCustomerUseCase.execute();
+        return findCustomerUseCase.execute(pageable);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -66,10 +68,10 @@ public class CustomerController {
         deleteCustomerUseCase.execute(id);
     }
 
-    @PutMapping
-    public Customer update(@RequestBody @Valid CustomerDTO customerDTO) throws CustomerDocumentNotFoundException {
+    @PutMapping("/{id}")
+    public Customer update(@PathVariable String id, @RequestBody @Valid CustomerDTO customerDTO) throws CustomerDocumentNotFoundException, CustomertNotFoundException {
 
         var customer = customerMapper.toDomain(customerDTO);
-        return updateCustomerUseCase.execute(customer);
+        return updateCustomerUseCase.execute(id, customer);
     }
 }

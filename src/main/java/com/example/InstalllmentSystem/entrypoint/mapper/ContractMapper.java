@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 public interface ContractMapper {
 
     @Mapping(source = "customerId", target = "customer.id")
-    Contract toDomain (ContractDTO contracDTO);
+    Contract toDomain (ContractDTO contractDTO);
 
     @Mapping(source = "customer.id", target = "customerId")
     ContractDTO toDTO (Contract contract);
