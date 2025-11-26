@@ -5,8 +5,10 @@ import com.example.InstalllmentSystem.core.domain.enumeration.CustomerStatus;
 import com.example.InstalllmentSystem.core.exception.customer.CustomerBirthDateException;
 import com.example.InstalllmentSystem.core.gateway.CustomerGateway;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class CreateCustomerUseCase {
@@ -17,6 +19,7 @@ public class CreateCustomerUseCase {
 
         int year = customer.getBirthDate().getYear();
         if (year < 18) {
+            log.error("Age of customer must be greater than zero");
             throw new CustomerBirthDateException();
         }
 

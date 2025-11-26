@@ -5,10 +5,12 @@ import com.example.InstalllmentSystem.core.exception.payment.PaymentAmountZeroEx
 import com.example.InstalllmentSystem.core.exception.payment.PaymentNotFoundException;
 import com.example.InstalllmentSystem.core.gateway.PaymentGateway;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class UpdatePaymentUseCase {
@@ -19,11 +21,10 @@ public class UpdatePaymentUseCase {
     public Payment execute(String id, Payment payment) throws PaymentNotFoundException, PaymentAmountZeroException {
 
         if (payment.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
+            log.error("Amount must be greater than zero");
             throw new PaymentAmountZeroException();
         }
-
         var saved = getByIdPaymentUseCase.execute(id);
-        System.out.printf("Update for pay %s, change amount: R$ %.2f\n", payment.getId(), payment.getAmount());
         saved.setAmount(payment.getAmount());
 
         return paymentGateway.save(saved);

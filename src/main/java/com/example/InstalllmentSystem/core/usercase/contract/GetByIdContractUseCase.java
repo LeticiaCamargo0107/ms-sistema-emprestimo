@@ -4,9 +4,11 @@ import com.example.InstalllmentSystem.core.domain.Contract;
 import com.example.InstalllmentSystem.core.exception.contract.ContractNotFoundException;
 import com.example.InstalllmentSystem.core.gateway.ContractGateway;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class GetByIdContractUseCase {
@@ -15,10 +17,12 @@ public class GetByIdContractUseCase {
 
     public Contract execute(String id) throws ContractNotFoundException {
 
-        if (contractGateway.existById(id)) {
-            return contractGateway.findById(id);
+        if (!contractGateway.existById(id)) {
+            log.error("Contract not found by id");
+            throw new ContractNotFoundException(id);
         }
-        throw new ContractNotFoundException(id);
+        return contractGateway.findById(id);
+
     }
 }
 

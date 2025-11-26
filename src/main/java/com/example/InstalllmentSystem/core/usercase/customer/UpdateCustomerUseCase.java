@@ -18,10 +18,7 @@ public class UpdateCustomerUseCase {
     public Customer execute(String id, Customer customer) throws CustomerDocumentNotFoundException, CustomertNotFoundException {
 
         var saved = getByIdCustomerUseCase.execute(id);
-
         saved.setName(customer.getName());
-        System.out.printf("Update name to %s\n", customer.getName());
-
         return customerGateway.save(saved);
     }
 }

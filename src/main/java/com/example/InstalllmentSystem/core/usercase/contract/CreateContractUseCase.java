@@ -6,6 +6,7 @@ import com.example.InstalllmentSystem.core.exception.contract.ContractPeriodZero
 import com.example.InstalllmentSystem.core.exception.contract.ContractRequestAmountZeroException;
 import com.example.InstalllmentSystem.core.gateway.ContractGateway;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -17,6 +18,7 @@ import static com.example.InstalllmentSystem.core.util.ContractUtils.getMultiply
 
 @RequiredArgsConstructor
 @Component
+@Slf4j
 public class CreateContractUseCase {
 
     private final ContractGateway contractGateway;
@@ -24,10 +26,12 @@ public class CreateContractUseCase {
     public Contract execute(Contract contract) throws ContractPeriodZeroException, ContractRequestAmountZeroException {
 
         if (contract.getRequestedAmount().compareTo(BigDecimal.ZERO) <= 0) {
+            log.error("RequestedAmount must be greater than zero");
             throw new ContractRequestAmountZeroException();
         }
 
         if (contract.getOperationPeriod() <= 0) {
+            log.error("Operation Period must be greater than zero");
             throw new ContractPeriodZeroException();
         }
 
