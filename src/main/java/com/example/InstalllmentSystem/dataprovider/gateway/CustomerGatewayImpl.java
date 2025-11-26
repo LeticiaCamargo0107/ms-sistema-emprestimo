@@ -2,12 +2,17 @@ package com.example.InstalllmentSystem.dataprovider.gateway;
 
 import com.example.InstalllmentSystem.core.domain.Customer;
 import com.example.InstalllmentSystem.core.gateway.CustomerGateway;
+import com.example.InstalllmentSystem.dataprovider.entity.CustomerEntity;
 import com.example.InstalllmentSystem.dataprovider.mapper.CustomerEntityMapper;
 import com.example.InstalllmentSystem.dataprovider.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+
 
 @Component
 @RequiredArgsConstructor
@@ -19,10 +24,10 @@ public class CustomerGatewayImpl implements CustomerGateway {
     @Override
     public Customer save(Customer customer) {
 
-        var convert = customerMapper.toEntity(customer);
-        var save = customerRepository.save(convert);
+        var entity = customerMapper.toEntity(customer);
+        var saved = customerRepository.save(entity);
 
-        return customerMapper.toDomain(save);
+        return customerMapper.toDomain(saved);
     }
 
     @Override
@@ -44,17 +49,11 @@ public class CustomerGatewayImpl implements CustomerGateway {
         return customerMapper.toDomain(find.orElse(null));
     }
 
+
     @Override
-    public Customer update(Customer customer) {
-
-        var convert = customerMapper.toEntity(customer);
-        var save = customerRepository.save(convert);
-
-        return customerMapper.toDomain(save);
+    public Page<Customer> findAll(Pageable pageable) {
+        Page<CustomerEntity> entities = customerRepository.findAll(pageable);
+        List<Customer> contracts = entities.map(customerMapper::toDomain).getContent();
+        return new PageImpl<>(contracts, pageable, entities.getTotalElements());
     }
-
-    @Override
-    public List<Customer> findAll() {
-        var entities = customerRepository.findAll();
-        return entities.stream().map(customerMapper::toDomain).toList();    }
 }

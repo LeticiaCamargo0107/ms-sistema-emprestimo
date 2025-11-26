@@ -21,11 +21,11 @@ public class UpdateContractUseCase {
 
     public Contract execute(String id, Contract contract) throws ContractRequestAmountZeroException, ContractNotFoundException {
 
-        var saved = getByIdContractUseCase.execute(id);
-
         if (contract.getRequestedAmount().compareTo(BigDecimal.ZERO) <= 0) {
             throw new ContractRequestAmountZeroException();
         }
+
+        var saved = getByIdContractUseCase.execute(id);
 
         var totalAmount = getMultiply(contract, contract.getMonthlyCetRate());
         var installmentAmount = getInstallmentAmount(contract);
@@ -35,6 +35,6 @@ public class UpdateContractUseCase {
         saved.setTotalAmount(totalAmount);
         saved.setInstallmentAmount(installmentAmount);
 
-        return contractGateway.update(saved);
+        return contractGateway.save(saved);
     }
 }

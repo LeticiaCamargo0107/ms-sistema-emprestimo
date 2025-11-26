@@ -13,6 +13,8 @@ import com.example.InstalllmentSystem.entrypoint.DTOs.ContractDTO;
 import com.example.InstalllmentSystem.entrypoint.mapper.ContractMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,9 +47,9 @@ public class ContractController {
     }
 
     @GetMapping
-    public List<Contract> findAll() {
+    public Page<Contract> findAll(Pageable pageable) {
 
-        return findAllContractUseCase.execute();
+        return findAllContractUseCase.execute(pageable);
     }
 
     @ResponseStatus(HttpStatus.CREATED)

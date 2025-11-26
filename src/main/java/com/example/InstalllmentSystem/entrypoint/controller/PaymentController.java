@@ -12,6 +12,9 @@ import com.example.InstalllmentSystem.entrypoint.DTOs.PaymentDTO;
 import com.example.InstalllmentSystem.entrypoint.mapper.PaymentMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,9 +48,9 @@ public class PaymentController {
     }
 
     @GetMapping
-    public List<Payment> findAll() {
+    public Page<Payment> findAll(@PageableDefault Pageable pageable) {
 
-        return findAllPaymentUseCase.execute();
+        return findAllPaymentUseCase.execute(pageable);
     }
 
     @ResponseStatus(HttpStatus.CREATED)

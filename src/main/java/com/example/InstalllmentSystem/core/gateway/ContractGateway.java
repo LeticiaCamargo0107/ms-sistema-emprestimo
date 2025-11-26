@@ -1,8 +1,9 @@
 package com.example.InstalllmentSystem.core.gateway;
 
 import com.example.InstalllmentSystem.core.domain.Contract;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 
 public interface ContractGateway {
 
@@ -14,7 +15,5 @@ public interface ContractGateway {
 
     Contract findById(String id);
 
-    Contract update(Contract contract);
-
-    List<Contract> findAll();
+    Page<Contract> findAll(Pageable pageable);
 }

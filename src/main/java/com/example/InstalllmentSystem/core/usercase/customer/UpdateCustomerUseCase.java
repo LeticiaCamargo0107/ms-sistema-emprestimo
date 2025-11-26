@@ -22,6 +22,6 @@ public class UpdateCustomerUseCase {
         saved.setName(customer.getName());
         System.out.printf("Update name to %s\n", customer.getName());
 
-        return customerGateway.update(saved);
+        return customerGateway.save(saved);
     }
 }

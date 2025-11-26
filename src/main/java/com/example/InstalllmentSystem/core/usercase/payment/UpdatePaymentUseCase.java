@@ -26,6 +26,6 @@ public class UpdatePaymentUseCase {
         System.out.printf("Update for pay %s, change amount: R$ %.2f\n", payment.getId(), payment.getAmount());
         saved.setAmount(payment.getAmount());
 
-        return paymentGateway.update(saved);
+        return paymentGateway.save(saved);
     }
 }

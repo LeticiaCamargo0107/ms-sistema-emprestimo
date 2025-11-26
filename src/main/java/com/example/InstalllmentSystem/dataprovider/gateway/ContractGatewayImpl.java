@@ -2,9 +2,13 @@ package com.example.InstalllmentSystem.dataprovider.gateway;
 
 import com.example.InstalllmentSystem.core.domain.Contract;
 import com.example.InstalllmentSystem.core.gateway.ContractGateway;
+import com.example.InstalllmentSystem.dataprovider.entity.ContractEntity;
 import com.example.InstalllmentSystem.dataprovider.mapper.ContractEntityMapper;
 import com.example.InstalllmentSystem.dataprovider.repository.ContractRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -20,10 +24,10 @@ public class ContractGatewayImpl implements ContractGateway {
     @Override
     public Contract save(Contract contract) {
 
-        var convert = contractMapper.toEntity(contract);
-        var save = contractRepository.save(convert);
+        var entity = contractMapper.toEntity(contract);
+        var saved = contractRepository.save(entity);
 
-        return contractMapper.toDomain(save);
+        return contractMapper.toDomain(saved);
     }
 
     @Override
@@ -41,23 +45,14 @@ public class ContractGatewayImpl implements ContractGateway {
     @Override
     public Contract findById(String id) {
         var find = contractRepository.findById(id);
-
         return contractMapper.toDomain(find.orElse(null));
     }
 
-    @Override
-    public Contract update(Contract contract) {
-
-        var convert = contractMapper.toEntity(contract);
-        var save = contractRepository.save(convert);
-
-        return contractMapper.toDomain(save);
-    }
 
     @Override
-    public List<Contract> findAll() {
-
-        var entities = contractRepository.findAll();
-        return entities.stream().map(contractMapper::toDomain).toList();
+    public Page<Contract> findAll(Pageable pageable) {
+        Page<ContractEntity> entities = contractRepository.findAll(pageable);
+        List<Contract> contracts = entities.map(contractMapper::toDomain).getContent();
+        return new PageImpl<>(contracts, pageable, entities.getTotalElements());
     }
 }

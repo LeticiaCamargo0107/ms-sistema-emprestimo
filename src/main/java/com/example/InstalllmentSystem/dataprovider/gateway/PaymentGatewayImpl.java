@@ -2,12 +2,17 @@ package com.example.InstalllmentSystem.dataprovider.gateway;
 
 import com.example.InstalllmentSystem.core.domain.Payment;
 import com.example.InstalllmentSystem.core.gateway.PaymentGateway;
+import com.example.InstalllmentSystem.dataprovider.entity.PaymentEntity;
 import com.example.InstalllmentSystem.dataprovider.mapper.PaymentEntityMapper;
 import com.example.InstalllmentSystem.dataprovider.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+
 
 @RequiredArgsConstructor
 @Component
@@ -19,10 +24,10 @@ public class PaymentGatewayImpl implements PaymentGateway {
     @Override
     public Payment save(Payment payment) {
 
-        var convert = paymentMapper.toEntity(payment);
-        var save = paymentRepository.save(convert);
+        var entity = paymentMapper.toEntity(payment);
+        var saved = paymentRepository.save(entity);
 
-        return paymentMapper.toDomain(save);
+        return paymentMapper.toDomain(saved);
     }
 
     @Override
@@ -44,18 +49,11 @@ public class PaymentGatewayImpl implements PaymentGateway {
         return paymentMapper.toDomain(find.orElse(null));
     }
 
-    @Override
-    public Payment update(Payment payment) {
-
-        var convert = paymentMapper.toEntity(payment);
-        var save = paymentRepository.save(convert);
-
-        return paymentMapper.toDomain(save);
-    }
 
     @Override
-    public List<Payment> findAll() {
-        var entities = paymentRepository.findAll();
-        return entities.stream().map(paymentMapper::toDomain).toList();
+    public Page<Payment> findAll(Pageable pageable) {
+        Page<PaymentEntity> entities = paymentRepository.findAll(pageable);
+        List<Payment> contracts = entities.map(paymentMapper::toDomain).getContent();
+        return new PageImpl<>(contracts, pageable, entities.getTotalElements());
     }
 }
