@@ -30,7 +30,7 @@ public class UpdateContractUseCase {
 
         var saved = getByIdContractUseCase.execute(id);
 
-        var totalAmount = getMultiply(contract, contract.getMonthlyCetRate());
+        var totalAmount = getMultiply(contract, saved.getMonthlyCetRate());
         var installmentAmount = getInstallmentAmount(contract);
 
         saved.setRequestedAmount(contract.getRequestedAmount());
