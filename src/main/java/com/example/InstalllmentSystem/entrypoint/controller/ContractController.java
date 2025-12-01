@@ -16,6 +16,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,7 +47,7 @@ public class ContractController implements ContractControllerAPI {
     }
 
     @GetMapping
-    public Page<Contract> findAll(Pageable pageable) {
+    public Page<Contract> findAll(@PageableDefault Pageable pageable) {
 
         return findAllContractUseCase.execute(pageable);
     }
@@ -54,6 +55,7 @@ public class ContractController implements ContractControllerAPI {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Contract create(@RequestBody @Valid ContractDTO contractDTO) throws ContractPeriodZeroException, ContractRequestAmountZeroException {
+
         var contract = contractMapper.toDomain(contractDTO);
         return createContractUseCase.execute(contract);
     }

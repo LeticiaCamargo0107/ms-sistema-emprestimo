@@ -1,4 +1,3 @@
-
 package com.example.InstalllmentSystem.entrypoint.controller;
 
 import com.example.InstalllmentSystem.core.domain.Customer;

@@ -10,6 +10,7 @@ import com.example.InstalllmentSystem.core.usercase.payment.GetByIdPaymentUseCas
 import com.example.InstalllmentSystem.core.usercase.payment.UpdatePaymentUseCase;
 import com.example.InstalllmentSystem.entrypoint.DTOs.PaymentDTO;
 import com.example.InstalllmentSystem.entrypoint.mapper.PaymentMapper;
+import com.example.InstalllmentSystem.entrypoint.swagger.PaymentControllerAPI;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,12 +27,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/v1/payments")
-public class PaymentController {
+public class PaymentController implements PaymentControllerAPI {
 
     private final CreatePaymentUseCase createPaymentUseCase;
     private final DeleteByIdPaymentUseCase deleteByIdPaymentUseCase;
@@ -39,7 +38,6 @@ public class PaymentController {
     private final GetByIdPaymentUseCase getByIdPaymentUseCase;
     private final FindAllPaymentUseCase findAllPaymentUseCase;
     private final PaymentMapper paymentMapper;
-
 
     @GetMapping("/{id}")
     public Payment getById(@PathVariable String id) throws PaymentNotFoundException {
