@@ -19,6 +19,10 @@ import org.springframework.data.domain.Pageable;
 public interface ContractControllerAPI {
 
     @Operation(summary = "Get contract by id", description = "Use id of contract to list and find")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Get", content = {@Content(schema = @Schema(implementation = Contract.class))}),
+            @ApiResponse(responseCode = "400", description = "Fail to get contract, id not found", content = {@Content(schema =  @Schema(implementation = ApiError.class))})
+    })
     Contract getById(String id) throws ContractNotFoundException;
 
     @Operation(summary = "Get all contract", description = "List all contracts with pageable limitation")
@@ -39,6 +43,9 @@ public interface ContractControllerAPI {
     void deleteById(String id) throws ContractNotFoundException;
 
     @Operation(summary = "Update contract", description = "Update contract by id, change operation period and requested amount")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Update", content = {@Content(schema = @Schema(implementation = Contract.class))}),
+            @ApiResponse(responseCode = "400", description = "Fail to update contract, id not foun", content = {@Content(schema =  @Schema(implementation = ApiError.class))})
+    })
     Contract update(String id, ContractDTO contractDTO) throws ContractRequestAmountZeroException, ContractNotFoundException;
-
 }
