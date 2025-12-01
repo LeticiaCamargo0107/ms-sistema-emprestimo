@@ -11,6 +11,7 @@ import com.example.InstalllmentSystem.core.usercase.contract.GetByIdContractUseC
 import com.example.InstalllmentSystem.core.usercase.contract.UpdateContractUseCase;
 import com.example.InstalllmentSystem.entrypoint.DTOs.ContractDTO;
 import com.example.InstalllmentSystem.entrypoint.mapper.ContractMapper;
+import com.example.InstalllmentSystem.entrypoint.swagger.ContractControllerAPI;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,12 +27,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/v1/contracts")
-public class ContractController {
+public class ContractController implements ContractControllerAPI {
 
     private final GetByIdContractUseCase getByIdContractUseCase;
     private final FindAllContractUseCase findAllContractUseCase;
