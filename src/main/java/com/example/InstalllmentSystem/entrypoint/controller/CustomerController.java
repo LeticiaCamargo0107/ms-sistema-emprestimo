@@ -1,4 +1,3 @@
-
 package com.example.InstalllmentSystem.entrypoint.controller;
 
 import com.example.InstalllmentSystem.core.domain.Customer;
@@ -12,6 +11,7 @@ import com.example.InstalllmentSystem.core.usercase.customer.GetByIdCustomerUseC
 import com.example.InstalllmentSystem.core.usercase.customer.UpdateCustomerUseCase;
 import com.example.InstalllmentSystem.entrypoint.DTOs.CustomerDTO;
 import com.example.InstalllmentSystem.entrypoint.mapper.CustomerMapper;
+import com.example.InstalllmentSystem.entrypoint.swagger.CustomerControllerAPI;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/v1/customers")
-public class CustomerController {
+public class CustomerController implements CustomerControllerAPI {
 
     private final CreateCustomerUseCase createCustomerUseCase;
     private final DeleteCustomerUseCase deleteCustomerUseCase;
@@ -41,10 +41,10 @@ public class CustomerController {
     private final GetByIdCustomerUseCase getByNameCustomerUseCase;
     private final CustomerMapper customerMapper;
 
-    @GetMapping("/{name}")
-    public Customer getByName(@PathVariable String name) throws CustomertNotFoundException {
+    @GetMapping("/{id}")
+    public Customer getById(@PathVariable String id) throws CustomertNotFoundException {
 
-        return getByNameCustomerUseCase.execute(name);
+        return getByNameCustomerUseCase.execute(id);
     }
 
     @GetMapping
