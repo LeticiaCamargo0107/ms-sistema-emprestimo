@@ -3,7 +3,7 @@ package com.example.InstalllmentSystem.core.usercase.payment;
 import com.example.InstalllmentSystem.core.domain.Payment;
 import com.example.InstalllmentSystem.core.exception.payment.PaymentAmountZeroException;
 import com.example.InstalllmentSystem.core.exception.payment.PaymentNotFoundException;
-import com.example.InstalllmentSystem.core.gateway.PaymentGateway;
+import com.example.InstalllmentSystem.core.gateway.GenericGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 public class UpdatePaymentUseCase {
 
-    private final PaymentGateway paymentGateway;
+    private final GenericGateway<Payment> paymentGateway;
     private final GetByIdPaymentUseCase getByIdPaymentUseCase;
 
     public Payment execute(String id, Payment payment) throws PaymentNotFoundException, PaymentAmountZeroException {

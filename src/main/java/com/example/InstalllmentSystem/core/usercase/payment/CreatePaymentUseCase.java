@@ -3,7 +3,7 @@ package com.example.InstalllmentSystem.core.usercase.payment;
 import com.example.InstalllmentSystem.core.domain.Payment;
 import com.example.InstalllmentSystem.core.domain.enumeration.PaymentStatus;
 import com.example.InstalllmentSystem.core.exception.payment.PaymentAmountZeroException;
-import com.example.InstalllmentSystem.core.gateway.PaymentGateway;
+import com.example.InstalllmentSystem.core.gateway.GenericGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Component
 public class CreatePaymentUseCase {
 
-    private final PaymentGateway paymentGateway;
+    private final GenericGateway<Payment> paymentGateway;
 
     public Payment execute(Payment payment) throws PaymentAmountZeroException {
 

@@ -3,7 +3,7 @@ package com.example.InstalllmentSystem.core.usercase.contract;
 import com.example.InstalllmentSystem.core.domain.Contract;
 import com.example.InstalllmentSystem.core.exception.contract.ContractNotFoundException;
 import com.example.InstalllmentSystem.core.exception.contract.ContractRequestAmountZeroException;
-import com.example.InstalllmentSystem.core.gateway.ContractGateway;
+import com.example.InstalllmentSystem.core.gateway.GenericGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ import static com.example.InstalllmentSystem.core.util.ContractUtils.getMultiply
 @RequiredArgsConstructor
 public class UpdateContractUseCase {
 
-    private final ContractGateway contractGateway;
+    private final GenericGateway<Contract> contractGateway;
     private final GetByIdContractUseCase getByIdContractUseCase;
 
     public Contract execute(String id, Contract contract) throws ContractRequestAmountZeroException, ContractNotFoundException {
