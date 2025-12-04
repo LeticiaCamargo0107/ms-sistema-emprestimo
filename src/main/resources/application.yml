@@ -4,6 +4,25 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:37017/financial-system
+  cloud:
+    function:
+      definition: createLoanEvent
+    stream:
+      bindings:
+        createLoanEvent-in-0:
+          destination: sgep-loan-events
+          group: sgep-loan-events-group
+          content-type: application/json
+      binders:
+        loan:
+          type: kafka
+          environment:
+            spring.cloud.stream.kafka:
+              binder:
+                brokers: localhost:9092
+                producer-properties:
+                  key.serializer: org.apache.kafka.common.serialization.StringSerializer
+                autoCreateTopics: true
 springdoc:
   api-docs:
     path: /api-docs
