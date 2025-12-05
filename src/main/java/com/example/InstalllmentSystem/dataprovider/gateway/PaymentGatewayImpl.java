@@ -1,7 +1,7 @@
 package com.example.InstalllmentSystem.dataprovider.gateway;
 
 import com.example.InstalllmentSystem.core.domain.Payment;
-import com.example.InstalllmentSystem.core.gateway.PaymentGateway;
+import com.example.InstalllmentSystem.core.gateway.GenericGateway;
 import com.example.InstalllmentSystem.dataprovider.entity.PaymentEntity;
 import com.example.InstalllmentSystem.dataprovider.mapper.PaymentEntityMapper;
 import com.example.InstalllmentSystem.dataprovider.repository.PaymentRepository;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Component
-public class PaymentGatewayImpl implements PaymentGateway {
+public class PaymentGatewayImpl implements GenericGateway<Payment> {
 
     private final PaymentRepository paymentRepository;
     private final PaymentEntityMapper paymentMapper;

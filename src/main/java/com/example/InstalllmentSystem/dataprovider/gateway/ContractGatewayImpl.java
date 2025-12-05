@@ -1,7 +1,7 @@
 package com.example.InstalllmentSystem.dataprovider.gateway;
 
 import com.example.InstalllmentSystem.core.domain.Contract;
-import com.example.InstalllmentSystem.core.gateway.ContractGateway;
+import com.example.InstalllmentSystem.core.gateway.GenericGateway;
 import com.example.InstalllmentSystem.dataprovider.entity.ContractEntity;
 import com.example.InstalllmentSystem.dataprovider.mapper.ContractEntityMapper;
 import com.example.InstalllmentSystem.dataprovider.repository.ContractRepository;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class ContractGatewayImpl implements ContractGateway {
+public class ContractGatewayImpl implements GenericGateway<Contract> {
 
     private final ContractRepository contractRepository;
     private final ContractEntityMapper contractMapper;

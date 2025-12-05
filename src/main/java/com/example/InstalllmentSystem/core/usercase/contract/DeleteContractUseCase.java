@@ -1,7 +1,8 @@
 package com.example.InstalllmentSystem.core.usercase.contract;
 
+import com.example.InstalllmentSystem.core.domain.Contract;
 import com.example.InstalllmentSystem.core.exception.contract.ContractNotFoundException;
-import com.example.InstalllmentSystem.core.gateway.ContractGateway;
+import com.example.InstalllmentSystem.core.gateway.GenericGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class DeleteContractUseCase {
 
-    private final ContractGateway contractGateway;
+    private final GenericGateway<Contract> contractGateway;
 
     public void execute(String id) throws ContractNotFoundException {
 
