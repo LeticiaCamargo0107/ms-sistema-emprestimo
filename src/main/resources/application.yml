@@ -13,6 +13,14 @@ spring:
           destination: sgep-loan-events
           group: sgep-loan-events-group
           content-type: application/json
+        createCustomerEvent-in-0:
+          destination: sgep-customer-events
+          group: sgep-loan-events-group
+          content-type: application/json
+        createPaymentEvent-in-0:
+          destination: sgep-payment-events
+          group: sgep-loan-events-group
+          content-type: application/json
       binders:
         loan:
           type: kafka

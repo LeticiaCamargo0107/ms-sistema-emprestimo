@@ -19,14 +19,14 @@ public class CreatePaymentConsumer {
     private final CreatePaymentUseCase createPaymentUseCase;
 
     @Bean
-    Consumer<Message<PaymentDTO>> createLoanEvent() {
+    Consumer<Message<PaymentDTO>> createPaymentEvent() {
         return this::receive;
     }
 
     public void receive(Message<PaymentDTO> message) {
         try {
-            var customer = paymentMapper.toDomain(message.getPayload());
-            createPaymentUseCase.execute(customer);
+            var payment = paymentMapper.toDomain(message.getPayload());
+            createPaymentUseCase.execute(payment);
         } catch (PaymentAmountZeroException e) {
             throw new RuntimeException(e);
         }
