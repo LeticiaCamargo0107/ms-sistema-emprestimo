@@ -10,7 +10,7 @@ spring:
     stream:
       bindings:
         createLoanEvent-in-0:
-          destination: sgep-loan-events
+          destination: sgep-contract-events
           group: sgep-loan-events-group
           content-type: application/json
         createCustomerEvent-in-0:
