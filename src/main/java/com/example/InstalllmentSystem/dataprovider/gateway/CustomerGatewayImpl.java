@@ -1,7 +1,7 @@
 package com.example.InstalllmentSystem.dataprovider.gateway;
 
 import com.example.InstalllmentSystem.core.domain.Customer;
-import com.example.InstalllmentSystem.core.gateway.CustomerGateway;
+import com.example.InstalllmentSystem.core.gateway.GenericGateway;
 import com.example.InstalllmentSystem.dataprovider.entity.CustomerEntity;
 import com.example.InstalllmentSystem.dataprovider.mapper.CustomerEntityMapper;
 import com.example.InstalllmentSystem.dataprovider.repository.CustomerRepository;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class CustomerGatewayImpl implements CustomerGateway {
+public class CustomerGatewayImpl implements GenericGateway<Customer> {
 
     private final CustomerRepository customerRepository;
     private final CustomerEntityMapper customerMapper;

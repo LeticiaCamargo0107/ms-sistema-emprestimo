@@ -45,7 +45,7 @@ public interface ContractControllerAPI {
     @Operation(summary = "Update contract", description = "Update contract by id, change operation period and requested amount")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Update", content = {@Content(schema = @Schema(implementation = Contract.class))}),
-            @ApiResponse(responseCode = "400", description = "Fail to update contract, id not foun", content = {@Content(schema =  @Schema(implementation = ApiError.class))})
+            @ApiResponse(responseCode = "400", description = "Fail to update contract, id not found", content = {@Content(schema =  @Schema(implementation = ApiError.class))})
     })
     Contract update(String id, ContractDTO contractDTO) throws ContractRequestAmountZeroException, ContractNotFoundException;
 }
