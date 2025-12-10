@@ -6,11 +6,14 @@ spring:
       uri: mongodb://localhost:37017/financial-system
   cloud:
     function:
-      definition: createLoanEvent
+      definition:
+        createLoanEvent;
+        createCustomerEvent;
+        createPaymentEvent
     stream:
       bindings:
         createLoanEvent-in-0:
-          destination: sgep-contract-events
+          destination: sgep-loan-events
           group: sgep-loan-events-group
           content-type: application/json
         createCustomerEvent-in-0:
