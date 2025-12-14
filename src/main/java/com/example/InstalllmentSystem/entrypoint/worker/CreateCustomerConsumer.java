@@ -1,8 +1,9 @@
 package com.example.InstalllmentSystem.entrypoint.worker;
 
+import com.example.InstalllmentSystem.core.exception.customer.CustomerAddressNotFoundException;
 import com.example.InstalllmentSystem.core.exception.customer.CustomerBirthDateException;
 import com.example.InstalllmentSystem.core.usercase.customer.CreateCustomerUseCase;
-import com.example.InstalllmentSystem.entrypoint.DTOs.CustomerDTO;
+import com.example.InstalllmentSystem.entrypoint.dto.CustomerDTO;
 import com.example.InstalllmentSystem.entrypoint.mapper.CustomerMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,7 @@ public class CreateCustomerConsumer {
         try {
             var customer = customerMapper.toDomain(message.getPayload());
             createCustomerUseCase.execute(customer);
-        } catch (CustomerBirthDateException e) {
+        } catch (CustomerBirthDateException | CustomerAddressNotFoundException e) {
             log.error(e.getMessage());
             throw new RuntimeException(e);
         }

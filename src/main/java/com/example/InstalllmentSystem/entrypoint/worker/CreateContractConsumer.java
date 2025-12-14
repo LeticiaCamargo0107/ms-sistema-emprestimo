@@ -3,7 +3,7 @@ package com.example.InstalllmentSystem.entrypoint.worker;
 import com.example.InstalllmentSystem.core.exception.contract.ContractPeriodZeroException;
 import com.example.InstalllmentSystem.core.exception.contract.ContractRequestAmountZeroException;
 import com.example.InstalllmentSystem.core.usercase.contract.CreateContractUseCase;
-import com.example.InstalllmentSystem.entrypoint.DTOs.ContractDTO;
+import com.example.InstalllmentSystem.entrypoint.dto.ContractDTO;
 import com.example.InstalllmentSystem.entrypoint.mapper.ContractMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

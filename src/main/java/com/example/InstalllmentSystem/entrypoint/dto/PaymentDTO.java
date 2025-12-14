@@ -1,4 +1,4 @@
-package com.example.InstalllmentSystem.entrypoint.DTOs;
+package com.example.InstalllmentSystem.entrypoint.dto;
 
 import com.example.InstalllmentSystem.core.domain.enumeration.PaymentMethod;
 import com.fasterxml.jackson.annotation.JsonInclude;

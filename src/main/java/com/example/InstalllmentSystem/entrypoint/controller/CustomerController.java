@@ -1,6 +1,7 @@
 package com.example.InstalllmentSystem.entrypoint.controller;
 
 import com.example.InstalllmentSystem.core.domain.Customer;
+import com.example.InstalllmentSystem.core.exception.customer.CustomerAddressNotFoundException;
 import com.example.InstalllmentSystem.core.exception.customer.CustomerBirthDateException;
 import com.example.InstalllmentSystem.core.exception.customer.CustomerDocumentNotFoundException;
 import com.example.InstalllmentSystem.core.exception.customer.CustomertNotFoundException;
@@ -9,7 +10,7 @@ import com.example.InstalllmentSystem.core.usercase.customer.DeleteCustomerUseCa
 import com.example.InstalllmentSystem.core.usercase.customer.FindAllCustomerUseCase;
 import com.example.InstalllmentSystem.core.usercase.customer.GetByIdCustomerUseCase;
 import com.example.InstalllmentSystem.core.usercase.customer.UpdateCustomerUseCase;
-import com.example.InstalllmentSystem.entrypoint.DTOs.CustomerDTO;
+import com.example.InstalllmentSystem.entrypoint.dto.CustomerDTO;
 import com.example.InstalllmentSystem.entrypoint.mapper.CustomerMapper;
 import com.example.InstalllmentSystem.entrypoint.swagger.CustomerControllerAPI;
 import jakarta.validation.Valid;
@@ -55,7 +56,7 @@ public class CustomerController implements CustomerControllerAPI {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Customer create(@RequestBody @Valid CustomerDTO customerDTO) throws CustomerBirthDateException {
+    public Customer create(@RequestBody @Valid CustomerDTO customerDTO) throws CustomerBirthDateException, CustomerAddressNotFoundException {
 
         var customer = customerMapper.toDomain(customerDTO);
         return createCustomerUseCase.execute(customer);

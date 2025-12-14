@@ -9,7 +9,7 @@ import com.example.InstalllmentSystem.core.usercase.contract.DeleteContractUseCa
 import com.example.InstalllmentSystem.core.usercase.contract.FindAllContractUseCase;
 import com.example.InstalllmentSystem.core.usercase.contract.GetByIdContractUseCase;
 import com.example.InstalllmentSystem.core.usercase.contract.UpdateContractUseCase;
-import com.example.InstalllmentSystem.entrypoint.DTOs.ContractDTO;
+import com.example.InstalllmentSystem.entrypoint.dto.ContractDTO;
 import com.example.InstalllmentSystem.entrypoint.mapper.ContractMapper;
 import com.example.InstalllmentSystem.entrypoint.swagger.ContractControllerAPI;
 import jakarta.validation.Valid;
