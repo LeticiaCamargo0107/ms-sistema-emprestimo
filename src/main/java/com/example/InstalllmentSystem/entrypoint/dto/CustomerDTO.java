@@ -25,4 +25,8 @@ public class CustomerDTO {
     @Schema(description = "Birthday date of customer")
     @NotNull(message = "Birthday date can't be null")
     private LocalDate birthDate;
+
+    @Schema(description = "Zipcode of address")
+    @NotNull(message = "Zipcode must not be null")
+    private String zipcode;
 }

@@ -11,17 +11,17 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Slf4j
 @Component
-public class AddressAdapter {
+public class AddressAdapter implements ViaCepClient {
 
     private final ViaCepClient client;
 
-    @Retry(name = "ViaCepClient", fallbackMethod = "getAddressByZipcodeFallback")
+    @Retry(name = "ViaCep", fallbackMethod = "getAddressByZipcodeFallback")
     public ViaCepResponse getAddressByZipcode(String zipcode) {
         return client.getAddressByZipcode(zipcode);
     }
 
     public ViaCepResponse getAddressByZipcodeFallback(String zipcode) throws CustomerAddressNotFoundException {
-        log.error("zipcode not found or");
+        log.error("zipcode not found");
         throw new CustomerAddressNotFoundException(zipcode);
     }
 }

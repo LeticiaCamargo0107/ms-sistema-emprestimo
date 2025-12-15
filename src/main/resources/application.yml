@@ -1,6 +1,9 @@
+sgep:
+  viaCep:
+    url: ${SGEP_VIACEP_URL}
 spring:
   application:
-    name: InstalllmentSystem
+    name: InstallmentSystem
   data:
     mongodb:
       uri: ${SGEP_MONGODB_PORT}
@@ -40,16 +43,16 @@ spring:
           ViaCepClient:
             connectTimeout: ${SGEP_OPENFEIGN_CONNECT_TIMEOUT}
             readTimeout: ${SGEP_OPENFEIGN_READ_TIMEOUT}
-resilience4j:
-  retry:
-    configs:
-      default:
-        maxAttempts: ${SGEP_RESILIENCE4J_DEFAULT_WAIT_DURATION}
-        waitDuration: ${SGEP_RESILIENCE4J_DEFAULT_WAIT_DURATION}
-    instances:
-      viaCepRetry:
-        maxAttempts: ${SGEP_RESILIENCE4J_INSTANCES_MAX_ATTEMPTS}
-        waitDuration: ${SGEP_RESILIENCE4J_INSTANCES_WAIT_DURATION}
+  resilience4j:
+    retry:
+      configs:
+        default:
+          maxAttempts: ${SGEP_RESILIENCE4J_DEFAULT_WAIT_DURATION}
+          waitDuration: ${SGEP_RESILIENCE4J_DEFAULT_WAIT_DURATION}
+      instances:
+        viaCepRetry:
+          maxAttempts: ${SGEP_RESILIENCE4J_INSTANCES_MAX_ATTEMPTS}
+          waitDuration: ${SGEP_RESILIENCE4J_INSTANCES_WAIT_DURATION}
 springdoc:
   api-docs:
     path: /api-docs

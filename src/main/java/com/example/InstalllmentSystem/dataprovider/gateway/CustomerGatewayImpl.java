@@ -27,10 +27,10 @@ public class CustomerGatewayImpl implements GenericGateway<Customer> {
     public Customer save(Customer customer) {
 
         var entity = customerMapper.toEntity(customer);
-        var saved = customerRepository.save(entity);
         var addressEntity = addressBuilder(customer);
         entity.setAddress(addressEntity);
 
+        var saved = customerRepository.save(entity);
         return customerMapper.toDomain(saved);
     }
 
@@ -64,6 +64,7 @@ public class CustomerGatewayImpl implements GenericGateway<Customer> {
 
         var addressResponse = adapter.getAddressByZipcode(customer.getZipcode());
         return CustomerEntity.CustomerAddress.builder()
+                .zipcode(addressResponse.zipcode())
                 .uf(addressResponse.uf())
                 .bairro(addressResponse.bairro())
                 .complemento(addressResponse.complemento())
