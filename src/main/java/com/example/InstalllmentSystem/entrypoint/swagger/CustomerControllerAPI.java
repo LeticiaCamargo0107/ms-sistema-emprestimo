@@ -48,5 +48,5 @@ public interface CustomerControllerAPI {
             @ApiResponse(responseCode = "200", description = "Updated", content = {@Content(schema = @Schema(implementation = Customer.class))}),
             @ApiResponse(responseCode = "400", description = "Fail to update customer, id not found", content = {@Content(schema =  @Schema(implementation = ApiError.class))})
     })
-    Customer update(String id, CustomerDTO customerDTO) throws CustomerDocumentNotFoundException, CustomertNotFoundException;
+    Customer update(String id, CustomerDTO customerDTO) throws CustomerDocumentNotFoundException, CustomertNotFoundException, CustomerAddressNotFoundException;
 }

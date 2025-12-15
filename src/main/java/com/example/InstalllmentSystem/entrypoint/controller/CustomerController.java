@@ -70,7 +70,7 @@ public class CustomerController implements CustomerControllerAPI {
     }
 
     @PutMapping("/{id}")
-    public Customer update(@PathVariable String id, @RequestBody @Valid CustomerDTO customerDTO) throws CustomerDocumentNotFoundException, CustomertNotFoundException {
+    public Customer update(@PathVariable String id, @RequestBody @Valid CustomerDTO customerDTO) throws CustomerDocumentNotFoundException, CustomertNotFoundException, CustomerAddressNotFoundException {
 
         var customer = customerMapper.toDomain(customerDTO);
         return updateCustomerUseCase.execute(id, customer);
