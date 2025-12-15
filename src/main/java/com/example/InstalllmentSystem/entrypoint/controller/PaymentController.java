@@ -8,7 +8,7 @@ import com.example.InstalllmentSystem.core.usercase.payment.DeleteByIdPaymentUse
 import com.example.InstalllmentSystem.core.usercase.payment.FindAllPaymentUseCase;
 import com.example.InstalllmentSystem.core.usercase.payment.GetByIdPaymentUseCase;
 import com.example.InstalllmentSystem.core.usercase.payment.UpdatePaymentUseCase;
-import com.example.InstalllmentSystem.entrypoint.DTOs.PaymentDTO;
+import com.example.InstalllmentSystem.entrypoint.dto.PaymentDTO;
 import com.example.InstalllmentSystem.entrypoint.mapper.PaymentMapper;
 import com.example.InstalllmentSystem.entrypoint.swagger.PaymentControllerAPI;
 import jakarta.validation.Valid;

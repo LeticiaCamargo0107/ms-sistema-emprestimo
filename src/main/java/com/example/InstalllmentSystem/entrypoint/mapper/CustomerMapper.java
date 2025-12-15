@@ -1,7 +1,7 @@
 package com.example.InstalllmentSystem.entrypoint.mapper;
 
 import com.example.InstalllmentSystem.core.domain.Customer;
-import com.example.InstalllmentSystem.entrypoint.DTOs.CustomerDTO;
+import com.example.InstalllmentSystem.entrypoint.dto.CustomerDTO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

@@ -1,4 +1,4 @@
-package com.example.InstalllmentSystem.entrypoint.DTOs;
+package com.example.InstalllmentSystem.entrypoint.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,4 +25,8 @@ public class CustomerDTO {
     @Schema(description = "Birthday date of customer")
     @NotNull(message = "Birthday date can't be null")
     private LocalDate birthDate;
+
+    @Schema(description = "Zipcode of address")
+    @NotNull(message = "Zipcode must not be null")
+    private String zipcode;
 }

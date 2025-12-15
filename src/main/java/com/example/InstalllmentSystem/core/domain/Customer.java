@@ -22,4 +22,5 @@ public class Customer {
 
     private CustomerStatus status;
 
+    private String zipcode;
 }

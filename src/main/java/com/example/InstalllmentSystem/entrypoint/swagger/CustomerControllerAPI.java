@@ -1,10 +1,11 @@
 package com.example.InstalllmentSystem.entrypoint.swagger;
 
 import com.example.InstalllmentSystem.core.domain.Customer;
+import com.example.InstalllmentSystem.core.exception.customer.CustomerAddressNotFoundException;
 import com.example.InstalllmentSystem.core.exception.customer.CustomerBirthDateException;
 import com.example.InstalllmentSystem.core.exception.customer.CustomerDocumentNotFoundException;
 import com.example.InstalllmentSystem.core.exception.customer.CustomertNotFoundException;
-import com.example.InstalllmentSystem.entrypoint.DTOs.CustomerDTO;
+import com.example.InstalllmentSystem.entrypoint.dto.CustomerDTO;
 import com.example.InstalllmentSystem.entrypoint.handler.ApiError;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -33,7 +34,7 @@ public interface CustomerControllerAPI {
             @ApiResponse(responseCode = "201", description = "Created", content = {@Content(schema = @Schema(implementation = Customer.class))}),
             @ApiResponse(responseCode = "400", description = "Fail to create customer", content = {@Content(schema =  @Schema(implementation = ApiError.class))})
     })
-    Customer create(CustomerDTO customerDTO) throws CustomerBirthDateException;
+    Customer create(CustomerDTO customerDTO) throws CustomerBirthDateException, CustomerAddressNotFoundException;
 
     @Operation(summary = "Delete customer", description = "Delete customer by id")
     @ApiResponses({

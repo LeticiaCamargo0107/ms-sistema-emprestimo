@@ -1,6 +1,6 @@
 package com.example.InstalllmentSystem.entrypoint.mapper;
 import com.example.InstalllmentSystem.core.domain.Contract;
-import com.example.InstalllmentSystem.entrypoint.DTOs.ContractDTO;
+import com.example.InstalllmentSystem.entrypoint.dto.ContractDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

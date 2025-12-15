@@ -2,7 +2,7 @@ package com.example.InstalllmentSystem.entrypoint.worker;
 
 import com.example.InstalllmentSystem.core.exception.payment.PaymentAmountZeroException;
 import com.example.InstalllmentSystem.core.usercase.payment.CreatePaymentUseCase;
-import com.example.InstalllmentSystem.entrypoint.DTOs.PaymentDTO;
+import com.example.InstalllmentSystem.entrypoint.dto.PaymentDTO;
 import com.example.InstalllmentSystem.entrypoint.mapper.PaymentMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

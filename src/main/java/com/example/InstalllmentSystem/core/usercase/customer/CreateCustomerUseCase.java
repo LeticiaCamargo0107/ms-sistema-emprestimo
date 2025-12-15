@@ -2,6 +2,7 @@ package com.example.InstalllmentSystem.core.usercase.customer;
 
 import com.example.InstalllmentSystem.core.domain.Customer;
 import com.example.InstalllmentSystem.core.domain.enumeration.CustomerStatus;
+import com.example.InstalllmentSystem.core.exception.customer.CustomerAddressNotFoundException;
 import com.example.InstalllmentSystem.core.exception.customer.CustomerBirthDateException;
 import com.example.InstalllmentSystem.core.gateway.GenericGateway;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +16,17 @@ public class CreateCustomerUseCase {
 
     private final GenericGateway<Customer> customerGateway;
 
-    public Customer execute(Customer customer) throws CustomerBirthDateException {
+    public Customer execute(Customer customer) throws CustomerBirthDateException, CustomerAddressNotFoundException {
 
         int year = customer.getBirthDate().getYear();
         if (year < 18) {
             log.error("Age of customer must be greater than zero");
             throw new CustomerBirthDateException();
+        }
+
+        if (customer.getZipcode() == null) {
+            log.error("Address must not be null");
+            throw new CustomerAddressNotFoundException(customer.getZipcode());
         }
 
         customer.setStatus(CustomerStatus.ACTIVE);

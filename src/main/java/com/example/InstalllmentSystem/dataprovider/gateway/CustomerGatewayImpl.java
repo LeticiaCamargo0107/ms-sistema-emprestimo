@@ -2,6 +2,7 @@ package com.example.InstalllmentSystem.dataprovider.gateway;
 
 import com.example.InstalllmentSystem.core.domain.Customer;
 import com.example.InstalllmentSystem.core.gateway.GenericGateway;
+import com.example.InstalllmentSystem.dataprovider.adapter.AddressAdapter;
 import com.example.InstalllmentSystem.dataprovider.entity.CustomerEntity;
 import com.example.InstalllmentSystem.dataprovider.mapper.CustomerEntityMapper;
 import com.example.InstalllmentSystem.dataprovider.repository.CustomerRepository;
@@ -20,13 +21,16 @@ public class CustomerGatewayImpl implements GenericGateway<Customer> {
 
     private final CustomerRepository customerRepository;
     private final CustomerEntityMapper customerMapper;
+    private final AddressAdapter adapter;
 
     @Override
     public Customer save(Customer customer) {
 
         var entity = customerMapper.toEntity(customer);
-        var saved = customerRepository.save(entity);
+        var addressEntity = addressBuilder(customer);
+        entity.setAddress(addressEntity);
 
+        var saved = customerRepository.save(entity);
         return customerMapper.toDomain(saved);
     }
 
@@ -54,5 +58,19 @@ public class CustomerGatewayImpl implements GenericGateway<Customer> {
         Page<CustomerEntity> entities = customerRepository.findAll(pageable);
         List<Customer> contracts = entities.map(customerMapper::toDomain).getContent();
         return new PageImpl<>(contracts, pageable, entities.getTotalElements());
+    }
+
+    private CustomerEntity.CustomerAddress addressBuilder(Customer customer) {
+
+        var addressResponse = adapter.getAddressByZipcode(customer.getZipcode());
+        return CustomerEntity.CustomerAddress.builder()
+                .zipcode(addressResponse.zipcode())
+                .uf(addressResponse.uf())
+                .bairro(addressResponse.bairro())
+                .complemento(addressResponse.complemento())
+                .unidade(addressResponse.unidade())
+                .logradouro(addressResponse.logradouro())
+                .localidade(addressResponse.localidade())
+                .build();
     }
 }

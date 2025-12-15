@@ -3,7 +3,7 @@ package com.example.InstalllmentSystem.entrypoint.swagger;
 import com.example.InstalllmentSystem.core.domain.Payment;
 import com.example.InstalllmentSystem.core.exception.payment.PaymentAmountZeroException;
 import com.example.InstalllmentSystem.core.exception.payment.PaymentNotFoundException;
-import com.example.InstalllmentSystem.entrypoint.DTOs.PaymentDTO;
+import com.example.InstalllmentSystem.entrypoint.dto.PaymentDTO;
 import com.example.InstalllmentSystem.entrypoint.handler.ApiError;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

@@ -4,7 +4,7 @@ import com.example.InstalllmentSystem.core.domain.Contract;
 import com.example.InstalllmentSystem.core.exception.contract.ContractNotFoundException;
 import com.example.InstalllmentSystem.core.exception.contract.ContractPeriodZeroException;
 import com.example.InstalllmentSystem.core.exception.contract.ContractRequestAmountZeroException;
-import com.example.InstalllmentSystem.entrypoint.DTOs.ContractDTO;
+import com.example.InstalllmentSystem.entrypoint.dto.ContractDTO;
 import com.example.InstalllmentSystem.entrypoint.handler.ApiError;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
