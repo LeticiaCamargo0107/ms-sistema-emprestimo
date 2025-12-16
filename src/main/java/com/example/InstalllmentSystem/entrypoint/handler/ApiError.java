@@ -11,15 +11,15 @@ public class ApiError {
 
     private String message;
     private String code;
-    private List<String> erro;
+    private List<String> errors;
 
     public ApiError (String message, String code) {
         this.message = message;
         this.code = code;
     }
 
-    public ApiError (List<String> erro, String code) {
-        this.erro = erro;
+    public ApiError (List<String> errors, String code) {
+        this.errors = errors;
         this.code = code;
     }
 }
