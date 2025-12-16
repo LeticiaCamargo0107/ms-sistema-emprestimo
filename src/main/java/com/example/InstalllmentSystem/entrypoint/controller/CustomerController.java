@@ -4,7 +4,7 @@ import com.example.InstalllmentSystem.core.domain.Customer;
 import com.example.InstalllmentSystem.core.exception.customer.CustomerAddressNotFoundException;
 import com.example.InstalllmentSystem.core.exception.customer.CustomerBirthDateException;
 import com.example.InstalllmentSystem.core.exception.customer.CustomerDocumentNotFoundException;
-import com.example.InstalllmentSystem.core.exception.customer.CustomertNotFoundException;
+import com.example.InstalllmentSystem.core.exception.customer.CustomerNotFoundException;
 import com.example.InstalllmentSystem.core.usercase.customer.CreateCustomerUseCase;
 import com.example.InstalllmentSystem.core.usercase.customer.DeleteCustomerUseCase;
 import com.example.InstalllmentSystem.core.usercase.customer.FindAllCustomerUseCase;
@@ -43,7 +43,7 @@ public class CustomerController implements CustomerControllerAPI {
     private final CustomerMapper customerMapper;
 
     @GetMapping("/{id}")
-    public Customer getById(@PathVariable String id) throws CustomertNotFoundException {
+    public Customer getById(@PathVariable String id) throws CustomerNotFoundException {
 
         return getByNameCustomerUseCase.execute(id);
     }
@@ -64,13 +64,13 @@ public class CustomerController implements CustomerControllerAPI {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable String id) throws CustomertNotFoundException {
+    public void deleteById(@PathVariable String id) throws CustomerNotFoundException {
 
         deleteCustomerUseCase.execute(id);
     }
 
     @PutMapping("/{id}")
-    public Customer update(@PathVariable String id, @RequestBody @Valid CustomerDTO customerDTO) throws CustomerDocumentNotFoundException, CustomertNotFoundException, CustomerAddressNotFoundException {
+    public Customer update(@PathVariable String id, @RequestBody @Valid CustomerDTO customerDTO) throws CustomerDocumentNotFoundException, CustomerNotFoundException, CustomerAddressNotFoundException {
 
         var customer = customerMapper.toDomain(customerDTO);
         return updateCustomerUseCase.execute(id, customer);
