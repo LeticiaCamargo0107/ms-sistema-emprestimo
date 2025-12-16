@@ -57,7 +57,6 @@ public class CustomerGatewayImpl implements CustomerGateway {
         return customerMapper.toDomain(entity.orElse(null));
     }
 
-
     @Override
     public Page<Customer> findAll(Pageable pageable) {
         Page<CustomerEntity> entities = customerRepository.findAll(pageable);
