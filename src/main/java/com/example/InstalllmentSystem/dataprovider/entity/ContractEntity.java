@@ -9,7 +9,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -42,6 +41,6 @@ public class ContractEntity {
 
     private BigDecimal remainingAmount;
 
-    List<InstallmentEntity> installments = new ArrayList<>();
+    List<InstallmentEntity> installments;
 
 }

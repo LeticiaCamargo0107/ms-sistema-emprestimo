@@ -4,22 +4,23 @@ import com.example.InstalllmentSystem.core.domain.Customer;
 import com.example.InstalllmentSystem.core.domain.enumeration.CustomerStatus;
 import com.example.InstalllmentSystem.core.exception.customer.CustomerAddressNotFoundException;
 import com.example.InstalllmentSystem.core.exception.customer.CustomerBirthDateException;
-import com.example.InstalllmentSystem.core.gateway.GenericGateway;
+import com.example.InstalllmentSystem.core.gateway.CustomerGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+
+import static com.example.InstalllmentSystem.core.util.CustomerUtils.calculateAge;
 
 @Slf4j
 @RequiredArgsConstructor
 @Component
 public class CreateCustomerUseCase {
 
-    private final GenericGateway<Customer> customerGateway;
+    private final CustomerGateway customerGateway;
 
     public Customer execute(Customer customer) throws CustomerBirthDateException, CustomerAddressNotFoundException {
 
-        int year = customer.getBirthDate().getYear();
-        if (year < 18) {
+        if (calculateAge(customer) < 18) {
             log.error("Age of customer must be greater than zero");
             throw new CustomerBirthDateException();
         }

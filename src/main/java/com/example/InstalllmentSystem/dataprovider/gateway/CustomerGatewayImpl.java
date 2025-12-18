@@ -1,7 +1,8 @@
 package com.example.InstalllmentSystem.dataprovider.gateway;
 
 import com.example.InstalllmentSystem.core.domain.Customer;
-import com.example.InstalllmentSystem.core.gateway.GenericGateway;
+import com.example.InstalllmentSystem.core.exception.customer.CustomerAddressNotFoundException;
+import com.example.InstalllmentSystem.core.gateway.CustomerGateway;
 import com.example.InstalllmentSystem.dataprovider.adapter.AddressAdapter;
 import com.example.InstalllmentSystem.dataprovider.entity.CustomerEntity;
 import com.example.InstalllmentSystem.dataprovider.mapper.CustomerEntityMapper;
@@ -17,19 +18,23 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class CustomerGatewayImpl implements GenericGateway<Customer> {
+public class CustomerGatewayImpl implements CustomerGateway {
 
     private final CustomerRepository customerRepository;
     private final CustomerEntityMapper customerMapper;
     private final AddressAdapter adapter;
 
     @Override
-    public Customer save(Customer customer) {
+    public Customer save(Customer customer) throws CustomerAddressNotFoundException {
 
         var entity = customerMapper.toEntity(customer);
         var addressEntity = addressBuilder(customer);
-        entity.setAddress(addressEntity);
 
+        if (addressEntity.getBairro() == null) {
+            throw new CustomerAddressNotFoundException(customer.getZipcode());
+        }
+
+        entity.setAddress(addressEntity);
         var saved = customerRepository.save(entity);
         return customerMapper.toDomain(saved);
     }
@@ -52,7 +57,6 @@ public class CustomerGatewayImpl implements GenericGateway<Customer> {
         return customerMapper.toDomain(entity.orElse(null));
     }
 
-
     @Override
     public Page<Customer> findAll(Pageable pageable) {
         Page<CustomerEntity> entities = customerRepository.findAll(pageable);
@@ -64,7 +68,7 @@ public class CustomerGatewayImpl implements GenericGateway<Customer> {
 
         var addressResponse = adapter.getAddressByZipcode(customer.getZipcode());
         return CustomerEntity.CustomerAddress.builder()
-                .zipcode(addressResponse.zipcode())
+                .zipcode(customer.getZipcode())
                 .uf(addressResponse.uf())
                 .bairro(addressResponse.bairro())
                 .complemento(addressResponse.complemento())

@@ -1,6 +1,5 @@
 package com.example.InstalllmentSystem.entrypoint.handler;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,15 +11,15 @@ public class ApiError {
 
     private String message;
     private String code;
-    private List<String> erros;
+    private List<String> errors;
 
     public ApiError (String message, String code) {
         this.message = message;
         this.code = code;
     }
 
-    public ApiError (List<String> erros, String code) {
-        this.erros = erros;
+    public ApiError (List<String> errors, String code) {
+        this.errors = errors;
         this.code = code;
     }
 }
