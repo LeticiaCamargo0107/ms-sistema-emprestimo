@@ -1,6 +1,7 @@
 package com.example.InstallmentSystem.entrypoint.worker;
 
 import com.example.InstallmentSystem.core.exception.payment.PaymentAmountZeroException;
+import com.example.InstallmentSystem.core.exception.payment.PaymentMethodNotFoundException;
 import com.example.InstallmentSystem.core.usercase.payment.CreatePaymentUseCase;
 import com.example.InstallmentSystem.entrypoint.dto.PaymentDTO;
 import com.example.InstallmentSystem.entrypoint.mapper.PaymentMapper;
@@ -29,7 +30,7 @@ public class CreatePaymentConsumer {
         try {
             var payment = paymentMapper.toDomain(message.getPayload());
             createPaymentUseCase.execute(payment);
-        } catch (PaymentAmountZeroException e) {
+        } catch (PaymentAmountZeroException | PaymentMethodNotFoundException e) {
             throw new RuntimeException(e);
         }
     }

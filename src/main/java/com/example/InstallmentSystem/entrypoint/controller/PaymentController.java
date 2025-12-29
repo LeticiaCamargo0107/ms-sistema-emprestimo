@@ -1,7 +1,9 @@
 package com.example.InstallmentSystem.entrypoint.controller;
 
 import com.example.InstallmentSystem.core.domain.Payment;
+import com.example.InstallmentSystem.core.domain.ProcessPaymentFacade;
 import com.example.InstallmentSystem.core.exception.payment.PaymentAmountZeroException;
+import com.example.InstallmentSystem.core.exception.payment.PaymentMethodNotFoundException;
 import com.example.InstallmentSystem.core.exception.payment.PaymentNotFoundException;
 import com.example.InstallmentSystem.core.usercase.payment.CreatePaymentUseCase;
 import com.example.InstallmentSystem.core.usercase.payment.DeleteByIdPaymentUseCase;
@@ -37,6 +39,7 @@ public class PaymentController implements PaymentControllerAPI {
     private final UpdatePaymentUseCase updatePaymentUseCase;
     private final GetByIdPaymentUseCase getByIdPaymentUseCase;
     private final FindAllPaymentUseCase findAllPaymentUseCase;
+    private final ProcessPaymentFacade processPaymentFacade;
     private final PaymentMapper paymentMapper;
 
     @GetMapping("/{id}")
@@ -53,10 +56,10 @@ public class PaymentController implements PaymentControllerAPI {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Payment create(@RequestBody @Valid PaymentDTO paymentDTO) throws PaymentAmountZeroException {
+    public Payment create(@RequestBody @Valid PaymentDTO paymentDTO) throws PaymentAmountZeroException, PaymentMethodNotFoundException {
 
         var payment = paymentMapper.toDomain(paymentDTO);
-        return createPaymentUseCase.execute(payment);
+        return processPaymentFacade.orchestrator(payment);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

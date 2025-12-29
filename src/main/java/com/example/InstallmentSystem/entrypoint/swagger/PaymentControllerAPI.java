@@ -2,6 +2,7 @@ package com.example.InstallmentSystem.entrypoint.swagger;
 
 import com.example.InstallmentSystem.core.domain.Payment;
 import com.example.InstallmentSystem.core.exception.payment.PaymentAmountZeroException;
+import com.example.InstallmentSystem.core.exception.payment.PaymentMethodNotFoundException;
 import com.example.InstallmentSystem.core.exception.payment.PaymentNotFoundException;
 import com.example.InstallmentSystem.entrypoint.dto.PaymentDTO;
 import com.example.InstallmentSystem.entrypoint.handler.ApiError;
@@ -32,7 +33,7 @@ public interface PaymentControllerAPI {
             @ApiResponse(responseCode = "201", description = "Created", content = {@Content(schema = @Schema(implementation = Payment.class))}),
             @ApiResponse(responseCode = "400", description = "Fail to create payment", content = {@Content(schema =  @Schema(implementation = ApiError.class))})
     })
-    Payment create(PaymentDTO paymentDTO) throws PaymentAmountZeroException;
+    Payment create(PaymentDTO paymentDTO) throws PaymentAmountZeroException, PaymentMethodNotFoundException;
 
     @Operation(summary = "Delete payment", description = "Delete payment by id")
     @ApiResponses({

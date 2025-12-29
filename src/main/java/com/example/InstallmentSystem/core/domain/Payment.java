@@ -23,4 +23,6 @@ public class Payment {
     private LocalDateTime paidAt;
 
     private PaymentStatus status;
+
+    private String notify;
 }

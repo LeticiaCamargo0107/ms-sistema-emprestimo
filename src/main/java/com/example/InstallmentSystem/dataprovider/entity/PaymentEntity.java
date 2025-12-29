@@ -4,6 +4,7 @@ import com.example.InstallmentSystem.core.domain.enumeration.PaymentMethod;
 import com.example.InstallmentSystem.core.domain.enumeration.PaymentStatus;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -27,4 +28,7 @@ public class PaymentEntity {
     private LocalDateTime paidAt;
 
     private PaymentStatus status;
+
+    @Setter
+    private String notify;
 }
