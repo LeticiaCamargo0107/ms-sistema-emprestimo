@@ -34,7 +34,7 @@ class CreateContractUseCaseTest {
     @ParameterizedTest
     @MethodSource("whenRequestedAmountIsLessThanOrZeroThenShouldThrowContractRequestAmountZeroExceptionProvider")
     @DisplayName("When requested amount is less than or zero Then should throw ContractRequestAmountZeroException")
-    void whenRequestedAmountIsLessThanOrZeroThenShouldThrowContractRequestAmountZeroException(BigDecimal requestedAmount) throws ContractPeriodZeroException, ContractRequestAmountZeroException {
+    void whenRequestedAmountIsLessThanOrZeroThenShouldThrowContractRequestAmountZeroException(BigDecimal requestedAmount) {
         // Given
         var contract = Instancio.of(Contract.class)
                 .set(Select.field("requestedAmount"), requestedAmount)
@@ -56,7 +56,7 @@ class CreateContractUseCaseTest {
     }
 
     @Test
-    void whenRequestedAmountIsZeroThenShouldThrowContractRequestAmountZeroExceptiondd() throws ContractPeriodZeroException, ContractRequestAmountZeroException {
+    void whenOperationPeriodIsZeroThenShouldThrowContractRequestAmountZeroException() {
         // Given
         var contract = Instancio.of(Contract.class)
                 .set(Select.field("operationPeriod"), 0)
