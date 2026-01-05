@@ -25,7 +25,7 @@ public class CreateContractUseCase {
 
     public Contract execute(Contract contract) throws ContractPeriodZeroException, ContractRequestAmountZeroException {
 
-        if (contract.getRequestedAmount().compareTo(BigDecimal.ZERO) <= 0) {
+        if (contract.getRequestedAmount() == null || (contract.getRequestedAmount().compareTo(BigDecimal.ZERO) <= 0)) {
             log.error("RequestedAmount must be greater than zero");
             throw new ContractRequestAmountZeroException();
         }

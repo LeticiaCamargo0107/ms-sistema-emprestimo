@@ -68,7 +68,7 @@ public class ContractController implements ContractControllerAPI {
     }
 
     @PutMapping("/{id}")
-    public Contract update(@PathVariable String id, @RequestBody ContractDTO contractDTO) throws ContractRequestAmountZeroException, ContractNotFoundException {
+    public Contract update(@PathVariable String id, @RequestBody ContractDTO contractDTO) throws ContractRequestAmountZeroException, ContractNotFoundException, ContractPeriodZeroException {
 
         var contract = contractMapper.toDomain(contractDTO);
         return updateContractUseCase.execute(id, contract);
