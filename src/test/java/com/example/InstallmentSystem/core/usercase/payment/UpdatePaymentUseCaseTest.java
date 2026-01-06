@@ -1,12 +1,9 @@
 package com.example.InstallmentSystem.core.usercase.payment;
 
-import com.example.InstallmentSystem.core.domain.Contract;
-import com.example.InstallmentSystem.core.exception.contract.ContractNotFoundException;
-import com.example.InstallmentSystem.core.exception.contract.ContractPeriodZeroException;
-import com.example.InstallmentSystem.core.exception.contract.ContractRequestAmountZeroException;
+import com.example.InstallmentSystem.core.domain.Payment;
+import com.example.InstallmentSystem.core.exception.payment.PaymentAmountZeroException;
+import com.example.InstallmentSystem.core.exception.payment.PaymentNotFoundException;
 import com.example.InstallmentSystem.core.gateway.GenericGateway;
-import com.example.InstallmentSystem.core.usercase.contract.GetByIdContractUseCase;
-import com.example.InstallmentSystem.core.usercase.contract.UpdateContractUseCase;
 import org.instancio.Instancio;
 import org.instancio.Select;
 import org.junit.jupiter.api.DisplayName;
@@ -29,32 +26,32 @@ import static org.mockito.BDDMockito.then;
 public class UpdatePaymentUseCaseTest {
 
     @InjectMocks
-    private UpdateContractUseCase underTest;
+    private UpdatePaymentUseCase underTest;
 
     @Mock
-    private GetByIdContractUseCase getByIdContractUseCase;
+    private GetByIdPaymentUseCase getByIdPaymentUseCase;
 
     @Mock
-    private GenericGateway<Contract> contractGateway;
+    private GenericGateway<Payment> paymentGateway;
 
     @ParameterizedTest
-    @MethodSource("WhenRequestedAmountIsLessThanOrZeroThenShouldThrowContractRequestAmountZeroExceptionProvider")
-    @DisplayName("When Requested Amount Is Less Than Or Zero Then Should Throw ContractRequestAmountZeroException")
-    void WhenRequestedAmountIsLessThanOrZeroThenShouldThrowContractRequestAmountZeroException(BigDecimal requestedAmount) throws ContractRequestAmountZeroException, ContractNotFoundException {
+    @MethodSource("WhenAmountIsLessThanOrZeroThenShouldThrowPaymentAmountZeroExceptionProvider")
+    @DisplayName("When Amount Is Less Than Or Zero Then Should Throw PaymentAmountZeroException")
+    void WhenAmountIsLessThanOrZeroThenShouldThrowPaymentAmountZeroException(BigDecimal amount) {
         //Given
         var id = "lalala";
-        var contract = Instancio.of(Contract.class)
-                .set(Select.field("requestedAmount"), requestedAmount)
+        var payment = Instancio.of(Payment.class)
+                .set(Select.field("amount"), amount)
                 .create();
 
         // When
-        var result = catchThrowable(() -> underTest.execute(id, contract));
+        var result = catchThrowable(() -> underTest.execute(id, payment));
 
         // Then
-        assertThat(result).isInstanceOf(ContractRequestAmountZeroException.class);
+        assertThat(result).isInstanceOf(PaymentAmountZeroException.class);
     }
 
-    static Object[] WhenRequestedAmountIsLessThanOrZeroThenShouldThrowContractRequestAmountZeroExceptionProvider() {
+    static Object[] WhenAmountIsLessThanOrZeroThenShouldThrowPaymentAmountZeroExceptionProvider() {
         return new Object[] {
           BigDecimal.valueOf(-1),
           BigDecimal.ZERO,
@@ -63,48 +60,23 @@ public class UpdatePaymentUseCaseTest {
     }
 
 
-    @ParameterizedTest
-    @MethodSource("WhenOperationPeriodIsLessThanOrZeroThenShouldThrowContractRequestAmountZeroExceptionProvider")
-    @DisplayName("When Operation Period Is Less Than Or Zero Then Should Throw ContractRequestAmountZeroException")
-    void WhenOperationPeriodIsLessThanOrZeroThenShouldThrowContractRequestAmountZeroException(Integer operationPeriod) throws ContractRequestAmountZeroException, ContractNotFoundException {
-        //Given
-        var id = "lalala";
-        var contract = Instancio.of(Contract.class)
-                .set(Select.field("operationPeriod"), operationPeriod)
-                .create();
-
-        // When
-        var result = catchThrowable(() -> underTest.execute(id, contract));
-
-        // Then
-        assertThat(result).isInstanceOf(ContractPeriodZeroException.class);
-    }
-
-    static Object[] WhenOperationPeriodIsLessThanOrZeroThenShouldThrowContractRequestAmountZeroExceptionProvider() {
-        return new Object[] {
-                -1,
-                0,
-                null
-        };
-    }
-
     @Test
-    void WhenContractIsValidShouldUpdateContractSuccessfully() throws ContractRequestAmountZeroException, ContractPeriodZeroException, ContractNotFoundException {
+    void WhenPaymentIsValidShouldUpdateContractSuccessfully() throws PaymentNotFoundException, PaymentAmountZeroException {
         // Given
         var id = "lalala";
-        var contract = Instancio.create(Contract.class);
+        var payment = Instancio.create(Payment.class);
 
-        given(contractGateway.save(contract)).willReturn(contract);
-        given(getByIdContractUseCase.execute(id)).willReturn(contract);
+        given(paymentGateway.save(payment)).willReturn(payment);
+        given(getByIdPaymentUseCase.execute(id)).willReturn(payment);
 
         // When
-        var result = underTest.execute(id, contract);
+        var result = underTest.execute(id, payment);
 
         // Then
-        then(contractGateway).should().save(contract);
+        then(paymentGateway).should().save(payment);
 
         assertThat(result)
                 .isNotNull()
-                .isEqualTo(contract);
+                .isEqualTo(payment);
     }
 }

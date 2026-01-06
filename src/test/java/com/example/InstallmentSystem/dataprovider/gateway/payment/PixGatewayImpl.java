@@ -1,4 +1,4 @@
-package com.example.InstallmentSystem.dataprovider.gateway;
+package com.example.InstallmentSystem.dataprovider.gateway.payment;
 
 import com.example.InstallmentSystem.core.domain.Payment;
 import com.example.InstallmentSystem.core.domain.enumeration.PaymentMethod;
@@ -8,15 +8,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class SlipGatewayImpl implements PaymentMethodGateway {
+public class PixGatewayImpl implements PaymentMethodGateway {
 
     @Override
     public void process(Payment payment) {
-        log.info("process payment method slip");
+        log.info("process payment method pix");
     }
 
     @Override
     public boolean supports(PaymentMethod method) {
-        return method == PaymentMethod.SLIP;
+        return method == PaymentMethod.PIX;
     }
 }

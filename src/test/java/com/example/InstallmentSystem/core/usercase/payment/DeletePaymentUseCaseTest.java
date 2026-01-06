@@ -1,8 +1,7 @@
 package com.example.InstallmentSystem.core.usercase.payment;
 
-import com.example.InstallmentSystem.core.domain.Contract;
+import com.example.InstallmentSystem.core.domain.Payment;
 import com.example.InstallmentSystem.core.gateway.GenericGateway;
-import com.example.InstallmentSystem.core.usercase.contract.DeleteContractUseCase;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,28 +20,28 @@ import static org.mockito.BDDMockito.then;
 public class DeletePaymentUseCaseTest {
 
     @InjectMocks
-    private DeleteContractUseCase underTest;
+    private DeleteByIdPaymentUseCase underTest;
 
     @Mock
-    private GenericGateway<Contract> contractGateway;
+    private GenericGateway<Payment> paymentGateway;
 
 
     @ParameterizedTest
-    @MethodSource("whenContractDoesNotExistByIdThenShouldThrowContractNotFoundExceptionProvider")
-    @DisplayName("when Contract Does Not Exist By Id Then Should Throw ContractNotFoundException")
-    void whenContractDoesNotExistByIdThenShouldThrowContractNotFoundException (String id) {
+    @MethodSource("whenPaymentDoesNotExistByIdThenShouldThrowPaymentNotFoundExceptionProvider")
+    @DisplayName("when payment Does Not Exist By Id Then Should Throw PaymentNotFoundException")
+    void whenPaymentDoesNotExistByIdThenShouldThrowPaymentNotFoundException (String id) {
         // Given
-        given(contractGateway.existById(id)).willReturn(false);
+        given(paymentGateway.existById(id)).willReturn(false);
 
         // When
         var result = catchThrowable(() -> underTest.execute(id));
 
         // Then
-        then(contractGateway).should().existById(id);
+        then(paymentGateway).should().existById(id);
         assertThat(result);
     }
 
-    static Object[] whenContractDoesNotExistByIdThenShouldThrowContractNotFoundExceptionProvider() {
+    static Object[] whenPaymentDoesNotExistByIdThenShouldThrowPaymentNotFoundExceptionProvider() {
         return new Object[] {
                 "vbfdrvgb",
                 null
@@ -51,16 +50,16 @@ public class DeletePaymentUseCaseTest {
 
 
     @Test
-    void whenContractIsValidThenShouldDeleteContractSuccessfully() {
+    void whenPaymentIsValidThenShouldDeletePaymentSuccessfully() {
         // Given
         String id = "lalala";
-        given(contractGateway.existById(id)).willReturn(true);
+        given(paymentGateway.existById(id)).willReturn(true);
 
         // When
         var result = catchThrowable(() -> underTest.execute(id));
 
         // Then
-        then(contractGateway).should().deleteById(id);
+        then(paymentGateway).should().deleteById(id);
         assertThat(result);
     }
 

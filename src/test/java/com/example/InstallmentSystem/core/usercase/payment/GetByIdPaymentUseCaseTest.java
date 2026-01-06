@@ -1,9 +1,7 @@
 package com.example.InstallmentSystem.core.usercase.payment;
 
-import com.example.InstallmentSystem.core.domain.Contract;
-import com.example.InstallmentSystem.core.exception.contract.ContractNotFoundException;
+import com.example.InstallmentSystem.core.domain.Payment;
 import com.example.InstallmentSystem.core.gateway.GenericGateway;
-import com.example.InstallmentSystem.core.usercase.contract.GetByIdContractUseCase;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,28 +20,28 @@ import static org.mockito.BDDMockito.then;
 public class GetByIdPaymentUseCaseTest {
 
     @InjectMocks
-    private GetByIdContractUseCase underTest;
+    private GetByIdPaymentUseCase underTest;
 
     @Mock
-    private GenericGateway<Contract> contractGateway;
+    private GenericGateway<Payment> paymentGateway;
 
 
     @ParameterizedTest
-    @MethodSource("whenContractDoesNotExistByIdThenShouldThrowContractNotFoundExceptionProvider")
-    @DisplayName("when Contract Does Not Exist By Id Then Should Throw ContractNotFoundException")
-    void whenContractDoesNotExistByIdThenShouldThrowContractNotFoundException (String id) throws ContractNotFoundException {
+    @MethodSource("whenPaymentDoesNotExistByIdThenShouldThrowPaymentNotFoundExceptionProvider")
+    @DisplayName("when Payment Does Not Exist By Id Then Should Throw PaymentNotFoundException")
+    void whenPaymentDoesNotExistByIdThenShouldThrowPaymentNotFoundException (String id) {
         // Given
-        given(contractGateway.existById(id)).willReturn(false);
+        given(paymentGateway.existById(id)).willReturn(false);
 
         // When
         var result = catchThrowable(() -> underTest.execute(id));
 
         // Then
-        then(contractGateway).should().existById(id);
+        then(paymentGateway).should().existById(id);
         assertThat(result);
     }
 
-    static Object[] whenContractDoesNotExistByIdThenShouldThrowContractNotFoundExceptionProvider() {
+    static Object[] whenPaymentDoesNotExistByIdThenShouldThrowPaymentNotFoundExceptionProvider() {
         return new Object[] {
                 "vbfdrvgb",
                 null
@@ -52,16 +50,16 @@ public class GetByIdPaymentUseCaseTest {
 
 
     @Test
-    void whenContractIsValidThenShouldGetContractByIdSuccessfully() {
+    void whenPaymentIsValidThenShouldGetPaymentByIdSuccessfully() {
         // Given
         String id = "lalala";
-        given(contractGateway.existById(id)).willReturn(true);
+        given(paymentGateway.existById(id)).willReturn(true);
 
         // When
         var result = catchThrowable(() -> underTest.execute(id));
 
         // Then
-        then(contractGateway).should().findById(id);
+        then(paymentGateway).should().findById(id);
         assertThat(result);
     }
 }
