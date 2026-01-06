@@ -4,20 +4,40 @@ import com.example.InstallmentSystem.core.exception.payment.PaymentAmountZeroExc
 import com.example.InstallmentSystem.core.exception.payment.PaymentMethodNotFoundException;
 import com.example.InstallmentSystem.core.usercase.payment.CreatePaymentUseCase;
 import com.example.InstallmentSystem.core.usercase.payment.NotifyPaymentUseCase;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import org.instancio.Instancio;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@Slf4j
-@RequiredArgsConstructor
-@Component
-public class ProcessPaymentFacade {
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.mockito.BDDMockito.given;
 
-    private final NotifyPaymentUseCase notifyPaymentUseCase;
-    private final CreatePaymentUseCase createPaymentUseCase;
+@ExtendWith(MockitoExtension.class)
+public class ProcessPaymentFacadeTest {
 
-    public Payment orchestrator(Payment payment) throws PaymentMethodNotFoundException, PaymentAmountZeroException {
-        var notify = notifyPaymentUseCase.execute(payment);
-        return createPaymentUseCase.execute(notify);
+    @InjectMocks
+    private ProcessPaymentFacade underTest;
+
+    @Mock
+    private CreatePaymentUseCase createPaymentUseCase;
+
+    @Mock
+    private NotifyPaymentUseCase notifyPaymentUseCase;
+
+    @Test
+    void whenPaymentFacadeProcessIsValidThenShouldCreateAContractSuccessfully() throws PaymentMethodNotFoundException, PaymentAmountZeroException {
+        //given
+        var payment = Instancio.of(Payment.class).create();
+        given(notifyPaymentUseCase.execute(payment)).willReturn(payment);
+        given(createPaymentUseCase.execute(payment)).willReturn(payment);
+
+        //when
+        var result = catchThrowable(() -> underTest.orchestrator(payment));
+
+        //then
+        assertThat(result);
     }
 }

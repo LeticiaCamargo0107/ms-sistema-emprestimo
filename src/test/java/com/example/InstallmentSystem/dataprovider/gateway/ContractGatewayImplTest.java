@@ -1,55 +1,75 @@
 package com.example.InstallmentSystem.dataprovider.gateway;
 
 import com.example.InstallmentSystem.core.domain.Contract;
-import com.example.InstallmentSystem.core.gateway.GenericGateway;
 import com.example.InstallmentSystem.dataprovider.entity.ContractEntity;
 import com.example.InstallmentSystem.dataprovider.mapper.ContractEntityMapper;
 import com.example.InstallmentSystem.dataprovider.repository.ContractRepository;
-import lombok.RequiredArgsConstructor;
+import org.instancio.Instancio;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.as;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 
-@Component
-@RequiredArgsConstructor
-public class ContractGatewayImpl implements GenericGateway<Contract> {
 
-    private final ContractRepository contractRepository;
-    private final ContractEntityMapper contractMapper;
+@ExtendWith(MockitoExtension.class)
+public class ContractGatewayImplTest {
 
-    @Override
-    public Contract save(Contract contract) {
+    @InjectMocks
+    private ContractGatewayImpl underTest;
 
-        var entity = contractMapper.toEntity(contract);
-        var saved = contractRepository.save(entity);
+    @Mock
+    private ContractRepository contractRepository;
 
-        return contractMapper.toDomain(saved);
+    @Mock
+    private ContractEntityMapper contractMapper;
+
+    @Test
+    void testMethodSave() {
+        //given
+        var contract = Instancio.of(Contract.class).create();
+        var contractEntity = Instancio.of(ContractEntity.class).create();
+        given(contractMapper.toEntity(contract)).willReturn(contractEntity);
+        given(contractRepository.save(contractEntity)).willReturn(contractEntity);
+
+        //when
+        var result = catchThrowable(() -> underTest.save(contract));
+
+        //then
+        then(contractRepository).should().save(contractEntity);
+        then(contractMapper).should().toDomain(contractEntity);
+        assertThat(result)
+                .isNotNull()
+                .isEqualTo(contract);
     }
 
-    @Override
     public void deleteById(String id) {
 
         contractRepository.deleteById(id);
     }
 
-    @Override
     public boolean existById(String id) {
 
         return contractRepository.existsById(id);
     }
 
-    @Override
     public Contract findById(String id) {
         var entity = contractRepository.findById(id);
         return contractMapper.toDomain(entity.orElse(null));
     }
 
 
-    @Override
     public Page<Contract> findAll(Pageable pageable) {
         Page<ContractEntity> entities = contractRepository.findAll(pageable);
         List<Contract> contracts = entities.map(contractMapper::toDomain).getContent();

@@ -20,7 +20,7 @@ public class AddressAdapter implements ViaCepClient {
         return client.getAddressByZipcode(zipcode);
     }
 
-    public ViaCepResponse getAddressByZipcodeFallback(String zipcode) throws CustomerAddressNotFoundException {
+    public void getAddressByZipcodeFallback(String zipcode) throws CustomerAddressNotFoundException {
         log.error("zipcode not found");
         throw new CustomerAddressNotFoundException(zipcode);
     }

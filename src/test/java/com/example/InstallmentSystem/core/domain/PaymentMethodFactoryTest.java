@@ -1,4 +1,55 @@
-package com.example.InstallmentSystem;
+package com.example.InstallmentSystem.core.domain;
 
-public class PaymentMethodFactoryTest {
+import com.example.InstallmentSystem.core.domain.enumeration.PaymentMethod;
+import com.example.InstallmentSystem.core.exception.payment.PaymentMethodNotFoundException;
+import com.example.InstallmentSystem.core.gateway.PaymentMethodGateway;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+
+@ExtendWith(MockitoExtension.class)
+class PaymentMethodFactoryTest {
+
+    private PaymentMethodFactory underTest;
+
+    @Mock
+    private PaymentMethodGateway firstPaymentMethodGateway;
+
+    @Mock
+    private PaymentMethodGateway secondPaymentMethodGateway;
+
+    @BeforeEach
+    void setUp() {
+        underTest = new PaymentMethodFactory(List.of(
+                firstPaymentMethodGateway,
+                secondPaymentMethodGateway
+        ));
+    }
+
+    @Test
+    void testSupply() throws PaymentMethodNotFoundException {
+        // Given
+        given(firstPaymentMethodGateway.supports(any())).willReturn(false);
+        given(secondPaymentMethodGateway.supports(any())).willReturn(true);
+
+        // When
+        var result = catchThrowable(() -> underTest.supply(PaymentMethod.CREDIT_CARD));
+
+        // Then
+        assertThat(result).isNotNull();
+    }
 }
+
+
+
+
+

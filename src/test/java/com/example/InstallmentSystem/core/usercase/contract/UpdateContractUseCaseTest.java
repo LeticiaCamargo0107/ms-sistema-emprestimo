@@ -5,6 +5,7 @@ import com.example.InstallmentSystem.core.exception.contract.ContractNotFoundExc
 import com.example.InstallmentSystem.core.exception.contract.ContractPeriodZeroException;
 import com.example.InstallmentSystem.core.exception.contract.ContractRequestAmountZeroException;
 import com.example.InstallmentSystem.core.gateway.GenericGateway;
+import com.example.InstallmentSystem.core.util.ContractUtils;
 import org.instancio.Instancio;
 import org.instancio.Select;
 import org.junit.jupiter.api.DisplayName;
@@ -22,6 +23,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.CALLS_REAL_METHODS;
+import static org.mockito.Mockito.mockStatic;
 
 @ExtendWith(MockitoExtension.class)
 public class UpdateContractUseCaseTest {
@@ -94,7 +97,9 @@ public class UpdateContractUseCaseTest {
 
         given(contractGateway.save(contract)).willReturn(contract);
         given(getByIdContractUseCase.execute(id)).willReturn(contract);
-
+        var contractUtilsMock = mockStatic(ContractUtils.class, CALLS_REAL_METHODS); {
+            contractUtilsMock.when(() -> ContractUtils.getMultiply(contract, contract.getMonthlyCetRate())).thenReturn(BigDecimal.valueOf(1000));
+        }
         // When
         var result = underTest.execute(id, contract);
 
@@ -104,5 +109,7 @@ public class UpdateContractUseCaseTest {
         assertThat(result)
                 .isNotNull()
                 .isEqualTo(contract);
+
+        contractUtilsMock.close();
     }
 }

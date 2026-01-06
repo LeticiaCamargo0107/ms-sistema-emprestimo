@@ -20,7 +20,7 @@ public class UpdatePaymentUseCase {
 
     public Payment execute(String id, Payment payment) throws PaymentNotFoundException, PaymentAmountZeroException {
 
-        if (payment.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
+        if (payment.getAmount() == null || payment.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
             log.error("Amount must be greater than zero");
             throw new PaymentAmountZeroException();
         }

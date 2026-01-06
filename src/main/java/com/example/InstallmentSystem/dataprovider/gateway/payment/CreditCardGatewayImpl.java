@@ -1,4 +1,4 @@
-package com.example.InstallmentSystem.dataprovider.gateway;
+package com.example.InstallmentSystem.dataprovider.gateway.payment;
 
 import com.example.InstallmentSystem.core.domain.Payment;
 import com.example.InstallmentSystem.core.domain.enumeration.PaymentMethod;
