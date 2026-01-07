@@ -1,15 +1,28 @@
 package com.example.InstallmentSystem.dataprovider.gateway.payment;
 
 import com.example.InstallmentSystem.core.domain.Payment;
-import com.example.InstallmentSystem.core.gateway.NotifyGateway;
-import org.springframework.stereotype.Component;
+import org.instancio.Instancio;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@Component
-public class EmailNotifyGatewayImpl implements NotifyGateway {
+import static org.assertj.core.api.Assertions.assertThat;
 
-    @Override
-    public String createNotify(Payment payment) {
-        payment.setNotify("payment made successfully");
-        return payment.getNotify();
+@ExtendWith(MockitoExtension.class)
+public class EmailNotifyGatewayImplTest {
+
+    @InjectMocks
+    private EmailNotifyGatewayImpl underTest;
+
+    @Test
+    void testCreateNotify() {
+        //given
+        var payment = Instancio.of(Payment.class).create();
+        //when
+        var result = underTest.createNotify(payment);
+        //then
+        assertThat(result)
+                .isNotNull();
     }
 }

@@ -2,67 +2,131 @@ package com.example.InstallmentSystem.dataprovider.gateway;
 
 import com.example.InstallmentSystem.core.domain.Customer;
 import com.example.InstallmentSystem.core.exception.customer.CustomerAddressNotFoundException;
-import com.example.InstallmentSystem.core.gateway.CustomerGateway;
 import com.example.InstallmentSystem.dataprovider.adapter.AddressAdapter;
+import com.example.InstallmentSystem.dataprovider.dto.ViaCepResponse;
 import com.example.InstallmentSystem.dataprovider.entity.CustomerEntity;
 import com.example.InstallmentSystem.dataprovider.mapper.CustomerEntityMapper;
 import com.example.InstallmentSystem.dataprovider.repository.CustomerRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
+import org.instancio.Instancio;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 
 
-@Component
-@RequiredArgsConstructor
-public class CustomerGatewayImpl implements CustomerGateway {
+@ExtendWith(MockitoExtension.class)
+public class CustomerGatewayImplTest {
 
-    private final CustomerRepository customerRepository;
-    private final CustomerEntityMapper customerMapper;
-    private final AddressAdapter adapter;
+    @InjectMocks
+    private CustomerGatewayImpl underTest;
 
-    @Override
-    public Customer save(Customer customer) throws CustomerAddressNotFoundException {
+    @Mock
+    private CustomerRepository customerRepository;
 
-        var entity = customerMapper.toEntity(customer);
-        var addressEntity = addressBuilder(customer);
+    @Mock
+    private CustomerEntityMapper customerMapper;
 
-        if (addressEntity.getBairro() == null) {
-            throw new CustomerAddressNotFoundException(customer.getZipcode());
-        }
+    @Mock
+    private AddressAdapter adapter;
 
-        entity.setAddress(addressEntity);
-        var saved = customerRepository.save(entity);
-        return customerMapper.toDomain(saved);
+    @Test
+    void testMethodSave() throws CustomerAddressNotFoundException {
+        //given
+        var customer = Instancio.of(Customer.class).create();
+        var entity = Instancio.of(CustomerEntity.class).create();
+        var customerAddress = Instancio.of(ViaCepResponse.class).create();
+
+        given(customerRepository.save(entity)).willReturn(entity);
+        given(customerMapper.toEntity(customer)).willReturn(entity);
+        given(customerMapper.toDomain(entity)).willReturn(customer);
+        given(adapter.getAddressByZipcode(customerAddress.zipcode())).willReturn(customerAddress);
+
+        //when
+        var result = underTest.save(customer);
+
+        //then
+        then(customerRepository).should().save(entity);
+        then(customerMapper).should().toDomain(entity);
+        then(customerMapper).should().toEntity(customer);
+        then(adapter).should().getAddressByZipcode(customerAddress.zipcode());
+        assertThat(result)
+                .isNotNull()
+                .isEqualTo(customer);
     }
 
-    @Override
-    public void deleteById(String id) {
-
-        customerRepository.deleteById(id);
+    @Test
+    void TestDelete() {
+        //given
+        var id = "lalala";
+        //when
+        var result = catchThrowable(() -> underTest.deleteById(id));
+        //then
+        then(customerRepository).should().deleteById(id);
+        assertThat(result);
     }
 
-    @Override
-    public boolean existById(String id) {
-
-        return customerRepository.existsById(id);
+    @Test
+    void TestExistById() {
+        //given
+        var id = "lalala";
+        //when
+        var result = catchThrowable(() -> underTest.existById(id));
+        //then
+        then(customerRepository).should().existsById(id);
+        assertThat(result);
     }
 
-    @Override
-    public Customer findById(String id) {
-        var entity = customerRepository.findById(id);
-        return customerMapper.toDomain(entity.orElse(null));
+    @Test
+    void testReturnFindByIdIsACustomer() {
+        //given
+        var customerEntity = Instancio.of(CustomerEntity.class).create();
+        var customer = Instancio.of(Customer.class).create();
+        given(customerRepository.findById(customerEntity.getId())).willReturn(Optional.of(customerEntity));
+        given(customerMapper.toDomain(customerEntity)).willReturn(customer);
+
+        //when
+        var result = underTest.findById(customerEntity.getId());
+
+        //then
+        then(customerRepository).should().findById(customerEntity.getId());
+        then(customerMapper).should().toDomain(customerEntity);
+        assertThat(result)
+                .isNotNull()
+                .isEqualTo(customer);
     }
 
-    @Override
-    public Page<Customer> findAll(Pageable pageable) {
-        Page<CustomerEntity> entities = customerRepository.findAll(pageable);
-        List<Customer> contracts = entities.map(customerMapper::toDomain).getContent();
-        return new PageImpl<>(contracts, pageable, entities.getTotalElements());
+    @Test
+    void testReturnFindByIdIsNull() {
+        //given
+        var customerEntity = Instancio.of(CustomerEntity.class).create();
+        var customer = Instancio.of(Customer.class).create();
+        given(customerRepository.findById(customerEntity.getId())).willReturn(Optional.empty());
+
+        //when
+        var result = underTest.findById(customerEntity.getId());
+
+        //then
+        then(customerRepository).should().findById(customerEntity.getId());
+        assertThat(result)
+                .isNull();
     }
+//
+    @Test
+    void testReturnFindAll() {}
+//    @Test
+//    void testReturnFindAll(Pageable pageable) {
+//        Page<CustomerEntity> entities = customerRepository.findAll(pageable);
+//        List<Customer> contracts = entities.map(customerMapper::toDomain).getContent();
+//        return new PageImpl<>(contracts, pageable, entities.getTotalElements());
+//    }
 
     private CustomerEntity.CustomerAddress addressBuilder(Customer customer) {
 

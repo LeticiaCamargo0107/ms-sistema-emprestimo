@@ -1,58 +1,122 @@
-package com.example.InstallmentSystem.dataprovider.gateway.payment;
+package com.example.InstallmentSystem.dataprovider.gateway;
 
 import com.example.InstallmentSystem.core.domain.Payment;
-import com.example.InstallmentSystem.core.gateway.GenericGateway;
+import com.example.InstallmentSystem.core.exception.customer.CustomerAddressNotFoundException;
 import com.example.InstallmentSystem.dataprovider.entity.PaymentEntity;
 import com.example.InstallmentSystem.dataprovider.mapper.PaymentEntityMapper;
 import com.example.InstallmentSystem.dataprovider.repository.PaymentRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
+import org.instancio.Instancio;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 
 
-@RequiredArgsConstructor
-@Component
-public class PaymentGatewayImpl implements GenericGateway<Payment> {
+@ExtendWith(MockitoExtension.class)
+public class PaymentGatewayImplTest {
 
-    private final PaymentRepository paymentRepository;
-    private final PaymentEntityMapper paymentMapper;
+    @InjectMocks
+    private PaymentGatewayImpl underTest;
 
-    @Override
-    public Payment save(Payment payment) {
+    @Mock
+    private PaymentRepository paymentRepository;
 
-        var entity = paymentMapper.toEntity(payment);
-        var saved = paymentRepository.save(entity);
+    @Mock
+    private PaymentEntityMapper paymentMapper;
 
-        return paymentMapper.toDomain(saved);
+    @Test
+    void testMethodSave() throws CustomerAddressNotFoundException {
+        //given
+        var payment = Instancio.of(Payment.class).create();
+        var entity = Instancio.of(PaymentEntity.class).create();
+        given(paymentRepository.save(entity)).willReturn(entity);
+        given(paymentMapper.toEntity(payment)).willReturn(entity);
+        given(paymentMapper.toDomain(entity)).willReturn(payment);
+
+        //when
+        var result = underTest.save(payment);
+
+        //then
+        then(paymentRepository).should().save(entity);
+        then(paymentMapper).should().toDomain(entity);
+        then(paymentMapper).should().toEntity(payment);
+        assertThat(result)
+                .isNotNull()
+                .isEqualTo(payment);
     }
 
-    @Override
-    public void deleteById(String id) {
 
-        paymentRepository.deleteById(id);
+    @Test
+    void TestDelete() {
+        //given
+        var id = "lalala";
+        //when
+        var result = catchThrowable(() -> underTest.deleteById(id));
+        //then
+        then(paymentRepository).should().deleteById(id);
+        assertThat(result);
     }
 
-    @Override
-    public boolean existById(String id) {
-
-        return paymentRepository.existsById(id);
+    @Test
+    void TestExistById() {
+        //given
+        var id = "lalala";
+        //when
+        var result = catchThrowable(() -> underTest.existById(id));
+        //then
+        then(paymentRepository).should().existsById(id);
+        assertThat(result);
     }
 
-    @Override
-    public Payment findById(String id) {
-        var entity = paymentRepository.findById(id);
-        return paymentMapper.toDomain(entity.orElse(null));
+    @Test
+    void testReturnFindByIdIsAPayment() {
+        //given
+        var paymentEntity = Instancio.of(PaymentEntity.class).create();
+        var payment = Instancio.of(Payment.class).create();
+        given(paymentRepository.findById(paymentEntity.getId())).willReturn(Optional.of(paymentEntity));
+        given(paymentMapper.toDomain(paymentEntity)).willReturn(payment);
+
+        //when
+        var result = underTest.findById(paymentEntity.getId());
+
+        //then
+        then(paymentRepository).should().findById(paymentEntity.getId());
+        then(paymentMapper).should().toDomain(paymentEntity);
+        assertThat(result)
+                .isNotNull()
+                .isEqualTo(payment);
+    }
+
+    @Test
+    void testReturnFindByIdIsNull() {
+        //given
+        var paymentEntity = Instancio.of(PaymentEntity.class).create();
+        var payment = Instancio.of(Payment.class).create();
+        given(paymentRepository.findById(paymentEntity.getId())).willReturn(Optional.empty());
+
+        //when
+        var result = underTest.findById(paymentEntity.getId());
+
+        //then
+        then(paymentRepository).should().findById(paymentEntity.getId());
+        assertThat(result)
+                .isNull();
     }
 
 
-    @Override
-    public Page<Payment> findAll(Pageable pageable) {
-        Page<PaymentEntity> entities = paymentRepository.findAll(pageable);
-        List<Payment> contracts = entities.map(paymentMapper::toDomain).getContent();
-        return new PageImpl<>(contracts, pageable, entities.getTotalElements());
-    }
+//    @Test
+//    void testReturnFindAll(Pageable pageable) {
+//        Page<PaymentEntity> entities = paymentRepository.findAll(pageable);
+//        List<Payment> contracts = entities.map(paymentMapper::toDomain).getContent();
+//        return new PageImpl<>(contracts, pageable, entities.getTotalElements());
+//    }
+
 }

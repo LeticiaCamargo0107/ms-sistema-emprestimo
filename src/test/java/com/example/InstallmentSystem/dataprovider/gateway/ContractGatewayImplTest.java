@@ -15,8 +15,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.BDDMockito.given;
@@ -39,34 +39,78 @@ public class ContractGatewayImplTest {
     void testMethodSave() {
         //given
         var contract = Instancio.of(Contract.class).create();
-        var contractEntity = Instancio.of(ContractEntity.class).create();
-        given(contractMapper.toEntity(contract)).willReturn(contractEntity);
-        given(contractRepository.save(contractEntity)).willReturn(contractEntity);
+        var entity = Instancio.of(ContractEntity.class).create();
+        given(contractRepository.save(entity)).willReturn(entity);
+        given(contractMapper.toEntity(contract)).willReturn(entity);
+        given(contractMapper.toDomain(entity)).willReturn(contract);
 
         //when
-        var result = catchThrowable(() -> underTest.save(contract));
+        var result = underTest.save(contract);
 
         //then
-        then(contractRepository).should().save(contractEntity);
+        then(contractRepository).should().save(entity);
+        then(contractMapper).should().toDomain(entity);
+        then(contractMapper).should().toEntity(contract);
+        assertThat(result)
+                .isNotNull()
+                .isEqualTo(contract);
+    }
+
+    @Test
+    void TestDelete() {
+        //given
+        var id = "lalala";
+        //when
+        var result = catchThrowable(() -> underTest.deleteById(id));
+        //then
+        then(contractRepository).should().deleteById(id);
+        assertThat(result);
+    }
+
+    @Test
+    void TestExistById() {
+        //given
+        var id = "lalala";
+        //when
+        var result = catchThrowable(() -> underTest.existById(id));
+        //then
+        then(contractRepository).should().existsById(id);
+        assertThat(result);
+    }
+
+
+    @Test
+    void testReturnFindByIdIsAContract() {
+        //given
+        var contractEntity = Instancio.of(ContractEntity.class).create();
+        var contract = Instancio.of(Contract.class).create();
+        given(contractRepository.findById(contractEntity.getId())).willReturn(Optional.of(contractEntity));
+        given(contractMapper.toDomain(contractEntity)).willReturn(contract);
+
+        //when
+        var result = underTest.findById(contractEntity.getId());
+
+        //then
+        then(contractRepository).should().findById(contractEntity.getId());
         then(contractMapper).should().toDomain(contractEntity);
         assertThat(result)
                 .isNotNull()
                 .isEqualTo(contract);
     }
 
-    public void deleteById(String id) {
+    @Test
+    void testReturnFindByIdIsNull() {
+        //given
+        var contractEntity = Instancio.of(ContractEntity.class).create();
+        given(contractRepository.findById(contractEntity.getId())).willReturn(Optional.empty());
 
-        contractRepository.deleteById(id);
-    }
+        //when
+        var result = underTest.findById(contractEntity.getId());
 
-    public boolean existById(String id) {
-
-        return contractRepository.existsById(id);
-    }
-
-    public Contract findById(String id) {
-        var entity = contractRepository.findById(id);
-        return contractMapper.toDomain(entity.orElse(null));
+        //then
+        then(contractRepository).should().findById(contractEntity.getId());
+        assertThat(result)
+                .isNull();
     }
 
 

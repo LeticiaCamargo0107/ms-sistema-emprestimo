@@ -20,7 +20,7 @@ public class DebitCardGatewayImplTest {
 
 
     @Test
-    void whenPaymentIsProcessThenShouldShowALog() {
+    void whenDebitPaymentIsProcessThenShouldShowALog() {
         var payment = Instancio.of(Payment.class).create();
         var result = catchThrowable(() -> underTest.process(payment));
 
@@ -30,7 +30,7 @@ public class DebitCardGatewayImplTest {
     @Test
     void testSupport() {
         //when
-        var result = catchThrowable(() -> underTest.supports(PaymentMethod.DEBIT_CARD));
+        var result = underTest.supports(PaymentMethod.DEBIT_CARD);
 
         //then
         assertThat(result)
