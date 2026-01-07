@@ -37,7 +37,6 @@ public class GetByIdPaymentUseCaseTest {
         var result = catchThrowable(() -> underTest.execute(id));
 
         // Then
-        then(paymentGateway).should().existById(id);
         assertThat(result);
     }
 

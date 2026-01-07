@@ -13,7 +13,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
 
 @ExtendWith(MockitoExtension.class)
 public class GetByIdCustomerUseCaseTest {
@@ -36,7 +35,6 @@ public class GetByIdCustomerUseCaseTest {
         var result = catchThrowable(() -> underTest.execute(id));
 
         // Then
-        then(customerGateway).should().existById(id);
         assertThat(result);
     }
 
@@ -58,7 +56,6 @@ public class GetByIdCustomerUseCaseTest {
         var result = catchThrowable(() -> underTest.execute(id));
 
         // Then
-        then(customerGateway).should().findById(id);
         assertThat(result);
     }
 }

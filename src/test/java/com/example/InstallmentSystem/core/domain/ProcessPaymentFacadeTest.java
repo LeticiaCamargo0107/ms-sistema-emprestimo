@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.BDDMockito.given;
 
@@ -34,10 +35,7 @@ public class ProcessPaymentFacadeTest {
         given(notifyPaymentUseCase.execute(payment)).willReturn(payment);
         given(createPaymentUseCase.execute(payment)).willReturn(payment);
 
-        //when
-        var result = catchThrowable(() -> underTest.orchestrator(payment));
-
-        //then
-        assertThat(result);
+        //when/then
+        assertThatCode(() -> underTest.orchestrator(payment)).doesNotThrowAnyException();
     }
 }

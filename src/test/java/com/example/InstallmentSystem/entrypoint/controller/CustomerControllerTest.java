@@ -1,10 +1,7 @@
 package com.example.InstallmentSystem.entrypoint.controller;
 
-import com.example.InstallmentSystem.core.domain.Contract;
 import com.example.InstallmentSystem.core.domain.Customer;
 import com.example.InstallmentSystem.core.exception.contract.ContractNotFoundException;
-import com.example.InstallmentSystem.core.exception.contract.ContractPeriodZeroException;
-import com.example.InstallmentSystem.core.exception.contract.ContractRequestAmountZeroException;
 import com.example.InstallmentSystem.core.exception.customer.CustomerAddressNotFoundException;
 import com.example.InstallmentSystem.core.exception.customer.CustomerBirthDateException;
 import com.example.InstallmentSystem.core.exception.customer.CustomerDocumentNotFoundException;
@@ -14,12 +11,8 @@ import com.example.InstallmentSystem.core.usercase.customer.DeleteCustomerUseCas
 import com.example.InstallmentSystem.core.usercase.customer.FindAllCustomerUseCase;
 import com.example.InstallmentSystem.core.usercase.customer.GetByIdCustomerUseCase;
 import com.example.InstallmentSystem.core.usercase.customer.UpdateCustomerUseCase;
-import com.example.InstallmentSystem.entrypoint.dto.ContractDTO;
 import com.example.InstallmentSystem.entrypoint.dto.CustomerDTO;
 import com.example.InstallmentSystem.entrypoint.mapper.CustomerMapper;
-import com.example.InstallmentSystem.entrypoint.swagger.CustomerControllerAPI;
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.instancio.Instancio;
 import org.instancio.Select;
 import org.junit.jupiter.api.Test;
@@ -27,20 +20,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 

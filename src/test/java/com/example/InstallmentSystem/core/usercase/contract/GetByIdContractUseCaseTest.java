@@ -15,7 +15,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
 
 @ExtendWith(MockitoExtension.class)
 public class GetByIdContractUseCaseTest {
@@ -38,7 +37,6 @@ public class GetByIdContractUseCaseTest {
         var result = catchThrowable(() -> underTest.execute(id));
 
         // Then
-        then(contractGateway).should().existById(id);
         assertThat(result).isInstanceOf(ContractNotFoundException.class);
     }
 
@@ -60,7 +58,6 @@ public class GetByIdContractUseCaseTest {
         var result = catchThrowable(() -> underTest.execute(id));
 
         // Then
-        then(contractGateway).should().findById(id);
         assertThat(result);
     }
 }

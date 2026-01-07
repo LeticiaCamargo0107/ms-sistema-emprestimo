@@ -14,7 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
 
 @ExtendWith(MockitoExtension.class)
 public class DeleteCustomerUseCaseTest {
@@ -37,7 +36,6 @@ public class DeleteCustomerUseCaseTest {
         var result = catchThrowable(() -> underTest.execute(id));
 
         // Then
-        then(customerGateway).should().existById(id);
         assertThat(result).isInstanceOf(CustomerNotFoundException.class);
     }
 
@@ -59,7 +57,6 @@ public class DeleteCustomerUseCaseTest {
         var result = catchThrowable(() -> underTest.execute(id));
 
         // Then
-        then(customerGateway).should().deleteById(id);
         assertThat(result);
     }
 

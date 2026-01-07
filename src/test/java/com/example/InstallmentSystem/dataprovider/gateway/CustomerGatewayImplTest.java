@@ -2,7 +2,6 @@ package com.example.InstallmentSystem.dataprovider.gateway;
 
 import com.example.InstallmentSystem.core.domain.Customer;
 import com.example.InstallmentSystem.core.exception.customer.CustomerAddressNotFoundException;
-import com.example.InstallmentSystem.core.util.ContractUtils;
 import com.example.InstallmentSystem.dataprovider.adapter.AddressAdapter;
 import com.example.InstallmentSystem.dataprovider.dto.ViaCepResponse;
 import com.example.InstallmentSystem.dataprovider.entity.CustomerEntity;
@@ -15,7 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;

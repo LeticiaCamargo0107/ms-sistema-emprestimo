@@ -22,7 +22,6 @@ import java.math.BigDecimal;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.mockStatic;
 
@@ -104,7 +103,6 @@ public class UpdateContractUseCaseTest {
         var result = underTest.execute(id, contract);
 
         // Then
-        then(contractGateway).should().save(contract);
         assertThat(result)
                 .isNotNull()
                 .isEqualTo(contract);

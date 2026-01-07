@@ -6,7 +6,6 @@ import com.example.InstallmentSystem.core.exception.payment.PaymentAmountZeroExc
 import com.example.InstallmentSystem.core.exception.payment.PaymentMethodNotFoundException;
 import com.example.InstallmentSystem.core.gateway.GenericGateway;
 import com.example.InstallmentSystem.core.gateway.PaymentMethodGateway;
-import com.example.InstallmentSystem.core.util.ContractUtils;
 import org.instancio.Instancio;
 import org.instancio.Select;
 import org.junit.jupiter.api.DisplayName;
@@ -24,10 +23,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
-import static org.mockito.Mockito.CALLS_REAL_METHODS;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockStatic;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class CreatePaymentUseCaseTest {

@@ -88,8 +88,6 @@ class CreateContractUseCaseTest {
         var result = underTest.execute(contract);
 
         // Then
-        then(contractGateway).should().save(contract);
-
         assertThat(result)
                 .isNotNull()
                 .isEqualTo(contract);

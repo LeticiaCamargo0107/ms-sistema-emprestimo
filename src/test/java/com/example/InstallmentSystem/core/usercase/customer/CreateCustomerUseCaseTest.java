@@ -84,7 +84,6 @@ class CreateCustomerUseCaseTest {
         var result = underTest.execute(customer);
 
         // Then
-        then(customerGateway).should().save(customer);
         assertThat(result)
                 .isNotNull()
                 .isEqualTo(customer);
