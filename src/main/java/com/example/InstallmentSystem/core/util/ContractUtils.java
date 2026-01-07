@@ -25,6 +25,7 @@ public class ContractUtils {
 
     public static BigDecimal getInstallmentAmount(Contract contract) {
         var conversion = BigDecimal.valueOf(contract.getOperationPeriod());
-        return contract.getRequestedAmount().divide(conversion.setScale(2, RoundingMode.HALF_UP), RoundingMode.HALF_UP);
+        var totalAmount = getMultiply(contract, getMonthlyCetRate());
+        return totalAmount.divide(conversion, 2, RoundingMode.HALF_UP);
     }
 }

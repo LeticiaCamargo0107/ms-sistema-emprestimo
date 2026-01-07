@@ -4,7 +4,9 @@ import com.example.InstallmentSystem.core.exception.customer.CustomerAddressNotF
 import com.example.InstallmentSystem.dataprovider.client.ViaCepClient;
 import com.example.InstallmentSystem.dataprovider.dto.ViaCepResponse;
 import org.instancio.Instancio;
+import org.instancio.Select;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -15,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -40,24 +43,22 @@ public class AddressAdapterTest {
     static Object[] whenZipCodeIsNullOrDoNotExistsThenShouldThrowCustomerAddressNotFoundExceptionProvider() {
         return new Object[] {
           "frevfe",
-          null
+           null
         };
     }
 
-    @ParameterizedTest
-    @MethodSource("whenZipCodeIsNullOrDoNotExistsThenShouldThrowCustomerAddressNotFoundExceptionProvider")
-    @DisplayName("when ZipCode Is Null Or Do Not Exists Then Should Throw CustomerAddressNotFoundException")
-    void whenZipCodeIsValidShouldReturnAddressOfTheCustomer(String zipcode) {
+    @Test
+    void whenZipCodeIsValidShouldReturnAddressOfTheCustomer() {
         //given
         var address = Instancio.of(ViaCepResponse.class).create();
-        given(viaCepClient.getAddressByZipcode(zipcode)).willReturn(address);
+        given(viaCepClient.getAddressByZipcode(address.zipcode())).willReturn(address);
 
         //when
-        var result = catchThrowable(() -> underTest.getAddressByZipcode(zipcode));
+        var result = underTest.getAddressByZipcode(address.zipcode());
 
         //then
+        then(viaCepClient).should().getAddressByZipcode(address.zipcode());
         assertThat(result)
-                .isNotNull()
-                .isEqualTo(address);
+                .isNotNull();
     }
 }

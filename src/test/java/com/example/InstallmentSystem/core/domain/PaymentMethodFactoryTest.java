@@ -42,7 +42,7 @@ class PaymentMethodFactoryTest {
         given(secondPaymentMethodGateway.supports(any())).willReturn(true);
 
         // When
-        var result = catchThrowable(() -> underTest.supply(PaymentMethod.CREDIT_CARD));
+        var result = underTest.supply(PaymentMethod.CREDIT_CARD);
 
         // Then
         assertThat(result).isNotNull();
