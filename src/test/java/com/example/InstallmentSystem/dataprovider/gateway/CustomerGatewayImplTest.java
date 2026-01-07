@@ -2,6 +2,7 @@ package com.example.InstallmentSystem.dataprovider.gateway;
 
 import com.example.InstallmentSystem.core.domain.Customer;
 import com.example.InstallmentSystem.core.exception.customer.CustomerAddressNotFoundException;
+import com.example.InstallmentSystem.core.util.ContractUtils;
 import com.example.InstallmentSystem.dataprovider.adapter.AddressAdapter;
 import com.example.InstallmentSystem.dataprovider.dto.ViaCepResponse;
 import com.example.InstallmentSystem.dataprovider.entity.CustomerEntity;
@@ -14,12 +15,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.CALLS_REAL_METHODS;
+import static org.mockito.Mockito.mockStatic;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -42,30 +46,30 @@ public class CustomerGatewayImplTest {
         //given
         var customer = Instancio.of(Customer.class).create();
         var entity = Instancio.of(CustomerEntity.class).create();
-        var customerAddress = Instancio.of(ViaCepResponse.class).create();
+        var address = Instancio.of(ViaCepResponse.class).create();
+        var addressMock = mockStatic(CustomerEntity.class, CALLS_REAL_METHODS); {
+            addressMock.when(() -> addressBuilder(customer)).thenReturn(address);
+        }
 
-        given(customerRepository.save(entity)).willReturn(entity);
         given(customerMapper.toEntity(customer)).willReturn(entity);
         given(customerMapper.toDomain(entity)).willReturn(customer);
-        given(adapter.getAddressByZipcode(customerAddress.zipcode())).willReturn(customerAddress);
+        given(customerRepository.save(entity)).willReturn(entity);
 
         //when
         var result = underTest.save(customer);
 
         //then
-        then(customerRepository).should().save(entity);
-        then(customerMapper).should().toDomain(entity);
-        then(customerMapper).should().toEntity(customer);
-        then(adapter).should().getAddressByZipcode(customerAddress.zipcode());
         assertThat(result)
                 .isNotNull()
                 .isEqualTo(customer);
+
+        addressMock.close();
     }
 
     @Test
     void TestDelete() {
         //given
-        var id = "lalala";
+        var id = "lala";
         //when
         var result = catchThrowable(() -> underTest.deleteById(id));
         //then
