@@ -33,6 +33,7 @@ public class CreatePaymentUseCase {
             log.error("Amount must be greater than zero");
             throw new PaymentAmountZeroException();
         }
+
         payment.setStatus(PaymentStatus.EXECUTED);
         payment.setPaidAt(LocalDateTime.now());
         methodFactory.supply(payment.getPayMethod()).process(payment);

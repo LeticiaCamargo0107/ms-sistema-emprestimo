@@ -105,7 +105,6 @@ public class UpdateContractUseCaseTest {
 
         // Then
         then(contractGateway).should().save(contract);
-
         assertThat(result)
                 .isNotNull()
                 .isEqualTo(contract);

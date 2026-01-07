@@ -79,13 +79,13 @@ class CreatePaymentUseCaseTest {
     void whenPaymentIsValidThenShouldCreatePaymentSuccessfully() throws PaymentMethodNotFoundException, PaymentAmountZeroException {
         // Given
         var payment = Instancio.of(Payment.class).create();
-        methodFactory.supply(payment.getPayMethod());
         given(paymentGateway.save(payment)).willReturn(payment);
 
         // When
         var result = underTest.execute(payment);
 
         // Then
+        then(methodFactory).should().supply(payment.getPayMethod()).process(payment);
         then(paymentGateway).should().save(payment);
 
         assertThat(result)

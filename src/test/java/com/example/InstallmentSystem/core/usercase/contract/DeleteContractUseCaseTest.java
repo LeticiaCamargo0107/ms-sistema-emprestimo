@@ -1,6 +1,7 @@
 package com.example.InstallmentSystem.core.usercase.contract;
 
 import com.example.InstallmentSystem.core.domain.Contract;
+import com.example.InstallmentSystem.core.exception.contract.ContractNotFoundException;
 import com.example.InstallmentSystem.core.gateway.GenericGateway;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,7 +39,7 @@ public class DeleteContractUseCaseTest {
 
         // Then
         then(contractGateway).should().existById(id);
-        assertThat(result);
+        assertThat(result).isInstanceOf(ContractNotFoundException.class);
     }
 
     static Object[] whenContractDoesNotExistByIdThenShouldThrowContractNotFoundExceptionProvider() {

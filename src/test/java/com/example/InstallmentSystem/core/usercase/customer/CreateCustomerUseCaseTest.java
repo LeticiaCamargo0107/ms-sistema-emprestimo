@@ -4,6 +4,7 @@ import com.example.InstallmentSystem.core.domain.Customer;
 import com.example.InstallmentSystem.core.exception.customer.CustomerAddressNotFoundException;
 import com.example.InstallmentSystem.core.exception.customer.CustomerBirthDateException;
 import com.example.InstallmentSystem.core.gateway.CustomerGateway;
+import com.example.InstallmentSystem.core.util.CustomerUtils;
 import org.instancio.Instancio;
 import org.instancio.Select;
 import org.junit.jupiter.api.DisplayName;
@@ -19,6 +20,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.CALLS_REAL_METHODS;
+import static org.mockito.Mockito.mockStatic;
 
 @ExtendWith(MockitoExtension.class)
 class CreateCustomerUseCaseTest {
@@ -69,8 +72,12 @@ class CreateCustomerUseCaseTest {
     @Test
     void whenCustomerIsValidThenShouldCreateCustomerSuccessfully() throws CustomerAddressNotFoundException, CustomerBirthDateException {
         // Given
-        var customer = Instancio.create(Customer.class);
-
+        var customer = Instancio.of(Customer.class)
+                .set(Select.field("birthDate"), LocalDate.of(2000,1,1))
+                .create();
+        var customerUtilsMock = mockStatic(CustomerUtils.class, CALLS_REAL_METHODS); {
+            customerUtilsMock.when(() -> CustomerUtils.calculateAge(customer)).thenReturn(true);
+        }
         given(customerGateway.save(customer)).willReturn(customer);
 
         // When
@@ -78,9 +85,9 @@ class CreateCustomerUseCaseTest {
 
         // Then
         then(customerGateway).should().save(customer);
-
         assertThat(result)
                 .isNotNull()
                 .isEqualTo(customer);
+        customerUtilsMock.close();
     }
 }

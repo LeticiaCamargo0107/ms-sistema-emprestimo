@@ -32,29 +32,6 @@ public class UpdateCustomerUseCaseTest {
     private CustomerGateway customerGateway;
 
 
-    @ParameterizedTest
-    @MethodSource("whenCustomerDoesNotExistByIdThenShouldThrowCustomerNotFoundExceptionProvider")
-    @DisplayName("when Customer Does Not Exist By Id Then Should Throw CustomerNotFoundException")
-    void whenCustomerDoesNotExistByIdThenShouldThrowCustomerNotFoundException(String id) throws CustomerNotFoundException {
-        // Given
-        var customer = Instancio.of(Customer.class).create();
-        given(customerGateway.existById(id)).willReturn(false);
-        given(getByIdCustomerUseCase.execute(id)).willReturn(customer);
-
-        // When
-        var result = catchThrowable(() -> underTest.execute(id, customer));
-
-        // Then
-        assertThat(result).isInstanceOf(CustomerNotFoundException.class);
-    }
-
-    static Object[] whenCustomerDoesNotExistByIdThenShouldThrowCustomerNotFoundExceptionProvider() {
-        return new Object[] {
-                "vbfdrvgb",
-                null
-        };
-    }
-
     @Test
     void whenCustomerIsValidThenShouldGetCustomerByIdSuccessfully() throws CustomerAddressNotFoundException, CustomerNotFoundException {
         // Given

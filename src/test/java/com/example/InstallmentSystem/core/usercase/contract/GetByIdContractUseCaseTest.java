@@ -39,7 +39,7 @@ public class GetByIdContractUseCaseTest {
 
         // Then
         then(contractGateway).should().existById(id);
-        assertThat(result);
+        assertThat(result).isInstanceOf(ContractNotFoundException.class);
     }
 
     static Object[] whenContractDoesNotExistByIdThenShouldThrowContractNotFoundExceptionProvider() {

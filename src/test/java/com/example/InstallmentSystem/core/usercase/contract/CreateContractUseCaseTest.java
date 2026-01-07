@@ -70,7 +70,6 @@ class CreateContractUseCaseTest {
 
         // Then
         then(contractGateway).shouldHaveNoInteractions();
-
         assertThat(result).isInstanceOf(ContractPeriodZeroException.class);
     }
 
