@@ -3,6 +3,7 @@ package com.example.InstallmentSystem.core.usercase.customer;
 import com.example.InstallmentSystem.core.domain.Customer;
 import com.example.InstallmentSystem.core.gateway.CustomerGateway;
 import org.instancio.Instancio;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,6 +26,7 @@ public class FindAllCustomerUseCaseTest {
     private CustomerGateway customerGateway;
 
     @Test
+    @DisplayName("When method findAll process, then should return a Page of Customer Successfully")
     void testReturnFindAll() {
         //given
         var pageable = PageRequest.of(1,1);

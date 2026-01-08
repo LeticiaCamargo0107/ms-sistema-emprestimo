@@ -5,6 +5,7 @@ import com.example.InstallmentSystem.core.exception.customer.CustomerAddressNotF
 import com.example.InstallmentSystem.core.exception.customer.CustomerNotFoundException;
 import com.example.InstallmentSystem.core.gateway.CustomerGateway;
 import org.instancio.Instancio;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,6 +30,7 @@ public class UpdateCustomerUseCaseTest {
 
 
     @Test
+    @DisplayName("When Customer Is Valid Should Update Customer Successfully")
     void whenCustomerIsValidThenShouldGetCustomerByIdSuccessfully() throws CustomerAddressNotFoundException, CustomerNotFoundException {
         // Given
         String id = "lalala";

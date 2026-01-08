@@ -89,6 +89,7 @@ public class UpdateContractUseCaseTest {
     }
 
     @Test
+    @DisplayName("When Contract Is Valid Should Update Contract Successfully")
     void WhenContractIsValidShouldUpdateContractSuccessfully() throws ContractRequestAmountZeroException, ContractPeriodZeroException, ContractNotFoundException {
         // Given
         var id = "lalala";

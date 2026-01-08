@@ -12,6 +12,7 @@ import com.example.InstallmentSystem.core.usercase.contract.UpdateContractUseCas
 import com.example.InstallmentSystem.entrypoint.dto.ContractDTO;
 import com.example.InstallmentSystem.entrypoint.mapper.ContractMapper;
 import org.instancio.Instancio;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -49,6 +50,7 @@ public class ContractControllerTest {
     private ContractMapper contractMapper;
 
     @Test
+    @DisplayName("test Return Get By Id Contract in ContractController")
     void testReturnGetById() throws ContractNotFoundException {
         //given
         var id = "lala";
@@ -65,6 +67,7 @@ public class ContractControllerTest {
     }
 
     @Test
+    @DisplayName("test Return Find All Contract in ContractController")
     void findAll() {
         //given
         var pageable = PageRequest.of(0,1);
@@ -73,6 +76,7 @@ public class ContractControllerTest {
     }
 
     @Test
+    @DisplayName("test Return method create Contract in ContractController")
     void create() throws ContractPeriodZeroException, ContractRequestAmountZeroException {
         //given
         var contractDTO = Instancio.create(ContractDTO.class);
@@ -92,6 +96,7 @@ public class ContractControllerTest {
     }
 
     @Test
+    @DisplayName("test Return delete By Id Contract in ContractController")
     void testReturnDeleteById() {
         //given
         var id = "lala";
@@ -101,6 +106,7 @@ public class ContractControllerTest {
 
 
     @Test
+    @DisplayName("test Return update By Id Contract in ContractController")
     void testReturnUpdate() throws ContractRequestAmountZeroException, ContractNotFoundException, ContractPeriodZeroException {
         //given
         var contractDTO = Instancio.create(ContractDTO.class);

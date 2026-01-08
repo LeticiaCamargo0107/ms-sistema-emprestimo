@@ -59,6 +59,7 @@ class CreateContractUseCaseTest {
     }
 
     @Test
+    @DisplayName("when Operation Period Is Zero Then Should ThrowContractRequestAmountZeroException")
     void whenOperationPeriodIsZeroThenShouldThrowContractRequestAmountZeroException() {
         // Given
         var contract = Instancio.of(Contract.class)
@@ -75,6 +76,7 @@ class CreateContractUseCaseTest {
 
 
     @Test
+    @DisplayName("when Contract Is Valid Then Should Create Contract Successfully")
     void whenContractIsValidThenShouldCreateContractSuccessfully() throws ContractPeriodZeroException, ContractRequestAmountZeroException  {
         // Given
         var contract = Instancio.create(Contract.class);

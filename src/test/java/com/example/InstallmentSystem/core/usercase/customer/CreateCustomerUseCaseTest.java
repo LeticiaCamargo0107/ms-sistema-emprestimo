@@ -70,6 +70,7 @@ class CreateCustomerUseCaseTest {
 
 
     @Test
+    @DisplayName("when Customer Is Valid Then Should Create Customer Successfully")
     void whenCustomerIsValidThenShouldCreateCustomerSuccessfully() throws CustomerAddressNotFoundException, CustomerBirthDateException {
         // Given
         var customer = Instancio.of(Customer.class)

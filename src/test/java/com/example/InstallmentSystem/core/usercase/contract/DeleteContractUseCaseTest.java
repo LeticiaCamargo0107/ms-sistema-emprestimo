@@ -49,6 +49,7 @@ public class DeleteContractUseCaseTest {
 
 
     @Test
+    @DisplayName("when Contract Is Valid Then Should Delete Contract Successfully")
     void whenContractIsValidThenShouldDeleteContractSuccessfully() {
         // Given
         String id = "lalala";

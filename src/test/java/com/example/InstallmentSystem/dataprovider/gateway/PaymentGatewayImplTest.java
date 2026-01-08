@@ -6,6 +6,7 @@ import com.example.InstallmentSystem.dataprovider.entity.PaymentEntity;
 import com.example.InstallmentSystem.dataprovider.mapper.PaymentEntityMapper;
 import com.example.InstallmentSystem.dataprovider.repository.PaymentRepository;
 import org.instancio.Instancio;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -33,6 +34,8 @@ public class PaymentGatewayImplTest {
     private PaymentEntityMapper paymentMapper;
 
     @Test
+    @DisplayName("test Return method save Payment in PaymentGatewayImpl")
+
     void testMethodSave() throws CustomerAddressNotFoundException {
         //given
         var payment = Instancio.of(Payment.class).create();
@@ -55,6 +58,7 @@ public class PaymentGatewayImplTest {
 
 
     @Test
+    @DisplayName("test Return delete By Id Payment in PaymentGatewayImpl")
     void TestDelete() {
         //given
         var id = "lalala";
@@ -66,6 +70,7 @@ public class PaymentGatewayImplTest {
     }
 
     @Test
+    @DisplayName("test Return exists By Id Payment in PaymentGatewayImpl")
     void TestExistById() {
         //given
         var id = "lalala";
@@ -77,6 +82,8 @@ public class PaymentGatewayImplTest {
     }
 
     @Test
+    @DisplayName("test Return Find By Id Payment in PaymentGatewayImpl")
+
     void testReturnFindByIdIsAPayment() {
         //given
         var paymentEntity = Instancio.of(PaymentEntity.class).create();
@@ -96,6 +103,7 @@ public class PaymentGatewayImplTest {
     }
 
     @Test
+    @DisplayName("test Return Find By Id Is Null in PaymentGatewayImpl")
     void testReturnFindByIdIsNull() {
         //given
         var paymentEntity = Instancio.of(PaymentEntity.class).create();

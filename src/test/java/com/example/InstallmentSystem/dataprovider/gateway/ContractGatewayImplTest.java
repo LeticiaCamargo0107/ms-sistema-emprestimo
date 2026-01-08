@@ -5,6 +5,7 @@ import com.example.InstallmentSystem.dataprovider.entity.ContractEntity;
 import com.example.InstallmentSystem.dataprovider.mapper.ContractEntityMapper;
 import com.example.InstallmentSystem.dataprovider.repository.ContractRepository;
 import org.instancio.Instancio;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -36,6 +37,7 @@ public class ContractGatewayImplTest {
     private ContractEntityMapper contractMapper;
 
     @Test
+    @DisplayName("test Return method save Contract in ContractGatewayImpl")
     void testMethodSave() {
         //given
         var contract = Instancio.of(Contract.class).create();
@@ -57,6 +59,7 @@ public class ContractGatewayImplTest {
     }
 
     @Test
+    @DisplayName("test Return delete By Id Contract in ContractGatewayImpl")
     void TestDelete() {
         //given
         var id = "lalala";
@@ -68,6 +71,7 @@ public class ContractGatewayImplTest {
     }
 
     @Test
+    @DisplayName("test Return exists By Id Contract in ContractGatewayImpl")
     void TestExistById() {
         //given
         var id = "lalala";
@@ -80,6 +84,7 @@ public class ContractGatewayImplTest {
 
 
     @Test
+    @DisplayName("test Return Find By Id Contract in ContractGatewayImpl")
     void testReturnFindByIdIsAContract() {
         //given
         var contractEntity = Instancio.of(ContractEntity.class).create();
@@ -99,6 +104,7 @@ public class ContractGatewayImplTest {
     }
 
     @Test
+    @DisplayName("test Return Find By Id Is Null in ContractGatewayImpl")
     void testReturnFindByIdIsNull() {
         //given
         var contractEntity = Instancio.of(ContractEntity.class).create();
@@ -113,10 +119,4 @@ public class ContractGatewayImplTest {
                 .isNull();
     }
 
-
-    public Page<Contract> findAll(Pageable pageable) {
-        Page<ContractEntity> entities = contractRepository.findAll(pageable);
-        List<Contract> contracts = entities.map(contractMapper::toDomain).getContent();
-        return new PageImpl<>(contracts, pageable, entities.getTotalElements());
-    }
 }

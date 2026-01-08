@@ -49,6 +49,7 @@ public class GetByIdContractUseCaseTest {
 
 
     @Test
+    @DisplayName("when Contract Is Valid Then Should Get Contract By Id Successfully")
     void whenContractIsValidThenShouldGetContractByIdSuccessfully() {
         // Given
         String id = "lalala";

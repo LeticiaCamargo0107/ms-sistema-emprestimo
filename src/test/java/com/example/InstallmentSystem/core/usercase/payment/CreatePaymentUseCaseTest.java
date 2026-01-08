@@ -80,6 +80,7 @@ class CreatePaymentUseCaseTest {
 
 
     @Test
+    @DisplayName("when Payment Is Valid Then Should Create Payment Successfully")
     void whenPaymentIsValidThenShouldCreatePaymentSuccessfully() throws PaymentMethodNotFoundException, PaymentAmountZeroException {
         // Given
         var payment = Instancio.of(Payment.class).create();

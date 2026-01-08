@@ -50,6 +50,7 @@ public class DeletePaymentUseCaseTest {
 
 
     @Test
+    @DisplayName("when Payment Is Valid Then Should Delete Payment Successfully")
     void whenPaymentIsValidThenShouldDeletePaymentSuccessfully() {
         // Given
         String id = "lalala";

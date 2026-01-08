@@ -61,6 +61,7 @@ public class UpdatePaymentUseCaseTest {
 
 
     @Test
+    @DisplayName("When Payment Is Valid Should Update Payment Successfully")
     void WhenPaymentIsValidShouldUpdateContractSuccessfully() throws PaymentNotFoundException, PaymentAmountZeroException {
         // Given
         var id = "lalala";

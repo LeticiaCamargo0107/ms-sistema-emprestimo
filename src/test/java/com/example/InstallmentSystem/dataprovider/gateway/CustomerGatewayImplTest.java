@@ -7,7 +7,10 @@ import com.example.InstallmentSystem.dataprovider.dto.ViaCepResponse;
 import com.example.InstallmentSystem.dataprovider.entity.CustomerEntity;
 import com.example.InstallmentSystem.dataprovider.mapper.CustomerEntityMapper;
 import com.example.InstallmentSystem.dataprovider.repository.CustomerRepository;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.instancio.Instancio;
+import org.instancio.Select;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -47,6 +50,7 @@ public class CustomerGatewayImplTest {
     private AddressAdapter adapter;
 
     @Test
+    @DisplayName("test Return method save Customer in CustomerGatewayImpl")
     void testMethodSave() throws CustomerAddressNotFoundException {
         //given
         var customer = Instancio.of(Customer.class).create();
@@ -72,6 +76,7 @@ public class CustomerGatewayImplTest {
     }
 
     @Test
+    @DisplayName("test Return delete By Id Customer in CustomerGatewayImpl")
     void TestDelete() {
         //given
         var id = "lala";
@@ -83,6 +88,7 @@ public class CustomerGatewayImplTest {
     }
 
     @Test
+    @DisplayName("test Return exists By Id Customer in CustomerGatewayImpl")
     void TestExistById() {
         //given
         var id = "lalala";
@@ -94,6 +100,7 @@ public class CustomerGatewayImplTest {
     }
 
     @Test
+    @DisplayName("test Return Find By Id Customer in CustomerGatewayImpl")
     void testReturnFindByIdIsACustomer() {
         //given
         var customerEntity = Instancio.of(CustomerEntity.class).create();
@@ -113,6 +120,7 @@ public class CustomerGatewayImplTest {
     }
 
     @Test
+    @DisplayName("test Return Find By Id Is Null in CustomerGatewayImpl")
     void testReturnFindByIdIsNull() {
         //given
         var customerEntity = Instancio.of(CustomerEntity.class).create();
@@ -128,21 +136,6 @@ public class CustomerGatewayImplTest {
                 .isNull();
     }
 
-//    @Test
-//    void testReturnFindAll() {
-//        //given
-//        var pageable = PageRequest.of(1,1);
-//        var listEntity = List.of(Instancio.create(CustomerEntity.class));
-//        Page<CustomerEntity> page = new PageImpl<>(listEntity, pageable, listEntity.size());
-//        List<Customer> listCustomer = page.map(customerMapper::toDomain).getContent();
-//        given(customerRepository.findAll(pageable)).willReturn(page);
-//        //when
-//        var result = underTest.findAll(pageable);
-//        //then
-//        assertThat(result).
-//                isNotNull()
-//                .isEqualTo(page);
-//    }
 
 
     private CustomerEntity.CustomerAddress addressBuilder(Customer customer) {

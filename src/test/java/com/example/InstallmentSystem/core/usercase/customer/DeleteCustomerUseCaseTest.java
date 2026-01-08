@@ -48,6 +48,7 @@ public class DeleteCustomerUseCaseTest {
 
 
     @Test
+    @DisplayName("when Customer Is Valid Then Should Delete Customer Successfully")
     void whenCustomerIsValidThenShouldDeleteCustomerSuccessfully() {
         // Given
         String id = "lalala";

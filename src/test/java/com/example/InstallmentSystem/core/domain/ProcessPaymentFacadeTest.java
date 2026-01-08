@@ -5,6 +5,7 @@ import com.example.InstallmentSystem.core.exception.payment.PaymentMethodNotFoun
 import com.example.InstallmentSystem.core.usercase.payment.CreatePaymentUseCase;
 import com.example.InstallmentSystem.core.usercase.payment.NotifyPaymentUseCase;
 import org.instancio.Instancio;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,7 +30,8 @@ public class ProcessPaymentFacadeTest {
     private NotifyPaymentUseCase notifyPaymentUseCase;
 
     @Test
-    void whenPaymentFacadeProcessIsValidThenShouldCreateAContractSuccessfully() throws PaymentMethodNotFoundException, PaymentAmountZeroException {
+    @DisplayName("When method process of class PaymentFacadeProcess is valid, then should create a Payment successfully")
+    void whenPaymentFacadeProcessIsValidThenShouldCreateAPaymentSuccessfully() throws PaymentMethodNotFoundException, PaymentAmountZeroException {
         //given
         var payment = Instancio.of(Payment.class).create();
         given(notifyPaymentUseCase.execute(payment)).willReturn(payment);

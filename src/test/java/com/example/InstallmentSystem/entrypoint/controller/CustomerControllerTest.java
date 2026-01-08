@@ -14,6 +14,7 @@ import com.example.InstallmentSystem.entrypoint.dto.CustomerDTO;
 import com.example.InstallmentSystem.entrypoint.mapper.CustomerMapper;
 import org.instancio.Instancio;
 import org.instancio.Select;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -55,6 +56,7 @@ public class CustomerControllerTest {
     private CustomerMapper customerMapper;
 
     @Test
+    @DisplayName("test Return Get By Id Customer in CustomerController")
     void testReturnGetById() throws CustomerNotFoundException, ContractNotFoundException {
         //given
         var id = "lala";
@@ -71,6 +73,7 @@ public class CustomerControllerTest {
     }
 
     @Test
+    @DisplayName("test Return Get By Id Customer in CustomerController")
     void findAll() {
         //given
         var pageable = PageRequest.of(0,1);
@@ -79,6 +82,7 @@ public class CustomerControllerTest {
     }
 
     @Test
+    @DisplayName("test Return method create Customer in CustomerController")
     void create() throws CustomerBirthDateException, CustomerAddressNotFoundException {
         //given
         var customerDTO = Instancio.create(CustomerDTO.class);
@@ -98,6 +102,7 @@ public class CustomerControllerTest {
     }
 
     @Test
+    @DisplayName("test Return delete By Id Customer in CustomerController")
     void deleteById() throws CustomerNotFoundException {
         //given
         var id = "lala";
@@ -108,6 +113,7 @@ public class CustomerControllerTest {
     }
 
     @Test
+    @DisplayName("test Return update By Id Customer in CustomerController")
     void update() throws CustomerNotFoundException, CustomerAddressNotFoundException, CustomerBirthDateException {
         //given
         var customerDto = Instancio.create(CustomerDTO.class);

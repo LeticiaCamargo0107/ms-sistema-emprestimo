@@ -46,6 +46,7 @@ public class AddressAdapterTest {
     }
 
     @Test
+    @DisplayName("when ZipCode Is Valid Should Return Address Of The Customer")
     void whenZipCodeIsValidShouldReturnAddressOfTheCustomer() {
         //given
         var address = Instancio.of(ViaCepResponse.class).create();

@@ -14,6 +14,7 @@ import com.example.InstallmentSystem.core.usercase.payment.UpdatePaymentUseCase;
 import com.example.InstallmentSystem.entrypoint.dto.PaymentDTO;
 import com.example.InstallmentSystem.entrypoint.mapper.PaymentMapper;
 import org.instancio.Instancio;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -56,6 +57,7 @@ public class PaymentControllerTest {
 
 
     @Test
+    @DisplayName("test Return Get By Id Payment in PaymentController")
     void testReturnGetById() throws ContractNotFoundException, PaymentNotFoundException {
         //given
         var id = "lala";
@@ -72,6 +74,7 @@ public class PaymentControllerTest {
     }
 
     @Test
+    @DisplayName("test Return Get By Id Payment in PaymentController")
     void findAll() {
         //given
         var pageable = PageRequest.of(0,1);
@@ -80,6 +83,7 @@ public class PaymentControllerTest {
     }
 
     @Test
+    @DisplayName("test Return method create Payment in PaymentController")
     void create() throws PaymentMethodNotFoundException, PaymentAmountZeroException {
         //given
         var paymentDTO = Instancio.create(PaymentDTO.class);
@@ -99,6 +103,7 @@ public class PaymentControllerTest {
     }
 
     @Test
+    @DisplayName("test Return delete By Id Payment in PaymentController")
     void deleteById() {
         //given
         var id = "lala";
@@ -109,6 +114,7 @@ public class PaymentControllerTest {
     }
 
     @Test
+    @DisplayName("test Return update By Id Payment in PaymentController")
     void update() throws PaymentNotFoundException, PaymentAmountZeroException {
         //given
         var paymentDTO = Instancio.create(PaymentDTO.class);

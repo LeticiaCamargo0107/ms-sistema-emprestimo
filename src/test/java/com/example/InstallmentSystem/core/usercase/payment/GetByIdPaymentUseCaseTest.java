@@ -49,6 +49,7 @@ public class GetByIdPaymentUseCaseTest {
 
 
     @Test
+    @DisplayName("when Payment Is Valid Then Should Get Payment By Id Successfully")
     void whenPaymentIsValidThenShouldGetPaymentByIdSuccessfully() {
         // Given
         String id = "lalala";

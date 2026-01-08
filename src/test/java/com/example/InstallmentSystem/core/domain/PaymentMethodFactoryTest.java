@@ -4,6 +4,7 @@ import com.example.InstallmentSystem.core.domain.enumeration.PaymentMethod;
 import com.example.InstallmentSystem.core.exception.payment.PaymentMethodNotFoundException;
 import com.example.InstallmentSystem.core.gateway.PaymentMethodGateway;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -35,6 +36,7 @@ class PaymentMethodFactoryTest {
     }
 
     @Test
+    @DisplayName("Test for supply method of class Payment Method Factory")
     void testSupply() throws PaymentMethodNotFoundException {
         // Given
         given(firstPaymentMethodGateway.supports(any())).willReturn(false);

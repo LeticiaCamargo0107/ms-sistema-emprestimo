@@ -2,6 +2,7 @@ package com.example.InstallmentSystem.dataprovider.gateway.payment;
 
 import com.example.InstallmentSystem.core.domain.Payment;
 import org.instancio.Instancio;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,6 +17,7 @@ public class EmailNotifyGatewayImplTest {
     private EmailNotifyGatewayImpl underTest;
 
     @Test
+    @DisplayName("Test create a notify in email")
     void testCreateNotify() {
         //given
         var payment = Instancio.of(Payment.class).create();
