@@ -13,13 +13,20 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.mockStatic;
 
@@ -120,15 +127,23 @@ public class CustomerGatewayImplTest {
         assertThat(result)
                 .isNull();
     }
-//
-    @Test
-    void testReturnFindAll() {}
+
 //    @Test
-//    void testReturnFindAll(Pageable pageable) {
-//        Page<CustomerEntity> entities = customerRepository.findAll(pageable);
-//        List<Customer> contracts = entities.map(customerMapper::toDomain).getContent();
-//        return new PageImpl<>(contracts, pageable, entities.getTotalElements());
+//    void testReturnFindAll() {
+//        //given
+//        var pageable = PageRequest.of(1,1);
+//        var listEntity = List.of(Instancio.create(CustomerEntity.class));
+//        Page<CustomerEntity> page = new PageImpl<>(listEntity, pageable, listEntity.size());
+//        List<Customer> listCustomer = page.map(customerMapper::toDomain).getContent();
+//        given(customerRepository.findAll(pageable)).willReturn(page);
+//        //when
+//        var result = underTest.findAll(pageable);
+//        //then
+//        assertThat(result).
+//                isNotNull()
+//                .isEqualTo(page);
 //    }
+
 
     private CustomerEntity.CustomerAddress addressBuilder(Customer customer) {
 

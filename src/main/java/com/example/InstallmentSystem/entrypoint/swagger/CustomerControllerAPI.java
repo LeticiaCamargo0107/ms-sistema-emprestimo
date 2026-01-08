@@ -3,7 +3,6 @@ package com.example.InstallmentSystem.entrypoint.swagger;
 import com.example.InstallmentSystem.core.domain.Customer;
 import com.example.InstallmentSystem.core.exception.customer.CustomerAddressNotFoundException;
 import com.example.InstallmentSystem.core.exception.customer.CustomerBirthDateException;
-import com.example.InstallmentSystem.core.exception.customer.CustomerDocumentNotFoundException;
 import com.example.InstallmentSystem.core.exception.customer.CustomerNotFoundException;
 import com.example.InstallmentSystem.entrypoint.dto.CustomerDTO;
 import com.example.InstallmentSystem.entrypoint.handler.ApiError;
@@ -48,5 +47,5 @@ public interface CustomerControllerAPI {
             @ApiResponse(responseCode = "200", description = "Updated", content = {@Content(schema = @Schema(implementation = Customer.class))}),
             @ApiResponse(responseCode = "400", description = "Fail to update customer, id not found", content = {@Content(schema =  @Schema(implementation = ApiError.class))})
     })
-    Customer update(String id, CustomerDTO customerDTO) throws CustomerDocumentNotFoundException, CustomerNotFoundException, CustomerAddressNotFoundException;
+    Customer update(String id, CustomerDTO customerDTO) throws  CustomerNotFoundException, CustomerAddressNotFoundException;
 }

@@ -4,7 +4,6 @@ import com.example.InstallmentSystem.core.domain.Customer;
 import com.example.InstallmentSystem.core.exception.contract.ContractNotFoundException;
 import com.example.InstallmentSystem.core.exception.customer.CustomerAddressNotFoundException;
 import com.example.InstallmentSystem.core.exception.customer.CustomerBirthDateException;
-import com.example.InstallmentSystem.core.exception.customer.CustomerDocumentNotFoundException;
 import com.example.InstallmentSystem.core.exception.customer.CustomerNotFoundException;
 import com.example.InstallmentSystem.core.usercase.customer.CreateCustomerUseCase;
 import com.example.InstallmentSystem.core.usercase.customer.DeleteCustomerUseCase;
@@ -109,7 +108,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    void update() throws CustomerDocumentNotFoundException, CustomerNotFoundException, CustomerAddressNotFoundException, CustomerBirthDateException {
+    void update() throws CustomerNotFoundException, CustomerAddressNotFoundException, CustomerBirthDateException {
         //given
         var customerDto = Instancio.create(CustomerDTO.class);
         var customer = Instancio.of(Customer.class)
