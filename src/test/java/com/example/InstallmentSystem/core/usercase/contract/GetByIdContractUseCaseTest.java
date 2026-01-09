@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.BDDMockito.given;
 
@@ -55,10 +56,7 @@ public class GetByIdContractUseCaseTest {
         String id = "lalala";
         given(contractGateway.existById(id)).willReturn(true);
 
-        // When
-        var result = catchThrowable(() -> underTest.execute(id));
-
-        // Then
-        assertThat(result);
+        // When/Then
+        assertThatCode(() -> underTest.execute(id)).doesNotThrowAnyException();
     }
 }

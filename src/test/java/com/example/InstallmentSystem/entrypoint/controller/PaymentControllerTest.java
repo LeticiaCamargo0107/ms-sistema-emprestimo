@@ -24,7 +24,6 @@ import org.springframework.data.domain.PageRequest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
@@ -88,6 +87,7 @@ public class PaymentControllerTest {
         //given
         var paymentDTO = Instancio.create(PaymentDTO.class);
         var payment = Instancio.create(Payment.class);
+
         given(paymentMapper.toDomain(paymentDTO)).willReturn(payment);
         given(processPaymentFacade.orchestrator(payment)).willReturn(payment);
 
@@ -97,6 +97,7 @@ public class PaymentControllerTest {
         //then
         then(paymentMapper).should().toDomain(paymentDTO);
         then(processPaymentFacade).should().orchestrator(payment);
+
         assertThat(result).
                 isNotNull()
                 .isEqualTo(payment);
@@ -107,10 +108,8 @@ public class PaymentControllerTest {
     void deleteById() {
         //given
         var id = "lala";
-        //when
-        var result = catchThrowable(() -> underTest.deleteById(id));
-        //then
-        assertThat(result);
+        //When/Then
+        assertThatCode(() -> underTest.deleteById(id)).doesNotThrowAnyException();
     }
 
     @Test

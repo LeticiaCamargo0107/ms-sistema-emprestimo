@@ -1,5 +1,6 @@
 package com.example.InstallmentSystem.core.usercase.customer;
 
+import com.example.InstallmentSystem.core.exception.customer.CustomerNotFoundException;
 import com.example.InstallmentSystem.core.gateway.CustomerGateway;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.BDDMockito.given;
 
@@ -33,9 +35,8 @@ public class GetByIdCustomerUseCaseTest {
 
         // When
         var result = catchThrowable(() -> underTest.execute(id));
-
-        // Then
-        assertThat(result);
+        //Then
+        assertThat(result).isInstanceOf(CustomerNotFoundException.class);
     }
 
     static Object[] whenCustomerDoesNotExistByIdThenShouldThrowCustomerNotFoundExceptionProvider() {
@@ -50,13 +51,11 @@ public class GetByIdCustomerUseCaseTest {
     @DisplayName("when Customer Is Valid Then Should Get Customer By Id Successfully")
     void whenContractIsValidThenShouldGetContractByIdSuccessfully() {
         // Given
-        String id = "lalala";
+        var id = "lalala";
+
         given(customerGateway.existById(id)).willReturn(true);
 
-        // When
-        var result = catchThrowable(() -> underTest.execute(id));
-
-        // Then
-        assertThat(result);
+        // When/Then
+        assertThatCode(() -> underTest.execute(id)).doesNotThrowAnyException();
     }
 }

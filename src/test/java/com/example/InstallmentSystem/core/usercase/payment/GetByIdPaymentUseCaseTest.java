@@ -1,6 +1,7 @@
 package com.example.InstallmentSystem.core.usercase.payment;
 
 import com.example.InstallmentSystem.core.domain.Payment;
+import com.example.InstallmentSystem.core.exception.payment.PaymentNotFoundException;
 import com.example.InstallmentSystem.core.gateway.GenericGateway;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
@@ -37,7 +39,7 @@ public class GetByIdPaymentUseCaseTest {
         var result = catchThrowable(() -> underTest.execute(id));
 
         // Then
-        assertThat(result);
+        assertThat(result).isInstanceOf(PaymentNotFoundException.class);
     }
 
     static Object[] whenPaymentDoesNotExistByIdThenShouldThrowPaymentNotFoundExceptionProvider() {
@@ -52,14 +54,11 @@ public class GetByIdPaymentUseCaseTest {
     @DisplayName("when Payment Is Valid Then Should Get Payment By Id Successfully")
     void whenPaymentIsValidThenShouldGetPaymentByIdSuccessfully() {
         // Given
-        String id = "lalala";
+        var id = "lalala";
+
         given(paymentGateway.existById(id)).willReturn(true);
 
-        // When
-        var result = catchThrowable(() -> underTest.execute(id));
-
-        // Then
-        then(paymentGateway).should().findById(id);
-        assertThat(result);
+        // When/Then
+        assertThatCode(() -> underTest.execute(id)).doesNotThrowAnyException();
     }
 }

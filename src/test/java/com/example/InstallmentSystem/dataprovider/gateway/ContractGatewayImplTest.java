@@ -11,11 +11,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -117,6 +115,24 @@ public class ContractGatewayImplTest {
         then(contractRepository).should().findById(contractEntity.getId());
         assertThat(result)
                 .isNull();
+    }
+
+    @Test
+    void testReturnFindAll() {
+        //Given
+        var pageable = PageRequest.of(1,1);
+        var entities = new PageImpl<>(Instancio.createList(ContractEntity.class));
+        var listContract = entities.map(contractMapper::toDomain).getContent();
+        var expectedValue = new PageImpl<>(listContract, pageable, entities.getTotalElements());
+
+        given(contractRepository.findAll(pageable)).willReturn(entities);
+
+        //When
+        var result = underTest.findAll(pageable);
+
+        //Then
+        assertThat(result)
+                .isEqualTo(expectedValue);
     }
 
 }

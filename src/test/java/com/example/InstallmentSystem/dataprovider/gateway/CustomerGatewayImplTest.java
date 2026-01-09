@@ -4,32 +4,26 @@ import com.example.InstallmentSystem.core.domain.Customer;
 import com.example.InstallmentSystem.core.exception.customer.CustomerAddressNotFoundException;
 import com.example.InstallmentSystem.dataprovider.adapter.AddressAdapter;
 import com.example.InstallmentSystem.dataprovider.dto.ViaCepResponse;
+import com.example.InstallmentSystem.dataprovider.entity.ContractEntity;
 import com.example.InstallmentSystem.dataprovider.entity.CustomerEntity;
 import com.example.InstallmentSystem.dataprovider.mapper.CustomerEntityMapper;
 import com.example.InstallmentSystem.dataprovider.repository.CustomerRepository;
-import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.instancio.Instancio;
-import org.instancio.Select;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
-import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
-import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.mockStatic;
 
@@ -134,6 +128,24 @@ public class CustomerGatewayImplTest {
         then(customerRepository).should().findById(customerEntity.getId());
         assertThat(result)
                 .isNull();
+    }
+
+    @Test
+    void testReturnFindAll() {
+        //Given
+        var pageable = PageRequest.of(1,1);
+        var entities = new PageImpl<>(Instancio.createList(CustomerEntity.class));
+        var listCustomer = entities.map(customerMapper::toDomain).getContent();
+        var expectedValue = new PageImpl<>(listCustomer, pageable, entities.getTotalElements());
+
+        given(customerRepository.findAll(pageable)).willReturn(entities);
+
+        //When
+        var result = underTest.findAll(pageable);
+
+        //Then
+        assertThat(result)
+                .isEqualTo(expectedValue);
     }
 
 

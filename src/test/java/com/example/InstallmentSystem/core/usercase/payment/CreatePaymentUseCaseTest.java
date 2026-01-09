@@ -50,6 +50,7 @@ class CreatePaymentUseCaseTest {
         var result = catchThrowable(() -> underTest.execute(payment));
 
         // Then
+        then(gateway).shouldHaveNoInteractions();
         assertThat(result).isInstanceOf(PaymentMethodNotFoundException.class);
     }
 
@@ -84,8 +85,10 @@ class CreatePaymentUseCaseTest {
     void whenPaymentIsValidThenShouldCreatePaymentSuccessfully() throws PaymentMethodNotFoundException, PaymentAmountZeroException {
         // Given
         var payment = Instancio.of(Payment.class).create();
+
         given(paymentGateway.save(payment)).willReturn(payment);
         given(methodFactory.supply(payment.getPayMethod())).willReturn(gateway);
+
         // When
         var result = underTest.execute(payment);
 

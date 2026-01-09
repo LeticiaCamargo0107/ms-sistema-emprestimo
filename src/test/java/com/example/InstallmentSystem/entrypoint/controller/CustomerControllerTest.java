@@ -26,7 +26,6 @@ import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
@@ -61,6 +60,7 @@ public class CustomerControllerTest {
         //given
         var id = "lala";
         var customer = Instancio.of(Customer.class).create();
+
         given(getByNameCustomerUseCase.execute(id)).willReturn(customer);
 
         //when
@@ -87,6 +87,7 @@ public class CustomerControllerTest {
         //given
         var customerDTO = Instancio.create(CustomerDTO.class);
         var customer = Instancio.create(Customer.class);
+
         given(customerMapper.toDomain(customerDTO)).willReturn(customer);
         given(createCustomerUseCase.execute(customer)).willReturn(customer);
 
@@ -96,6 +97,7 @@ public class CustomerControllerTest {
         //then
         then(customerMapper).should().toDomain(customerDTO);
         then(createCustomerUseCase).should().execute(customer);
+
         assertThat(result).
                 isNotNull()
                 .isEqualTo(customer);
@@ -106,10 +108,8 @@ public class CustomerControllerTest {
     void deleteById() throws CustomerNotFoundException {
         //given
         var id = "lala";
-        //when
-        var result = catchThrowable(() -> underTest.deleteById(id));
-        //then
-        assertThat(result);
+        //When/Then
+        assertThatCode(() -> underTest.deleteById(id)).doesNotThrowAnyException();
     }
 
     @Test

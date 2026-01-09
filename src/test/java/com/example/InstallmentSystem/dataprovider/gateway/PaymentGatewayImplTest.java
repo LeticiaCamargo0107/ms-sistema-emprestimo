@@ -2,6 +2,7 @@ package com.example.InstallmentSystem.dataprovider.gateway;
 
 import com.example.InstallmentSystem.core.domain.Payment;
 import com.example.InstallmentSystem.core.exception.customer.CustomerAddressNotFoundException;
+import com.example.InstallmentSystem.dataprovider.entity.ContractEntity;
 import com.example.InstallmentSystem.dataprovider.entity.PaymentEntity;
 import com.example.InstallmentSystem.dataprovider.mapper.PaymentEntityMapper;
 import com.example.InstallmentSystem.dataprovider.repository.PaymentRepository;
@@ -12,6 +13,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.Optional;
 
@@ -119,12 +122,22 @@ public class PaymentGatewayImplTest {
                 .isNull();
     }
 
+    @Test
+    void testReturnFindAll() {
+        //Given
+        var pageable = PageRequest.of(1,1);
+        var entities = new PageImpl<>(Instancio.createList(PaymentEntity.class));
+        var listPayment = entities.map(paymentMapper::toDomain).getContent();
+        var expectedValue = new PageImpl<>(listPayment, pageable, entities.getTotalElements());
 
-//    @Test
-//    void testReturnFindAll(Pageable pageable) {
-//        Page<PaymentEntity> entities = paymentRepository.findAll(pageable);
-//        List<Payment> contracts = entities.map(paymentMapper::toDomain).getContent();
-//        return new PageImpl<>(contracts, pageable, entities.getTotalElements());
-//    }
+        given(paymentRepository.findAll(pageable)).willReturn(entities);
+
+        //When
+        var result = underTest.findAll(pageable);
+
+        //Then
+        assertThat(result)
+                .isEqualTo(expectedValue);
+    }
 
 }

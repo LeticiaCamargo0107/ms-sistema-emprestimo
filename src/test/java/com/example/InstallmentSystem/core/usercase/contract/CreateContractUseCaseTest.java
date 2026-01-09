@@ -47,6 +47,8 @@ class CreateContractUseCaseTest {
         var result = catchThrowable(() -> underTest.execute(contract));
 
         // Then
+        then(contractGateway).shouldHaveNoInteractions();
+
         assertThat(result).isInstanceOf(ContractRequestAmountZeroException.class);
     }
 
@@ -71,6 +73,7 @@ class CreateContractUseCaseTest {
 
         // Then
         then(contractGateway).shouldHaveNoInteractions();
+
         assertThat(result).isInstanceOf(ContractPeriodZeroException.class);
     }
 
@@ -80,9 +83,9 @@ class CreateContractUseCaseTest {
     void whenContractIsValidThenShouldCreateContractSuccessfully() throws ContractPeriodZeroException, ContractRequestAmountZeroException  {
         // Given
         var contract = Instancio.create(Contract.class);
-        var contractUtilsMock = mockStatic(ContractUtils.class, CALLS_REAL_METHODS); {
-            contractUtilsMock.when(() -> ContractUtils.getMultiply(contract, contract.getMonthlyCetRate())).thenReturn(BigDecimal.valueOf(1000));
-        }
+        var contractUtilsMock = mockStatic(ContractUtils.class, CALLS_REAL_METHODS);
+
+        contractUtilsMock.when(() -> ContractUtils.calculateTotalAmount(contract, contract.getMonthlyCetRate())).thenReturn(BigDecimal.valueOf(1000));
 
         given(contractGateway.save(contract)).willReturn(contract);
 

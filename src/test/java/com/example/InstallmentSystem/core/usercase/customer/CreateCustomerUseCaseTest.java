@@ -49,8 +49,6 @@ class CreateCustomerUseCaseTest {
         assertThat(result).isInstanceOf(CustomerBirthDateException.class);
     }
 
-
-
     @Test
     void whenZipCodeIsNullThenShouldThrowCustomerAddressNotFoundException() throws CustomerAddressNotFoundException {
         // Given
@@ -68,7 +66,6 @@ class CreateCustomerUseCaseTest {
         assertThat(result).isInstanceOf(CustomerAddressNotFoundException.class);
     }
 
-
     @Test
     @DisplayName("when Customer Is Valid Then Should Create Customer Successfully")
     void whenCustomerIsValidThenShouldCreateCustomerSuccessfully() throws CustomerAddressNotFoundException, CustomerBirthDateException {
@@ -76,9 +73,10 @@ class CreateCustomerUseCaseTest {
         var customer = Instancio.of(Customer.class)
                 .set(Select.field("birthDate"), LocalDate.of(2000,1,1))
                 .create();
-        var customerUtilsMock = mockStatic(CustomerUtils.class, CALLS_REAL_METHODS); {
-            customerUtilsMock.when(() -> CustomerUtils.calculateAge(customer)).thenReturn(true);
-        }
+        var customerUtilsMock = mockStatic(CustomerUtils.class, CALLS_REAL_METHODS);
+
+        customerUtilsMock.when(() -> CustomerUtils.getAge(customer)).thenReturn(26);
+
         given(customerGateway.save(customer)).willReturn(customer);
 
         // When
@@ -88,6 +86,7 @@ class CreateCustomerUseCaseTest {
         assertThat(result)
                 .isNotNull()
                 .isEqualTo(customer);
+
         customerUtilsMock.close();
     }
 }

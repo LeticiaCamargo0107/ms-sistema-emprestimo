@@ -12,8 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,14 +32,12 @@ public class UpdateCustomerUseCaseTest {
     @DisplayName("When Customer Is Valid Should Update Customer Successfully")
     void whenCustomerIsValidThenShouldGetCustomerByIdSuccessfully() throws CustomerAddressNotFoundException, CustomerNotFoundException {
         // Given
-        String id = "lalala";
+        var id = "lalala";
         var customer = Instancio.of(Customer.class).create();
+
         given(getByIdCustomerUseCase.execute(id)).willReturn(customer);
 
-        // When
-        var result = catchThrowable(() -> underTest.execute(id, customer));
-
-        // Then
-        assertThat(result);
+        // When/Then
+        assertThatCode(() -> underTest.execute(id, customer)).doesNotThrowAnyException();
     }
 }

@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
 @ExtendWith(MockitoExtension.class)
@@ -18,23 +19,39 @@ public class PixGatewayImplTest {
     @InjectMocks
     private PixGatewayImpl underTest;
 
-
     @Test
     @DisplayName("when Pix Payment Is Process Then Should Show A Log")
     void whenPixPaymentIsProcessThenShouldShowALog() {
+        //Given
         var payment = Instancio.of(Payment.class).create();
-        var result = catchThrowable(() -> underTest.process(payment));
 
-        assertThat(result);
+        //When/Then
+        assertThatCode(() -> underTest.process(payment)).doesNotThrowAnyException();
     }
 
     @Test
-    @DisplayName("when method support of class PixGatewayImpl return a boolean")
+    @DisplayName("when method support of class PixGatewayImpl return true, should support successfully")
     void testSupport() {
-        //when
-        var result = underTest.supports(PaymentMethod.DEBIT_CARD);
+        //Given/When
+        var value = true;
+        var result = underTest.supports(PaymentMethod.PIX);
 
         //then
         assertThat(result)
-                .isNotNull();
-    }}
+                .isNotNull()
+                .isEqualTo(value);
+    }
+
+    @Test
+    @DisplayName("when method support of class CreditCardGatewayImpl return false, should not support successfully")
+    void testSupportReturnFalse() {
+        //Given/When
+        var value = false;
+        var result = underTest.supports(PaymentMethod.SLIP);
+
+        //then
+        assertThat(result)
+                .isNotNull()
+                .isEqualTo(value);
+    }
+}

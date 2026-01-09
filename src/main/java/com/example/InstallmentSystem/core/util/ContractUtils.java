@@ -13,7 +13,7 @@ public class ContractUtils {
         return BigDecimal.valueOf(3);
     }
 
-    public static BigDecimal getMultiply(Contract contract, BigDecimal monthlyCetRate) {
+    public static BigDecimal calculateTotalAmount(Contract contract, BigDecimal monthlyCetRate) {
         var conversion = BigDecimal.valueOf(contract.getOperationPeriod());
         var rate = monthlyCetRate.multiply(conversion);
         var multiply = contract.getRequestedAmount()
@@ -25,7 +25,7 @@ public class ContractUtils {
 
     public static BigDecimal getInstallmentAmount(Contract contract) {
         var conversion = BigDecimal.valueOf(contract.getOperationPeriod());
-        var totalAmount = getMultiply(contract, getMonthlyCetRate());
+        var totalAmount = calculateTotalAmount(contract, getMonthlyCetRate());
         return totalAmount.divide(conversion, 2, RoundingMode.HALF_UP);
     }
 }

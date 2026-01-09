@@ -12,9 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,6 +32,7 @@ public class ProcessPaymentFacadeTest {
     void whenPaymentFacadeProcessIsValidThenShouldCreateAPaymentSuccessfully() throws PaymentMethodNotFoundException, PaymentAmountZeroException {
         //given
         var payment = Instancio.of(Payment.class).create();
+
         given(notifyPaymentUseCase.execute(payment)).willReturn(payment);
         given(createPaymentUseCase.execute(payment)).willReturn(payment);
 

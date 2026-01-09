@@ -18,16 +18,18 @@ public class ContractUtilsTest {
     @Test
     @DisplayName("Test Return Monthly Cet Rate")
     void TestReturnMonthlyCetRate() {
-        //when
+        //Given/when
+        var value = BigDecimal.valueOf(3);
         var result = ContractUtils.getMonthlyCetRate();
         //then
         assertThat(result)
-                .isNotNull();
+                .isNotNull()
+                .isEqualTo(value);
     }
 
     @Test
-    @DisplayName("test Return Get Multiply")
-    void testReturnGetMultiply() {
+    @DisplayName("test Return Calculate Total Amount")
+    void testReturnCalculateTotalAmount() {
         //given
         var value = BigDecimal.valueOf(109);
         var contract = Instancio.of(Contract.class)
@@ -35,7 +37,7 @@ public class ContractUtilsTest {
                 .set(Select.field("operationPeriod"), 3)
                 .create();
         //when
-        var result = ContractUtils.getMultiply(contract, ContractUtils.getMonthlyCetRate());
+        var result = ContractUtils.calculateTotalAmount(contract, ContractUtils.getMonthlyCetRate());
 
         //then
         assertThat(result)
@@ -58,7 +60,6 @@ public class ContractUtilsTest {
 
         //then
         assertThat(result)
-                .isEqualTo(value)
-                .isNotNull();
+                .isEqualTo(value);
     }
 }

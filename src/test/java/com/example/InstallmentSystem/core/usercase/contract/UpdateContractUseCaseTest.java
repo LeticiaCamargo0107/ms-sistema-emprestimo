@@ -94,12 +94,13 @@ public class UpdateContractUseCaseTest {
         // Given
         var id = "lalala";
         var contract = Instancio.create(Contract.class);
+        var contractUtilsMock = mockStatic(ContractUtils.class, CALLS_REAL_METHODS);
 
         given(contractGateway.save(contract)).willReturn(contract);
         given(getByIdContractUseCase.execute(id)).willReturn(contract);
-        var contractUtilsMock = mockStatic(ContractUtils.class, CALLS_REAL_METHODS); {
-            contractUtilsMock.when(() -> ContractUtils.getMultiply(contract, contract.getMonthlyCetRate())).thenReturn(BigDecimal.valueOf(1000));
-        }
+
+        contractUtilsMock.when(() -> ContractUtils.calculateTotalAmount(contract, contract.getMonthlyCetRate())).thenReturn(BigDecimal.valueOf(1000));
+
         // When
         var result = underTest.execute(id, contract);
 

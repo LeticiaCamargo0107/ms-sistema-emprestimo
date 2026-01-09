@@ -9,7 +9,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
@@ -30,7 +29,8 @@ public class FindAllCustomerUseCaseTest {
     void testReturnFindAll() {
         //given
         var pageable = PageRequest.of(1,1);
-        Page<Customer> page = new PageImpl<>(Instancio.createList(Customer.class));
+        var page = new PageImpl<>(Instancio.createList(Customer.class));
+
         given(customerGateway.findAll(pageable)).willReturn(page);
 
         //when

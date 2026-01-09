@@ -21,10 +21,12 @@ public class EmailNotifyGatewayImplTest {
     void testCreateNotify() {
         //given
         var payment = Instancio.of(Payment.class).create();
+        payment.setNotify(null);
         //when
         var result = underTest.createNotify(payment);
         //then
         assertThat(result)
-                .isNotNull();
+                .isNotNull()
+                .isEqualTo("payment made successfully");
     }
 }

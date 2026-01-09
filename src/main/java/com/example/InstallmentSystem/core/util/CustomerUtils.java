@@ -9,9 +9,9 @@ import java.time.Period;
 @UtilityClass
 public class CustomerUtils {
 
-    public static boolean calculateAge (Customer customer) {
+    public static int getAge (Customer customer) {
         var birthYear = customer.getBirthDate();
         var age = Period.between(birthYear, LocalDate.now()).getYears();
-        return age > 18;
+        return age;
     }
 }

@@ -55,6 +55,7 @@ public class ContractControllerTest {
         //given
         var id = "lala";
         var contract = Instancio.of(Contract.class).create();
+
         given(getByIdContractUseCase.execute(id)).willReturn(contract);
 
         //when
@@ -81,6 +82,7 @@ public class ContractControllerTest {
         //given
         var contractDTO = Instancio.create(ContractDTO.class);
         var contract = Instancio.create(Contract.class);
+
         given(contractMapper.toDomain(contractDTO)).willReturn(contract);
         given(createContractUseCase.execute(contract)).willReturn(contract);
 
@@ -111,6 +113,7 @@ public class ContractControllerTest {
         //given
         var contractDTO = Instancio.create(ContractDTO.class);
         var contract = Instancio.create(Contract.class);
+
         given(contractMapper.toDomain(contractDTO)).willReturn(contract);
         given(updateContractUseCase.execute(contract.getId(), contract)).willReturn(contract);
 

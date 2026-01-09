@@ -3,6 +3,7 @@ package com.example.InstallmentSystem.core.usercase.contract;
 import com.example.InstallmentSystem.core.domain.Contract;
 import com.example.InstallmentSystem.core.exception.contract.ContractNotFoundException;
 import com.example.InstallmentSystem.core.gateway.GenericGateway;
+import org.instancio.Instancio;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.BDDMockito.given;
 
@@ -37,7 +39,8 @@ public class DeleteContractUseCaseTest {
         var result = catchThrowable(() -> underTest.execute(id));
 
         // Then
-        assertThat(result).isInstanceOf(ContractNotFoundException.class);
+        assertThat(result)
+                .isInstanceOf(ContractNotFoundException.class);
     }
 
     static Object[] whenContractDoesNotExistByIdThenShouldThrowContractNotFoundExceptionProvider() {
@@ -52,14 +55,13 @@ public class DeleteContractUseCaseTest {
     @DisplayName("when Contract Is Valid Then Should Delete Contract Successfully")
     void whenContractIsValidThenShouldDeleteContractSuccessfully() {
         // Given
-        String id = "lalala";
+        String id = Instancio.create(String.class);
+
         given(contractGateway.existById(id)).willReturn(true);
 
-        // When
-        var result = catchThrowable(() -> underTest.execute(id));
-
-        // Then
-        assertThat(result);
+        // When/Then
+        assertThatCode(() -> underTest.execute(id))
+                .doesNotThrowAnyException();
     }
 
 

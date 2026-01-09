@@ -57,6 +57,7 @@ public class AddressAdapterTest {
 
         //then
         assertThat(result)
+                .isEqualTo(address)
                 .isNotNull();
     }
 }

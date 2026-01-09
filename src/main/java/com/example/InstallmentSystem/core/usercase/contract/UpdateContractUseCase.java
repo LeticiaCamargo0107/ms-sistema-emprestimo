@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
+import static com.example.InstallmentSystem.core.util.ContractUtils.calculateTotalAmount;
 import static com.example.InstallmentSystem.core.util.ContractUtils.getInstallmentAmount;
-import static com.example.InstallmentSystem.core.util.ContractUtils.getMultiply;
 
 @Slf4j
 @Component
@@ -36,7 +36,7 @@ public class UpdateContractUseCase {
 
         var saved = getByIdContractUseCase.execute(id);
 
-        var totalAmount = getMultiply(contract, saved.getMonthlyCetRate());
+        var totalAmount = calculateTotalAmount(contract, saved.getMonthlyCetRate());
         var installmentAmount = getInstallmentAmount(contract);
 
         saved.setRequestedAmount(contract.getRequestedAmount());

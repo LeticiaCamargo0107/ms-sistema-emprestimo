@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import static com.example.InstallmentSystem.core.util.CustomerUtils.calculateAge;
+import static com.example.InstallmentSystem.core.util.CustomerUtils.getAge;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -20,7 +20,7 @@ public class CreateCustomerUseCase {
 
     public Customer execute(Customer customer) throws CustomerBirthDateException, CustomerAddressNotFoundException {
 
-        if (!calculateAge(customer) || customer.getBirthDate() == null) {
+        if (getAge(customer) < 18 || customer.getBirthDate() == null) {
             log.error("Age of customer must be greater than zero");
             throw new CustomerBirthDateException();
         }

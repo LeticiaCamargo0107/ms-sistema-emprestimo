@@ -48,6 +48,7 @@ public class UpdatePaymentUseCaseTest {
         var result = catchThrowable(() -> underTest.execute(id, payment));
 
         // Then
+        then(paymentGateway).shouldHaveNoInteractions();
         assertThat(result).isInstanceOf(PaymentAmountZeroException.class);
     }
 
