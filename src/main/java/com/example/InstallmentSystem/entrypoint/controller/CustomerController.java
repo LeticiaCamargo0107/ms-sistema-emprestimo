@@ -3,7 +3,6 @@ package com.example.InstallmentSystem.entrypoint.controller;
 import com.example.InstallmentSystem.core.domain.Customer;
 import com.example.InstallmentSystem.core.exception.customer.CustomerAddressNotFoundException;
 import com.example.InstallmentSystem.core.exception.customer.CustomerBirthDateException;
-import com.example.InstallmentSystem.core.exception.customer.CustomerDocumentNotFoundException;
 import com.example.InstallmentSystem.core.exception.customer.CustomerNotFoundException;
 import com.example.InstallmentSystem.core.usercase.customer.CreateCustomerUseCase;
 import com.example.InstallmentSystem.core.usercase.customer.DeleteCustomerUseCase;
@@ -70,7 +69,7 @@ public class CustomerController implements CustomerControllerAPI {
     }
 
     @PutMapping("/{id}")
-    public Customer update(@PathVariable String id, @RequestBody @Valid CustomerDTO customerDTO) throws CustomerDocumentNotFoundException, CustomerNotFoundException, CustomerAddressNotFoundException {
+    public Customer update(@PathVariable String id, @RequestBody @Valid CustomerDTO customerDTO) throws CustomerNotFoundException, CustomerAddressNotFoundException {
 
         var customer = customerMapper.toDomain(customerDTO);
         return updateCustomerUseCase.execute(id, customer);

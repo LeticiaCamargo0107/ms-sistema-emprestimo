@@ -4,13 +4,14 @@ import com.example.InstallmentSystem.core.domain.Customer;
 import lombok.experimental.UtilityClass;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 @UtilityClass
 public class CustomerUtils {
 
-    public static int calculateAge (Customer customer) {
-        int birthYear = customer.getBirthDate().getYear();
-        int yearNow = LocalDate.now().getYear();
-        return yearNow - birthYear;
+    public static int getAge (Customer customer) {
+        var birthYear = customer.getBirthDate();
+        var age = Period.between(birthYear, LocalDate.now()).getYears();
+        return age;
     }
 }

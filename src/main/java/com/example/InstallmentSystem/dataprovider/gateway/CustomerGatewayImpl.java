@@ -53,15 +53,15 @@ public class CustomerGatewayImpl implements CustomerGateway {
 
     @Override
     public Customer findById(String id) {
-        var entity = customerRepository.findById(id);
-        return customerMapper.toDomain(entity.orElse(null));
+        var entitie = customerRepository.findById(id);
+        return customerMapper.toDomain(entitie.orElse(null));
     }
 
     @Override
     public Page<Customer> findAll(Pageable pageable) {
         Page<CustomerEntity> entities = customerRepository.findAll(pageable);
-        List<Customer> contracts = entities.map(customerMapper::toDomain).getContent();
-        return new PageImpl<>(contracts, pageable, entities.getTotalElements());
+        List<Customer> listCustomer = entities.map(customerMapper::toDomain).getContent();
+        return new PageImpl<>(listCustomer, pageable, entities.getTotalElements());
     }
 
     private CustomerEntity.CustomerAddress addressBuilder(Customer customer) {

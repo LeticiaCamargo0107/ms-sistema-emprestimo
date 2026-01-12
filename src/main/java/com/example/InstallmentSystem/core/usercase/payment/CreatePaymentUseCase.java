@@ -5,7 +5,8 @@ import com.example.InstallmentSystem.core.domain.PaymentMethodFactory;
 import com.example.InstallmentSystem.core.domain.enumeration.PaymentStatus;
 import com.example.InstallmentSystem.core.exception.payment.PaymentAmountZeroException;
 import com.example.InstallmentSystem.core.exception.payment.PaymentMethodNotFoundException;
-import com.example.InstallmentSystem.core.gateway.GenericGateway;
+import com.example.InstallmentSystem.core.gateway.ContractGateway;
+import com.example.InstallmentSystem.core.gateway.PaymentGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 @Component
 public class CreatePaymentUseCase {
 
-    private final GenericGateway<Payment> paymentGateway;
+    private final PaymentGateway paymentGateway;
     private final PaymentMethodFactory methodFactory;
 
     public Payment execute(Payment payment) throws PaymentAmountZeroException, PaymentMethodNotFoundException {
@@ -28,10 +29,11 @@ public class CreatePaymentUseCase {
             throw new PaymentMethodNotFoundException();
         }
 
-        if (payment.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
+        if (payment.getAmount() == null || payment.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
             log.error("Amount must be greater than zero");
             throw new PaymentAmountZeroException();
         }
+
         payment.setStatus(PaymentStatus.EXECUTED);
         payment.setPaidAt(LocalDateTime.now());
         methodFactory.supply(payment.getPayMethod()).process(payment);

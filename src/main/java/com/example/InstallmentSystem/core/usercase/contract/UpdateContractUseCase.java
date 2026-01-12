@@ -2,35 +2,41 @@ package com.example.InstallmentSystem.core.usercase.contract;
 
 import com.example.InstallmentSystem.core.domain.Contract;
 import com.example.InstallmentSystem.core.exception.contract.ContractNotFoundException;
+import com.example.InstallmentSystem.core.exception.contract.ContractPeriodZeroException;
 import com.example.InstallmentSystem.core.exception.contract.ContractRequestAmountZeroException;
-import com.example.InstallmentSystem.core.gateway.GenericGateway;
+import com.example.InstallmentSystem.core.gateway.ContractGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
+import static com.example.InstallmentSystem.core.util.ContractUtils.calculateTotalAmount;
 import static com.example.InstallmentSystem.core.util.ContractUtils.getInstallmentAmount;
-import static com.example.InstallmentSystem.core.util.ContractUtils.getMultiply;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class UpdateContractUseCase {
 
-    private final GenericGateway<Contract> contractGateway;
+    private final ContractGateway contractGateway;
     private final GetByIdContractUseCase getByIdContractUseCase;
 
-    public Contract execute(String id, Contract contract) throws ContractRequestAmountZeroException, ContractNotFoundException {
+    public Contract execute(String id, Contract contract) throws ContractRequestAmountZeroException, ContractNotFoundException, ContractPeriodZeroException {
 
-        if (contract.getRequestedAmount().compareTo(BigDecimal.ZERO) <= 0) {
+        if (contract.getRequestedAmount() == null || contract.getRequestedAmount().compareTo(BigDecimal.ZERO) <= 0) {
             log.error("Requested Amount must be greater than zero");
             throw new ContractRequestAmountZeroException();
         }
 
+        if (contract.getOperationPeriod() == null || contract.getOperationPeriod() <= 0) {
+            log.error("Operation Period must be granter than zero");
+            throw new ContractPeriodZeroException();
+        }
+
         var saved = getByIdContractUseCase.execute(id);
 
-        var totalAmount = getMultiply(contract, saved.getMonthlyCetRate());
+        var totalAmount = calculateTotalAmount(contract, saved.getMonthlyCetRate());
         var installmentAmount = getInstallmentAmount(contract);
 
         saved.setRequestedAmount(contract.getRequestedAmount());
