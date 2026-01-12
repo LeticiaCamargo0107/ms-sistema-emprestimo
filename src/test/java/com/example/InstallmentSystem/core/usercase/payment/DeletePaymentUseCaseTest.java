@@ -1,8 +1,7 @@
 package com.example.InstallmentSystem.core.usercase.payment;
 
-import com.example.InstallmentSystem.core.domain.Payment;
 import com.example.InstallmentSystem.core.exception.payment.PaymentNotFoundException;
-import com.example.InstallmentSystem.core.gateway.GenericGateway;
+import com.example.InstallmentSystem.core.gateway.PaymentGateway;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +24,7 @@ public class DeletePaymentUseCaseTest {
     private DeleteByIdPaymentUseCase underTest;
 
     @Mock
-    private GenericGateway<Payment> paymentGateway;
+    private PaymentGateway paymentGateway;
 
 
     @ParameterizedTest

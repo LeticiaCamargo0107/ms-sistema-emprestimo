@@ -3,7 +3,7 @@ package com.example.InstallmentSystem.core.usercase.contract;
 import com.example.InstallmentSystem.core.domain.Contract;
 import com.example.InstallmentSystem.core.exception.contract.ContractPeriodZeroException;
 import com.example.InstallmentSystem.core.exception.contract.ContractRequestAmountZeroException;
-import com.example.InstallmentSystem.core.gateway.GenericGateway;
+import com.example.InstallmentSystem.core.gateway.ContractGateway;
 import com.example.InstallmentSystem.core.util.ContractUtils;
 import org.instancio.Instancio;
 import org.instancio.Select;
@@ -32,7 +32,7 @@ class CreateContractUseCaseTest {
     private CreateContractUseCase underTest;
 
     @Mock
-    private GenericGateway<Contract> contractGateway;
+    private ContractGateway contractGateway;
 
     @ParameterizedTest
     @MethodSource("whenRequestedAmountIsLessThanOrZeroThenShouldThrowContractRequestAmountZeroExceptionProvider")

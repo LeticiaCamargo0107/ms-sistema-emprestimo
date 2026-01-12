@@ -4,7 +4,7 @@ import com.example.InstallmentSystem.core.domain.Contract;
 import com.example.InstallmentSystem.core.exception.contract.ContractNotFoundException;
 import com.example.InstallmentSystem.core.exception.contract.ContractPeriodZeroException;
 import com.example.InstallmentSystem.core.exception.contract.ContractRequestAmountZeroException;
-import com.example.InstallmentSystem.core.gateway.GenericGateway;
+import com.example.InstallmentSystem.core.gateway.ContractGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -19,7 +19,7 @@ import static com.example.InstallmentSystem.core.util.ContractUtils.getInstallme
 @RequiredArgsConstructor
 public class UpdateContractUseCase {
 
-    private final GenericGateway<Contract> contractGateway;
+    private final ContractGateway contractGateway;
     private final GetByIdContractUseCase getByIdContractUseCase;
 
     public Contract execute(String id, Contract contract) throws ContractRequestAmountZeroException, ContractNotFoundException, ContractPeriodZeroException {

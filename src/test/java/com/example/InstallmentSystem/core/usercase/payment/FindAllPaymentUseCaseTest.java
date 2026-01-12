@@ -1,7 +1,8 @@
 package com.example.InstallmentSystem.core.usercase.payment;
 
 import com.example.InstallmentSystem.core.domain.Payment;
-import com.example.InstallmentSystem.core.gateway.GenericGateway;
+import com.example.InstallmentSystem.core.gateway.ContractGateway;
+import com.example.InstallmentSystem.core.gateway.PaymentGateway;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ public class FindAllPaymentUseCaseTest {
     private FindAllPaymentUseCase underTest;
 
     @Mock
-    private GenericGateway<Payment> paymentGateway;
+    private PaymentGateway paymentGateway;
 
     @Test
     @DisplayName("When method findAll process, then should return a Page of Payment Successfully")

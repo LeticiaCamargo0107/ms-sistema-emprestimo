@@ -1,7 +1,7 @@
 package com.example.InstallmentSystem.core.usercase.contract;
 
 import com.example.InstallmentSystem.core.domain.Contract;
-import com.example.InstallmentSystem.core.gateway.GenericGateway;
+import com.example.InstallmentSystem.core.gateway.ContractGateway;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ public class FindAllContractUseCaseTest {
     private FindAllContractUseCase underTest;
 
     @Mock
-    private GenericGateway<Contract> contractGateway;
+    private ContractGateway contractGateway;
 
     @Test
     @DisplayName("When method findAll process, then should return a Page of Contract Successfully")

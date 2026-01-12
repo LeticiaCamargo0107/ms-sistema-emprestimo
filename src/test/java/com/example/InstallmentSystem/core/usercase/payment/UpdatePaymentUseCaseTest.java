@@ -3,7 +3,7 @@ package com.example.InstallmentSystem.core.usercase.payment;
 import com.example.InstallmentSystem.core.domain.Payment;
 import com.example.InstallmentSystem.core.exception.payment.PaymentAmountZeroException;
 import com.example.InstallmentSystem.core.exception.payment.PaymentNotFoundException;
-import com.example.InstallmentSystem.core.gateway.GenericGateway;
+import com.example.InstallmentSystem.core.gateway.PaymentGateway;
 import org.instancio.Instancio;
 import org.instancio.Select;
 import org.junit.jupiter.api.DisplayName;
@@ -32,7 +32,7 @@ public class UpdatePaymentUseCaseTest {
     private GetByIdPaymentUseCase getByIdPaymentUseCase;
 
     @Mock
-    private GenericGateway<Payment> paymentGateway;
+    private PaymentGateway paymentGateway;
 
     @ParameterizedTest
     @MethodSource("WhenAmountIsLessThanOrZeroThenShouldThrowPaymentAmountZeroExceptionProvider")

@@ -4,7 +4,7 @@ import com.example.InstallmentSystem.core.domain.Payment;
 import com.example.InstallmentSystem.core.domain.PaymentMethodFactory;
 import com.example.InstallmentSystem.core.exception.payment.PaymentAmountZeroException;
 import com.example.InstallmentSystem.core.exception.payment.PaymentMethodNotFoundException;
-import com.example.InstallmentSystem.core.gateway.GenericGateway;
+import com.example.InstallmentSystem.core.gateway.PaymentGateway;
 import com.example.InstallmentSystem.core.gateway.PaymentMethodGateway;
 import org.instancio.Instancio;
 import org.instancio.Select;
@@ -31,7 +31,7 @@ class CreatePaymentUseCaseTest {
     private CreatePaymentUseCase underTest;
 
     @Mock
-    private GenericGateway<Payment> paymentGateway;
+    private PaymentGateway paymentGateway;
 
     @Mock
     private PaymentMethodFactory methodFactory;

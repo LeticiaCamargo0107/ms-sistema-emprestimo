@@ -1,7 +1,7 @@
 package com.example.InstallmentSystem.core.usercase.contract;
 
 import com.example.InstallmentSystem.core.domain.Contract;
-import com.example.InstallmentSystem.core.gateway.GenericGateway;
+import com.example.InstallmentSystem.core.gateway.ContractGateway;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class FindAllContractUseCase {
 
-    private final GenericGateway<Contract> contractGateway;
+    private final ContractGateway contractGateway;
 
     public Page<Contract> execute(Pageable pageable) {
 

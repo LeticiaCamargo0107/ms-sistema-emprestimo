@@ -1,6 +1,7 @@
 package com.example.InstallmentSystem.entrypoint.swagger;
 
 import com.example.InstallmentSystem.core.domain.Payment;
+import com.example.InstallmentSystem.core.exception.contract.ContractNotFoundException;
 import com.example.InstallmentSystem.core.exception.payment.PaymentAmountZeroException;
 import com.example.InstallmentSystem.core.exception.payment.PaymentMethodNotFoundException;
 import com.example.InstallmentSystem.core.exception.payment.PaymentNotFoundException;
@@ -23,7 +24,7 @@ public interface PaymentControllerAPI {
             @ApiResponse(responseCode = "200", description = "Get by id", content = {@Content(schema = @Schema(implementation = Payment.class))}),
             @ApiResponse(responseCode = "400", description = "Fail to get payment, id not found", content = {@Content(schema =  @Schema(implementation = ApiError.class))})
     })
-    Payment getById(String id) throws PaymentNotFoundException;
+    Payment getById(String id) throws PaymentNotFoundException, ContractNotFoundException;
 
     @Operation(summary = "Get all payment", description = "List all payment with pageable limitation")
     Page<Payment> findAll(Pageable pageable);
@@ -47,5 +48,5 @@ public interface PaymentControllerAPI {
             @ApiResponse(responseCode = "200", description = "Updated", content = {@Content(schema = @Schema(implementation = Payment.class))}),
             @ApiResponse(responseCode = "400", description = "Fail to update payment, id not found", content = {@Content(schema =  @Schema(implementation = ApiError.class))})
     })
-    Payment update(String id, PaymentDTO paymentDTO) throws PaymentNotFoundException, PaymentAmountZeroException;
+    Payment update(String id, PaymentDTO paymentDTO) throws PaymentNotFoundException, PaymentAmountZeroException, ContractNotFoundException;
 }

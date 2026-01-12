@@ -2,7 +2,7 @@ package com.example.InstallmentSystem.core.usercase.contract;
 
 import com.example.InstallmentSystem.core.domain.Contract;
 import com.example.InstallmentSystem.core.exception.contract.ContractNotFoundException;
-import com.example.InstallmentSystem.core.gateway.GenericGateway;
+import com.example.InstallmentSystem.core.gateway.ContractGateway;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ public class DeleteContractUseCaseTest {
     private DeleteContractUseCase underTest;
 
     @Mock
-    private GenericGateway<Contract> contractGateway;
+    private ContractGateway contractGateway;
 
 
     @ParameterizedTest

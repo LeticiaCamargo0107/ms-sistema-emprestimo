@@ -2,7 +2,8 @@ package com.example.InstallmentSystem.core.usercase.payment;
 
 import com.example.InstallmentSystem.core.domain.Payment;
 import com.example.InstallmentSystem.core.exception.payment.PaymentNotFoundException;
-import com.example.InstallmentSystem.core.gateway.GenericGateway;
+import com.example.InstallmentSystem.core.gateway.ContractGateway;
+import com.example.InstallmentSystem.core.gateway.PaymentGateway;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +17,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
 
 @ExtendWith(MockitoExtension.class)
 public class GetByIdPaymentUseCaseTest {
@@ -25,7 +25,7 @@ public class GetByIdPaymentUseCaseTest {
     private GetByIdPaymentUseCase underTest;
 
     @Mock
-    private GenericGateway<Payment> paymentGateway;
+    private PaymentGateway paymentGateway;
 
 
     @ParameterizedTest

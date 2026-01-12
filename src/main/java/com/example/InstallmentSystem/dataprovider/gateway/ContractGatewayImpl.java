@@ -1,7 +1,8 @@
 package com.example.InstallmentSystem.dataprovider.gateway;
 
 import com.example.InstallmentSystem.core.domain.Contract;
-import com.example.InstallmentSystem.core.gateway.GenericGateway;
+import com.example.InstallmentSystem.core.exception.contract.ContractNotFoundException;
+import com.example.InstallmentSystem.core.gateway.ContractGateway;
 import com.example.InstallmentSystem.dataprovider.entity.ContractEntity;
 import com.example.InstallmentSystem.dataprovider.mapper.ContractEntityMapper;
 import com.example.InstallmentSystem.dataprovider.repository.ContractRepository;
@@ -16,7 +17,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class ContractGatewayImpl implements GenericGateway<Contract> {
+public class ContractGatewayImpl implements ContractGateway {
 
     private final ContractRepository contractRepository;
     private final ContractEntityMapper contractMapper;
@@ -43,7 +44,7 @@ public class ContractGatewayImpl implements GenericGateway<Contract> {
     }
 
     @Override
-    public Contract findById(String id) {
+    public Contract findById(String id) throws ContractNotFoundException {
         var entity = contractRepository.findById(id);
         return contractMapper.toDomain(entity.orElse(null));
     }

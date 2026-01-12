@@ -1,6 +1,7 @@
 package com.example.InstallmentSystem.dataprovider.gateway;
 
 import com.example.InstallmentSystem.core.domain.Contract;
+import com.example.InstallmentSystem.core.exception.contract.ContractNotFoundException;
 import com.example.InstallmentSystem.dataprovider.entity.ContractEntity;
 import com.example.InstallmentSystem.dataprovider.mapper.ContractEntityMapper;
 import com.example.InstallmentSystem.dataprovider.repository.ContractRepository;
@@ -83,7 +84,7 @@ public class ContractGatewayImplTest {
 
     @Test
     @DisplayName("test Return Find By Id Contract in ContractGatewayImpl")
-    void testReturnFindByIdIsAContract() {
+    void testReturnFindByIdIsAContract() throws ContractNotFoundException {
         //given
         var contractEntity = Instancio.of(ContractEntity.class).create();
         var contract = Instancio.of(Contract.class).create();
@@ -103,9 +104,9 @@ public class ContractGatewayImplTest {
 
     @Test
     @DisplayName("test Return Find By Id Is Null in ContractGatewayImpl")
-    void testReturnFindByIdIsNull() {
+    void testReturnFindByIdIsNull() throws ContractNotFoundException {
         //given
-        var contractEntity = Instancio.of(ContractEntity.class).create();
+        var contractEntity = Instancio.create(ContractEntity.class);
         given(contractRepository.findById(contractEntity.getId())).willReturn(Optional.empty());
 
         //when
@@ -113,8 +114,7 @@ public class ContractGatewayImplTest {
 
         //then
         then(contractRepository).should().findById(contractEntity.getId());
-        assertThat(result)
-                .isNull();
+        assertThat(result).isNull();
     }
 
     @Test

@@ -2,11 +2,11 @@ package com.example.InstallmentSystem.core.usercase.payment;
 
 import com.example.InstallmentSystem.core.domain.Payment;
 import com.example.InstallmentSystem.core.domain.PaymentMethodFactory;
-import com.example.InstallmentSystem.core.domain.enumeration.PaymentMethod;
 import com.example.InstallmentSystem.core.domain.enumeration.PaymentStatus;
 import com.example.InstallmentSystem.core.exception.payment.PaymentAmountZeroException;
 import com.example.InstallmentSystem.core.exception.payment.PaymentMethodNotFoundException;
-import com.example.InstallmentSystem.core.gateway.GenericGateway;
+import com.example.InstallmentSystem.core.gateway.ContractGateway;
+import com.example.InstallmentSystem.core.gateway.PaymentGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Component
 public class CreatePaymentUseCase {
 
-    private final GenericGateway<Payment> paymentGateway;
+    private final PaymentGateway paymentGateway;
     private final PaymentMethodFactory methodFactory;
 
     public Payment execute(Payment payment) throws PaymentAmountZeroException, PaymentMethodNotFoundException {

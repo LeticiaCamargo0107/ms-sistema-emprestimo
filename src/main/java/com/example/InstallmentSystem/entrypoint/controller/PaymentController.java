@@ -2,6 +2,7 @@ package com.example.InstallmentSystem.entrypoint.controller;
 
 import com.example.InstallmentSystem.core.domain.Payment;
 import com.example.InstallmentSystem.core.domain.ProcessPaymentFacade;
+import com.example.InstallmentSystem.core.exception.contract.ContractNotFoundException;
 import com.example.InstallmentSystem.core.exception.payment.PaymentAmountZeroException;
 import com.example.InstallmentSystem.core.exception.payment.PaymentMethodNotFoundException;
 import com.example.InstallmentSystem.core.exception.payment.PaymentNotFoundException;
@@ -43,7 +44,7 @@ public class PaymentController implements PaymentControllerAPI {
     private final PaymentMapper paymentMapper;
 
     @GetMapping("/{id}")
-    public Payment getById(@PathVariable String id) throws PaymentNotFoundException {
+    public Payment getById(@PathVariable String id) throws PaymentNotFoundException, ContractNotFoundException {
 
         return getByIdPaymentUseCase.execute(id);
     }

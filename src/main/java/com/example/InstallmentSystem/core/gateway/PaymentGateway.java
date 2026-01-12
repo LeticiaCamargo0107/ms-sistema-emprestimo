@@ -1,17 +1,18 @@
 package com.example.InstallmentSystem.core.gateway;
 
+import com.example.InstallmentSystem.core.domain.Payment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface GenericGateway<T> {
+public interface PaymentGateway {
 
-    T save(T object);
+    Payment save(Payment payment);
 
     void deleteById(String id);
 
     boolean existById (String id);
 
-    T findById(String id);
+    Payment findById(String id);
 
-    Page<T> findAll(Pageable pageable);
+    Page<Payment> findAll(Pageable pageable);
 }

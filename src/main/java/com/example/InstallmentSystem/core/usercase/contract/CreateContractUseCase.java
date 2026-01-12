@@ -4,7 +4,7 @@ import com.example.InstallmentSystem.core.domain.Contract;
 import com.example.InstallmentSystem.core.domain.enumeration.ContractStatus;
 import com.example.InstallmentSystem.core.exception.contract.ContractPeriodZeroException;
 import com.example.InstallmentSystem.core.exception.contract.ContractRequestAmountZeroException;
-import com.example.InstallmentSystem.core.gateway.GenericGateway;
+import com.example.InstallmentSystem.core.gateway.ContractGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -21,7 +21,7 @@ import static com.example.InstallmentSystem.core.util.ContractUtils.getMonthlyCe
 @Slf4j
 public class CreateContractUseCase {
 
-    private final GenericGateway<Contract> contractGateway;
+    private final ContractGateway contractGateway;
 
     public Contract execute(Contract contract) throws ContractPeriodZeroException, ContractRequestAmountZeroException {
 

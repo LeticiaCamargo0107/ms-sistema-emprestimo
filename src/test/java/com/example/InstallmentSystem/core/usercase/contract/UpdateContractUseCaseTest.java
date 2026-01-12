@@ -4,7 +4,7 @@ import com.example.InstallmentSystem.core.domain.Contract;
 import com.example.InstallmentSystem.core.exception.contract.ContractNotFoundException;
 import com.example.InstallmentSystem.core.exception.contract.ContractPeriodZeroException;
 import com.example.InstallmentSystem.core.exception.contract.ContractRequestAmountZeroException;
-import com.example.InstallmentSystem.core.gateway.GenericGateway;
+import com.example.InstallmentSystem.core.gateway.ContractGateway;
 import com.example.InstallmentSystem.core.util.ContractUtils;
 import org.instancio.Instancio;
 import org.instancio.Select;
@@ -35,7 +35,7 @@ public class UpdateContractUseCaseTest {
     private GetByIdContractUseCase getByIdContractUseCase;
 
     @Mock
-    private GenericGateway<Contract> contractGateway;
+    private ContractGateway contractGateway;
 
     @ParameterizedTest
     @MethodSource("WhenRequestedAmountIsLessThanOrZeroThenShouldThrowContractRequestAmountZeroExceptionProvider")

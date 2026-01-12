@@ -20,7 +20,7 @@ public class CreateCustomerUseCase {
 
     public Customer execute(Customer customer) throws CustomerBirthDateException, CustomerAddressNotFoundException {
 
-        if (getAge(customer) < 18 || customer.getBirthDate() == null) {
+        if (customer.getBirthDate() == null || getAge(customer) < 18) {
             log.error("Age of customer must be greater than zero");
             throw new CustomerBirthDateException();
         }
