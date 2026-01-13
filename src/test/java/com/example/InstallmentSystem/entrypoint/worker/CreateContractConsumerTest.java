@@ -1,14 +1,10 @@
 package com.example.InstallmentSystem.entrypoint.worker;
 
 import com.example.InstallmentSystem.core.domain.Contract;
-import com.example.InstallmentSystem.core.domain.Payment;
 import com.example.InstallmentSystem.core.exception.contract.ContractPeriodZeroException;
 import com.example.InstallmentSystem.core.exception.contract.ContractRequestAmountZeroException;
-import com.example.InstallmentSystem.core.exception.payment.PaymentAmountZeroException;
-import com.example.InstallmentSystem.core.exception.payment.PaymentMethodNotFoundException;
 import com.example.InstallmentSystem.core.usercase.contract.CreateContractUseCase;
 import com.example.InstallmentSystem.entrypoint.dto.ContractDTO;
-import com.example.InstallmentSystem.entrypoint.dto.PaymentDTO;
 import com.example.InstallmentSystem.entrypoint.mapper.ContractMapper;
 import org.instancio.Instancio;
 import org.instancio.Select;

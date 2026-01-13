@@ -5,7 +5,6 @@ import com.example.InstallmentSystem.core.domain.PaymentMethodFactory;
 import com.example.InstallmentSystem.core.domain.enumeration.PaymentStatus;
 import com.example.InstallmentSystem.core.exception.payment.PaymentAmountZeroException;
 import com.example.InstallmentSystem.core.exception.payment.PaymentMethodNotFoundException;
-import com.example.InstallmentSystem.core.gateway.ContractGateway;
 import com.example.InstallmentSystem.core.gateway.PaymentGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

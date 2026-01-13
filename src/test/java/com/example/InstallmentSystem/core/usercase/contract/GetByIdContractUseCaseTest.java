@@ -1,6 +1,5 @@
 package com.example.InstallmentSystem.core.usercase.contract;
 
-import com.example.InstallmentSystem.core.domain.Contract;
 import com.example.InstallmentSystem.core.exception.contract.ContractNotFoundException;
 import com.example.InstallmentSystem.core.gateway.ContractGateway;
 import org.junit.jupiter.api.DisplayName;
@@ -53,7 +52,7 @@ public class GetByIdContractUseCaseTest {
     @DisplayName("when Contract Is Valid Then Should Get Contract By Id Successfully")
     void whenContractIsValidThenShouldGetContractByIdSuccessfully() {
         // Given
-        String id = "lalala";
+        String id = "lala";
         given(contractGateway.existById(id)).willReturn(true);
 
         // When/Then

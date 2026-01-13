@@ -4,7 +4,6 @@ import com.example.InstallmentSystem.core.domain.Customer;
 import com.example.InstallmentSystem.core.exception.customer.CustomerAddressNotFoundException;
 import com.example.InstallmentSystem.dataprovider.adapter.AddressAdapter;
 import com.example.InstallmentSystem.dataprovider.dto.ViaCepResponse;
-import com.example.InstallmentSystem.dataprovider.entity.ContractEntity;
 import com.example.InstallmentSystem.dataprovider.entity.CustomerEntity;
 import com.example.InstallmentSystem.dataprovider.mapper.CustomerEntityMapper;
 import com.example.InstallmentSystem.dataprovider.repository.CustomerRepository;

@@ -1,8 +1,6 @@
 package com.example.InstallmentSystem.core.usercase.payment;
 
-import com.example.InstallmentSystem.core.domain.Payment;
 import com.example.InstallmentSystem.core.exception.payment.PaymentNotFoundException;
-import com.example.InstallmentSystem.core.gateway.ContractGateway;
 import com.example.InstallmentSystem.core.gateway.PaymentGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

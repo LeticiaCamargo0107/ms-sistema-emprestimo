@@ -2,7 +2,6 @@ package com.example.InstallmentSystem.dataprovider.gateway;
 
 import com.example.InstallmentSystem.core.domain.Payment;
 import com.example.InstallmentSystem.core.exception.customer.CustomerAddressNotFoundException;
-import com.example.InstallmentSystem.dataprovider.entity.ContractEntity;
 import com.example.InstallmentSystem.dataprovider.entity.PaymentEntity;
 import com.example.InstallmentSystem.dataprovider.mapper.PaymentEntityMapper;
 import com.example.InstallmentSystem.dataprovider.repository.PaymentRepository;

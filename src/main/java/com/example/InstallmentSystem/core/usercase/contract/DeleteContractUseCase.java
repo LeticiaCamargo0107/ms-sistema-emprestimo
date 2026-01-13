@@ -1,6 +1,5 @@
 package com.example.InstallmentSystem.core.usercase.contract;
 
-import com.example.InstallmentSystem.core.domain.Contract;
 import com.example.InstallmentSystem.core.exception.contract.ContractNotFoundException;
 import com.example.InstallmentSystem.core.gateway.ContractGateway;
 import lombok.RequiredArgsConstructor;

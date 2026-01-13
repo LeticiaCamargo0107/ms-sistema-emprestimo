@@ -1,7 +1,6 @@
 package com.example.InstallmentSystem.core.usercase.payment;
 
 import com.example.InstallmentSystem.core.domain.Payment;
-import com.example.InstallmentSystem.core.gateway.ContractGateway;
 import com.example.InstallmentSystem.core.gateway.PaymentGateway;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.DisplayName;

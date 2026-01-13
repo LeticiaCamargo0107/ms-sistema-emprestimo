@@ -1,14 +1,10 @@
 package com.example.InstallmentSystem.entrypoint.worker;
 
 import com.example.InstallmentSystem.core.domain.Customer;
-import com.example.InstallmentSystem.core.domain.Payment;
 import com.example.InstallmentSystem.core.exception.customer.CustomerAddressNotFoundException;
 import com.example.InstallmentSystem.core.exception.customer.CustomerBirthDateException;
-import com.example.InstallmentSystem.core.exception.payment.PaymentAmountZeroException;
-import com.example.InstallmentSystem.core.exception.payment.PaymentMethodNotFoundException;
 import com.example.InstallmentSystem.core.usercase.customer.CreateCustomerUseCase;
 import com.example.InstallmentSystem.entrypoint.dto.CustomerDTO;
-import com.example.InstallmentSystem.entrypoint.dto.PaymentDTO;
 import com.example.InstallmentSystem.entrypoint.mapper.CustomerMapper;
 import org.instancio.Instancio;
 import org.instancio.Select;
